@@ -1,0 +1,32 @@
+\documentclass[12pt,twoside]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\title{
+{Thesis Title}\\
+{\large Institution Name}\\
+% {\includegraphics{university.jpg}}
+}
+\author{Lukas Schießer}
+\date{}
+\titleformat{\chapter}{\Huge\bfseries}{\thechapter}{1em}{\Huge}
+\fancyhead{}
+\fancyhead[RO,LE]{Thesis Title}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,CE]{Chapter \thechapter}
+\fancyfoot[CO,RE]{\author}
+\begin{document}
+
+\maketitle
+ 
+\tableofcontents
+\newpage
+\chapter{Introduction}
+\input{chapters/introduction}
+\chapter{Section01}
+\input{chapters/section01}
+
+\end{document}
