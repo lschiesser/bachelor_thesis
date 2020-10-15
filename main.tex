@@ -11,7 +11,8 @@
 \usepackage[style=alphabetic, backend=biber]{biblatex}
 %\DeclareLanguageMapping{american}{american-apa}
 %\usepackage{apacite}
-\addbibresource{references.bib}
+\addbibresource{bibliography.bib}
+\bibliography{bibliography}
 %\bibliographystyle{plainnat}
 %\setcitestyle{authoryear,open={(},close={)}}
 \usepackage{tabularx}
@@ -79,11 +80,7 @@
 	late after line = {{,}\ }, late after last line = {{}}]
 	{\datafoldername/#1}{#2=\mykey,#4=\myvalue}{\rlnumsci{\myvalue}{#5}}}
 
-% MH's command
-\newcommand{\brmresults}[2]{\(\beta = \rlgetnum{#1}{Rowname}{#2}{Estimate}{3}\) (\rlgetnum{#1}{Rowname}{#2}{l.95..CI}{3}, \rlgetnum{#1}{Rowname}{#2}{u.95..CI}{3})}
-%\brmresults{expt1_brm.csv}{condition}
-
-\graphicspath{ {images/} }
+\graphicspath{ {figures/} }
 
 \linespread{1.25}
 
@@ -112,5 +109,5 @@ I declare that..
 %\input{appendix}
 
 \printbibliography
-%\bibliography{references}
+
 \end{document}
