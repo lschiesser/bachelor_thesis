@@ -2,19 +2,13 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
-%\usepackage{biblatex}
 \usepackage{setspace}
 \usepackage[english]{babel} 
 \usepackage{stmaryrd}
-%\usepackage{natbib}
 \usepackage{csquotes}
 \usepackage[style=alphabetic, backend=biber]{biblatex}
-%\DeclareLanguageMapping{american}{american-apa}
-%\usepackage{apacite}
 \addbibresource{bibliography.bib}
 \bibliography{bibliography}
-%\bibliographystyle{plainnat}
-%\setcitestyle{authoryear,open={(},close={)}}
 \usepackage{tabularx}
 \usepackage{xspace}
 \usepackage{xcolor}
@@ -23,70 +17,17 @@
 \usepackage{csvsimple}
 \usepackage{siunitx}
 \usepackage{lscape}
+\usepackage{hyperref}
 
-% define col width
-\newcolumntype{Y}{>{\hsize=4\hsize}X}
-\newcolumntype{s}{>{\hsize=0.25\hsize}X}
-
-\definecolor{Red}{RGB}{255,0,0}
-\definecolor{Green}{RGB}{10,200,100}
-\definecolor{Blue}{RGB}{10,100,200}
-\definecolor{Orange}{RGB}{255,153,0}
-\definecolor{Purple}{RGB}{139,0,139}
-
-\newcommand{\denote}[1]{\mbox{ $[\![ #1 ]\!]$}}
-\newcommand*\diff{\mathop{}\!\mathrm{d}}
-\newcommand{\red}[1]{\textcolor{Red}{#1}}  
-\newcommand{\mh}[1]{\textcolor{Blue}{[mht: #1]}}  
-\newcommand{\mf}[1]{\textcolor{Orange}{[rl: #1]}}  
-\newcommand{\js}[1]{\textcolor{Green}{[js: #1]}} 
-\newcommand{\pt}[1]{\textcolor{Purple}{[pt: #1]}} 
-
-% define functions for reading results from csv
-\newcommand{\datafoldername}{R4Tex}
-
-% the following code defines the convenience functions
-% as described in the main text below
-
-% rlgetvalue returns whatever is the in cell of the CSV file
-% be it string or number; it does not format anything
-\newcommand{\rlgetvalue}[4]{\csvreader[filter strcmp={\mykey}{#3},
-	late after line = {{,}\ }, late after last line = {{}}]
-	{\datafoldername/#1}{#2=\mykey,#4=\myvalue}{\myvalue}}
-
-% rlgetvariable is a shortcut for a specific CSV file (myvars.csv) in which
-% individual variables that do not belong to a larger chunk can be stored
-\newcommand{\rlgetvariable}[2]{\csvreader[]{\datafoldername/#1}{#2=\myvar}{\myvar}\xspace}
-
-% rlnum format a decimal number
-\newcommand{\rlnum}[2]{\num[output-decimal-marker={.},
-	exponent-product = \cdot,
-	round-mode=places,
-	round-precision=#2,
-	group-digits=false]{#1}}
-
-\newcommand{\rlnumsci}[2]{\num[output-decimal-marker={.},
-	scientific-notation = true,
-	exponent-product = \cdot,
-	round-mode=places,
-	round-precision=#2,
-	group-digits=false]{#1}}
-
-\newcommand{\rlgetnum}[5]{\csvreader[filter strcmp={\mykey}{#3},
-	late after line = {{,}\ }, late after last line = {{}}]
-	{\datafoldername/#1}{#2=\mykey,#4=\myvalue}{\rlnum{\myvalue}{#5}}}
-
-\newcommand{\rlgetnumsci}[5]{\csvreader[filter strcmp={\mykey}{#3},
-	late after line = {{,}\ }, late after last line = {{}}]
-	{\datafoldername/#1}{#2=\mykey,#4=\myvalue}{\rlnumsci{\myvalue}{#5}}}
 
 \graphicspath{ {figures/} }
 
 \linespread{1.25}
-
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist 
 
 \begin{document}
-
+\input{title}
 
 \chapter*{Abstract}
 
@@ -101,12 +42,22 @@ I want to thank...
 \label{chapter01}
 \input{chapters/introduction}
 
+\chapter{Methods}
+\label{chapter02}
+\input{chapters/chapter02}
+
+\chapter{Results}
+\label{chapter03}
+\input{chapters/chapter03}
+
+\chapter{Discussion}
+\label{chapter04}
+\input{chapters/chapter04}
+
 \chapter*{Declaration}
 I declare that..
 
-\appendix
-\chapter{Appendix}	
-%\input{appendix}
+\chapter{Appendix}
 
 \printbibliography
 
