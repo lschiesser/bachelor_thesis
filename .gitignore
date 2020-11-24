@@ -252,6 +252,8 @@ TSWLatexianTemp*
 
 # Kile
 *.backup
+*.kilepr
+/.kile/*
 
 # gummi
 .*.swp

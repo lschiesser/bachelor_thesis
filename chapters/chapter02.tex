@@ -1,18 +1,59 @@
-\section{Data set}`
-\begin{changemargin}{50pt}{50pt}
-Describe the data:
-\begin{itemize}
-    \item what are the variables called, what is their measurement unit
-    \item mean, std, skew, normality of variables
-\end{itemize}
-\end{changemargin}
-\section{K-fold nested cross validation}
+\section{Data}
+The data used to train the classifiers was provided by \citeauthor{RN127} \cite{RN127}. 
+It was collected between the end of February 2020 and mid of March 2020 from patients admitted to the \textit{IRCSS Ospedale San Raffaele} and consists of 279 individuals who were selected randomly.
+For each individual, the data set provides their age, gender, results of a 
+routine blood screening, and the result of a PCR test for Sars-CoV-2.
+% keep in?
+Any other datapoint that could possibly identify the patient, i.e., date of 
+admittance or date of PCR test were not recorded. Table \ref{tab:feature-dist} 
+provides common satistics for the numerical features of the data set.
+\begin{center}
+\begin{table}[h]
+\begin{tabular}{lllll}
+Feature                          & Unit                    & Mean   & Std    & 
+Median \\ \hline
+Age                              & Years                   & 61.78  & 17.81  & 
+64     \\
+White Blood Cell Count (WBC)     & $10^9$/L & 8.55   & 4.86   & 
+7.10   \\
+Platelets                        & $10^9$/L & 226.5  & 101.2  & 
+205.00 \\
+Neutrophils                      & $10^9$/L & 6.20   & 4.17   & 
+5.10   \\
+Lymphocytes                      & $10^9$/L & 1.19   & 0.80   & 
+1.00   \\
+Monocytes                        & $10^9$/L & 0.61   & 0.41   & 
+0.50   \\
+Eosinophils                      & $10^9$/L & 0.06   & 0.13   & 
+0.00   \\
+Basophils                        & $10^9$/L & 0.01   & 0.04   & 
+0.00   \\
+C-reactive protein (CRP)         & mg/L                    & 90.89  & 94.42  & 
+54.20  \\
+Aspartate Aminotransferase (AST) & U/L                     & 54.20  & 57.61  & 
+36.00  \\
+Alanine Aminotransferase (ALT)   & U/L                     & 44.92  & 45.50  & 
+31.00  \\
+Alkaline Phosphatase (ALP)       & U/L                     & 89.89  & 89.09  & 
+71.00  \\
+Gamma Glutamil Transferasi (GGT) & U/L                     & 82.48  & 132.70 & 
+41.00  \\
+Lactate dehydrogenase (LDH)      & U/L                     & 380.45 & 193.98 & 
+328.00
+\end{tabular}
+\caption{Descriptive statistics for numerical features in data set}
+\label{tab:feature-dist}
+\end{table}
+\end{center}
+% non-normality of data with graphs from python as visualization aid
+% end with missing values since it's a good transition to MICE
 \section{Multivariate Imputation by Chained Equations}
 \begin{changemargin}{50pt}{50pt}
 Describe MICE algorithm (keine Bewertung, findet in Discussion statt)
 \\
 Maybe include PMM?
 \end{changemargin}
+\section{K-fold nested cross validation}
 \section{Classifiers used}
 \subsection{Random Forest}
 \subsection{Logistic regression}
