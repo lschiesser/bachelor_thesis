@@ -5,10 +5,16 @@ For each individual, the data set provides their age, gender, results of a
 routine blood screening, and the result of a PCR test for Sars-CoV-2.
 % keep in?
 Any other datapoint that could possibly identify the patient, i.e., date of 
-admittance or date of PCR test were not recorded. Table \ref{tab:feature-dist} 
-provides common satistics for the numerical features of the data set.
-\begin{center}
-\begin{table}[h]
+admittance or date of PCR test were not recorded.
+Table \ref{tab:overview-features} gives an overview over the recorded variables 
+in the data set and their variable types. Since the variable \textit{Gender} 
+was provided as a string, it was transformed into two binary numerical 
+varibales called \textit{female} and \textit{male} by one-hot encoding.
+\\
+Table \ref{tab:feature-dist} provides common satistics for the numerical 
+features of the data set.
+\begin{table}[ht]
+\centering
 \begin{tabular}{lllll}
 Feature                          & Unit                    & Mean   & Std    & 
 Median \\ \hline
@@ -36,7 +42,7 @@ Alanine Aminotransferase (ALT)   & U/L                     & 44.92  & 45.50  &
 31.00  \\
 Alkaline Phosphatase (ALP)       & U/L                     & 89.89  & 89.09  & 
 71.00  \\
-Gamma Glutamil Transferasi (GGT) & U/L                     & 82.48  & 132.70 & 
+Gamma Glutamyl Transferase (GGT) & U/L                     & 82.48  & 132.70 & 
 41.00  \\
 Lactate dehydrogenase (LDH)      & U/L                     & 380.45 & 193.98 & 
 328.00
@@ -45,18 +51,30 @@ Lactate dehydrogenase (LDH)      & U/L                     & 380.45 & 193.98 &
 missing values)}
 \label{tab:feature-dist}
 \end{table}
-\end{center}
 % non-normality of data with graphs from python as visualization aid
-\begin{figure}
+\begin{figure}[ht]
     \centering
-    \includegraphics[width=\textwidth]{figures/density_no_split.jpg}
-    \caption{Caption}
+    \includegraphics[width=1.1\textwidth]{figures/density_no_split.jpg}
+    \caption{Kernel density plots of the numerical features of the data set}
     \label{fig:density}
 \end{figure}
+\\
+As you can see in Figure \ref{fig:density}, most of the data is non-normally 
+distributed.
 % end with missing values since it's a good transition to MICE
+
 \section{Multivariate Imputation by Chained Equations}
+To impute the missing values \citeauthor{RN127} use \textit{Multivariate 
+Imputation by Chained Equations} or \textit{MICE} for short. MICE is an 
+imputation method proposed by \citeauthor{RN135} \cite{RN135}.
 \begin{changemargin}{50pt}{50pt}
 Describe MICE algorithm (keine Bewertung, findet in Discussion statt)
+\\
+Short description of implementation in Python using rpy2
+\\
+Shortly mention that R implementation is not able to apply MICE model to other 
+data only to data it is ``trained''/ ``fitted'' on (or maybe that's for the 
+\ref{discussion} Discussion section)
 \\
 Maybe include PMM?
 \end{changemargin}

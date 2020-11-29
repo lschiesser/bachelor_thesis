@@ -1,5 +1,29 @@
-\begin{center}
-\begin{table}[h]
+\begin{table}
+\centering
+\begin{tabular}{ll}
+Feature                          & Data Type              \\ \hline
+Gender                           & Categorical            \\
+Age                              & Numerical (discrete)   \\
+WBC (White blood cell count)     & Numerical (continuous) \\
+Platelets                        & Numerical (continuous) \\
+Neutrophils                      & Numerical (continuous) \\
+Lymphocytes                      & Numerical (continuous) \\
+Monocytes                        & Numerical (continuous) \\
+Eosinophils                      & Numerical (continuous) \\
+Basophils                        & Numerical (continuous) \\
+CRP (C-reactive protein)         & Numerical (continuous) \\
+AST (aspartate aminotransferase) & Numerical (continuous) \\
+ALT (alanine aminotransferase)   & Numerical (continuous) \\
+ALP (alkaline phosphatase)       & Numerical (continuous) \\
+GGT (gamma glutamyl transferase) & Numerical (continuous) \\
+LDH (lactate dehydrogenase)      & Numerical (continuous) \\
+SWAB                             & Categorical           
+\end{tabular}
+\caption{Overview over all features of the data set}
+\label{tab:overview-features}
+\end{table}
+\begin{table}
+\centering
 \begin{tabular}{lllll}
 Feature                          & Unit                    & Mean   & Std    & 
 Median \\ \hline
@@ -27,7 +51,7 @@ Alanine Aminotransferase (ALT)   & U/L                     & 42.82  & 45.43  &
 30.00  \\
 Alkaline Phosphatase (ALP)       & U/L                     & 42.21  & 75.71  & 
 68.00  \\
-Gamma Glutamil Transferasi (GGT) & U/L                     & 40.20  & 101.29 & 
+Gamma Glutamyl Transferase (GGT) & U/L                     & 40.20  & 101.29 & 
 0.00  \\
 Lactate dehydrogenase (LDH)      & U/L                     & 264.54 & 238.53 
 & 254.00
@@ -36,4 +60,27 @@ Lactate dehydrogenase (LDH)      & U/L                     & 264.54 & 238.53
 missing values as in \cite{RN127})}
 \label{tab:feature-dist-NAN}
 \end{table}
-\end{center}
+\begin{table}
+\centering
+\begin{tabular}{ll}
+Feature                          & Number of NaN (in \%) \\ \hline
+Gender                           & 0 (0 \%)              \\
+Age                              & 2 (0.72 \%)           \\
+WBC (White blood cell count)     & 2 (0.72 \%)           \\
+Platelets                        & 2 (0.72 \%)           \\
+Neutrophils                      & 70 (25.09 \%)         \\
+Lymphocytes                      & 71 (25.45 \%)         \\
+Monocytes                        & 70 (25.09 \%)         \\
+Eosinophils                      & 70 (25.09 \%)         \\
+Basophils                        & 71 (25.45 \%)         \\
+CRP (C-reactive protein)         & 6 (2.15 \%)           \\
+AST (aspartate aminotransferase) & 2 (0.72 \%)           \\
+ALT (alanine aminotransferase)   & 13 (4.66 \%)          \\
+ALP (alkaline phosphatase)       & 148 (53.05 \%)        \\
+GGT (gamma glutamyl transferase) & 143 (51.25 \%)        \\
+LDH (lactate dehydrogenase)      & 85 (30.47 \%)         \\
+SWAB                             & 0 (0 \%)             
+\end{tabular}
+\caption{}
+\label{tab:nan-overview}
+\end{table}
