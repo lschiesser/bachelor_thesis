@@ -81,6 +81,52 @@ GGT (gamma glutamyl transferase) & 143 (51.25 \%)        \\
 LDH (lactate dehydrogenase)      & 85 (30.47 \%)         \\
 SWAB                             & 0 (0 \%)             
 \end{tabular}
-\caption{}
+\caption{Number of missing values and their proportion the total number of data 
+points}
 \label{tab:nan-overview}
 \end{table}
+\begin{table}[ht]
+\centering
+\begin{tabular}{lllll}
+Feature                          & Unit                    & Mean   & Std    & 
+Median \\ \hline
+Age                              & Years                   & 61.78  & 17.81  & 
+64     \\
+White Blood Cell Count (WBC)     & $10^9$/L & 8.55   & 4.86   & 
+7.10   \\
+Platelets                        & $10^9$/L & 226.5  & 101.2  & 
+205.00 \\
+Neutrophils                      & $10^9$/L & 6.20   & 4.17   & 
+5.10   \\
+Lymphocytes                      & $10^9$/L & 1.19   & 0.80   & 
+1.00   \\
+Monocytes                        & $10^9$/L & 0.61   & 0.41   & 
+0.50   \\
+Eosinophils                      & $10^9$/L & 0.06   & 0.13   & 
+0.00   \\
+Basophils                        & $10^9$/L & 0.01   & 0.04   & 
+0.00   \\
+C-reactive protein (CRP)         & mg/L                    & 90.89  & 94.42  & 
+54.20  \\
+Aspartate Aminotransferase (AST) & U/L                     & 54.20  & 57.61  & 
+36.00  \\
+Alanine Aminotransferase (ALT)   & U/L                     & 44.92  & 45.50  & 
+31.00  \\
+Alkaline Phosphatase (ALP)       & U/L                     & 89.89  & 89.09  & 
+71.00  \\
+Gamma Glutamyl Transferase (GGT) & U/L                     & 82.48  & 132.70 & 
+41.00  \\
+Lactate dehydrogenase (LDH)      & U/L                     & 380.45 & 193.98 & 
+328.00
+\end{tabular}
+\caption{Descriptive statistics for numerical features in data set (excluding 
+missing values)}
+\label{tab:feature-dist}
+\end{table}
+% non-normality of data with graphs from python as visualization aid
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.1\textwidth]{figures/density_no_split.jpg}
+    \caption{Kernel density plots of the numerical features of the data set}
+    \label{fig:density}
+\end{figure}
