@@ -13,10 +13,10 @@ negative cases and 177 (63\%) positive cases.
 Since the variable \textit{Gender} 
 was provided as a string, it was transformed into two binary numerical 
 variables called \textit{female} and \textit{male} by one-hot encoding.
-Further, I removed two values for the variable \textit{Age}, specifically the 
-values 0 and 1. There was no other data recorded from minors under the age of 
-18 and therefore these two values can be presumed to be input errors during the 
-collection process.
+Further, two values of the variable \textit{Age} were removed, specifically 
+the values 0 and 1. This was sensible seeing that there was no other 
+data recorded from minors under the age of 18 and thus these two values can 
+be presumed to be input errors during the collection process.
 \\
 Table \ref{tab:feature-dist} provides common statistics for the numerical 
 features of the data set.
@@ -33,7 +33,33 @@ the data set. Therefore, \citeauthor{RN127} chose to use \textit{Multivariate
 Imputation by Chained Equations}. 
 \section{Multivariate Imputation by Chained Equations}
 \textit{Multivariate Imputation by Chained Equations} or \textit{MICE} for 
-short is an imputation method proposed by \citeauthor{RN135} \cite{RN135}.
+short is an imputation method proposed by \citeauthor{RN135} \cite{RN135}, it 
+is also known as fully conditional specification (FCS).
+MICE is a method that imputes missing data by estimating a set of possible 
+values from distributions of observed data. Each variable with missing data 
+$x_n$ is regressed on all other variables $x_1, ..., x_k$ which are restricted 
+to the occurrences with observed data in $x_n$.
+\\
+The imputation process is based on the following four main steps \cite{RN142, 
+RN141}: Firstly, all missing values are imputed using a simple imputation 
+method (e.g. mean imputation). These imputations can be thought of as ``place 
+holders'' used during the first modeling phase. During step 2, the ``place 
+holder'' imputations for one variable \textit{x} are set back to missing. In 
+step 3, all observed values from variable \textit{x} in step 2 are regressed on 
+ther other variables in the imputation model. Since this is the model building 
+phase, this step only uses samples where \textit{x} has observed values. 
+Therefore, \textit{x} is the dependent variable and all other variables are 
+independent variables used in the regression model. In step 4, the missing 
+values in \textit{x} are replaced with imputations (predictions) from the 
+regression model built in step 3. All values of \textit{x}, the observed and the 
+imputed values, are then used in subsequent regression models of other 
+variables.
+Steps 2-4 are repeated for every variable with missing data. After the 
+algorithm is done cycling through all variables, one iteration or ``cycle'' is 
+completed. Steps 2-4 are repeated for a user-specified number of cycles. 
+Generally, ten to twenty cycles should suffice to stabilize the results of the 
+imputation that is the parameters controlling the imputations should have 
+converged by then.
 \begin{changemargin}{50pt}{50pt}
 Describe MICE algorithm (keine Bewertung, findet in Discussion statt)
 \\
@@ -45,7 +71,12 @@ data only to data it is ``trained''/ ``fitted'' on (or maybe that's for the
 \\
 Maybe include PMM?
 \end{changemargin}
-\section{K-fold nested cross validation}
-\section{Classifiers used}
+\section{Model selection}
 \subsection{Random Forest}
 \subsection{Logistic regression}
+\section{Model training}
+\begin{changemargin}{50pt}{50pt}
+ Describe here k-fold nested cross validation, evaluation metrics used
+ \\
+ Here maybe also implementation of MICE in Python using rpy2
+\end{changemargin}
