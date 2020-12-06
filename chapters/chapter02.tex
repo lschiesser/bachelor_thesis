@@ -54,12 +54,21 @@ values in \textit{x} are replaced with imputations (predictions) from the
 regression model built in step 3. All values of \textit{x}, the observed and the 
 imputed values, are then used in subsequent regression models of other 
 variables.
+\\
 Steps 2-4 are repeated for every variable with missing data. After the 
 algorithm is done cycling through all variables, one iteration or ``cycle'' is 
 completed. Steps 2-4 are repeated for a user-specified number of cycles. 
 Generally, ten to twenty cycles should suffice to stabilize the results of the 
 imputation that is the parameters controlling the imputations should have 
-converged by then.
+converged by then. This imputation process is usually repeated \textit{m} times 
+creating \textit{m} slightly differently imputed data sets which are then used 
+in the susbequent analysis. According to \cite{RN144, RN141, RN142}, already a 
+small number of imputed data sets, usually three to ten, is sufficient to 
+provide sensible results during analysis.
+% MAR maybe before the description of the steps
+MICE assumes that the data is missing at random (MAR) that is the probability 
+of data being missing does not depend on the unobserved data but is only 
+dependent (conditional) on the observed data.
 \begin{changemargin}{50pt}{50pt}
 Describe MICE algorithm (keine Bewertung, findet in Discussion statt)
 \\
