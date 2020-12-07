@@ -62,13 +62,18 @@ Generally, ten to twenty cycles should suffice to stabilize the results of the
 imputation that is the parameters controlling the imputations should have 
 converged by then. This imputation process is usually repeated \textit{m} times 
 creating \textit{m} slightly differently imputed data sets which are then used 
-in the susbequent analysis. According to \cite{RN144, RN141, RN142}, already a 
+in the subsequent analysis. According to \cite{RN144, RN141, RN142}, already a 
 small number of imputed data sets, usually three to ten, is sufficient to 
-provide sensible results during analysis.
-% MAR maybe before the description of the steps
+provide sensible results during analysis. It can, of course, be advantageous 
+to use a higher number of imputed data sets to get a broader range of 
+estimates, but setting \textit{m} higher requires more computations and storage 
+and may not be worth preoccupying these extra resources \cite{RN144}.
+\\
 MICE assumes that the data is missing at random (MAR) that is the probability 
 of data being missing does not depend on the unobserved data but is only 
-dependent (conditional) on the observed data.
+dependent (conditional) on the observed data. Due to its individualistic 
+approach, MICE can handle variables of different types using different 
+modelling choices for different variable types.
 \begin{changemargin}{50pt}{50pt}
 Describe MICE algorithm (keine Bewertung, findet in Discussion statt)
 \\
@@ -81,6 +86,7 @@ data only to data it is ``trained''/ ``fitted'' on (or maybe that's for the
 Maybe include PMM?
 \end{changemargin}
 \section{Model selection}
+The original paper \cite{RN127} implements 7 classifiers.
 \subsection{Random Forest}
 \subsection{Logistic regression}
 \section{Model training}
