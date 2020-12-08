@@ -17,12 +17,29 @@ Further, two values of the variable \textit{Age} were removed, specifically
 the values 0 and 1. This was sensible seeing that there was no other 
 data recorded from minors under the age of 18 and thus these two values can 
 be presumed to be input errors during the collection process.
+% add recasting Lymphocytes because of input error
+Further, the variable \textit{Lymphocytes} had to be recast using 
+\code{pandas.to\_numeric} because there was an input error for one of its 
+values rendering the contents of the column a string instead of a numerical 
+value. This process created one missing values in place of the erroneous value.
 \\
 Table \ref{tab:feature-dist} provides common statistics for the numerical 
 features of the data set.
+% Rewrite this part, I think it's important but it does not sound good
+All features are skewed. Blood values are 
+skewed positively exhibiting a left-leaning distribution because for most blood 
+values a lower or centered value is significant for a better health. Age 
+is skewed negatively exhibiting a right-leaning distribution since COVID-19 
+affected older individuals more severely than younger individuals especially in 
+Italy. 
 % non-normal distribution
 As you can see in Figure \ref{fig:density}, most of the data is non-normally 
 distributed.
+By inspecting the kernel density plots provided in Figure \ref{fig:density}, it 
+is apparent that most of the features are non-normally distributed. 
+Additionally, a Shapiro-Wilk test for normality was performed to confirm this 
+observation, its results are provided in table \ref{tab:shapiro-wilk}. 
+% describe Shapiro-Wilk test shortly
 % end with missing values since it's a good transition to MICE
 Table \ref{tab:nan-overview} shows that most features have missing values. 196 
 samples have at least one feature missing which amounts to 70 \% of the data. 
@@ -73,7 +90,8 @@ MICE assumes that the data is missing at random (MAR) that is the probability
 of data being missing does not depend on the unobserved data but is only 
 dependent (conditional) on the observed data. Due to its individualistic 
 approach, MICE can handle variables of different types using different 
-modelling choices for different variable types.
+modelling choices for different variable types. 
+% auf non-normality eingehen und die zwei Methoden präsentieren
 \begin{changemargin}{50pt}{50pt}
 Describe MICE algorithm (keine Bewertung, findet in Discussion statt)
 \\
