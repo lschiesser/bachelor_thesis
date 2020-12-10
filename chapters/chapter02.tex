@@ -63,7 +63,7 @@ method (e.g. mean imputation). These imputations can be thought of as ``place
 holders'' used during the first modeling phase. During step 2, the ``place 
 holder'' imputations for one variable \textit{x} are set back to missing. In 
 step 3, all observed values from variable \textit{x} in step 2 are regressed on 
-ther other variables in the imputation model. Since this is the model building 
+the other variables in the imputation model. Since this is the model building 
 phase, this step only uses samples where \textit{x} has observed values. 
 Therefore, \textit{x} is the dependent variable and all other variables are 
 independent variables used in the regression model. In step 4, the missing 
@@ -90,7 +90,7 @@ MICE assumes that the data is missing at random (MAR) that is the probability
 of data being missing does not depend on the unobserved data but is only 
 dependent (conditional) on the observed data. Due to its individualistic 
 approach, MICE can handle variables of different types using different 
-modelling choices for different variable types. 
+modeling choices for different variable types. 
 % auf non-normality eingehen und die zwei Methoden präsentieren
 \begin{changemargin}{50pt}{50pt}
 Describe MICE algorithm (keine Bewertung, findet in Discussion statt)
@@ -103,11 +103,44 @@ data only to data it is ``trained''/ ``fitted'' on (or maybe that's for the
 \\
 Maybe include PMM?
 \end{changemargin}
-\section{Model selection}
+\section{Classifiers}
 The original paper \cite{RN127} implements 7 classifiers.
 \subsection{Random Forest}
 \subsection{Logistic regression}
 \section{Model training}
+The two models are trained using 5-fold nested cross validation.
+\\
+The models are then evaluated using accuracy, balanced accuracy, sensitivity, 
+specificity, positive predictive value, and area under the ROC curve. Balanced 
+accuracy is used in addition to the average accuracy due to the slight 
+imbalance in the data set. If the balanced accuracy differs significantly from 
+the average accuracy, the imbalance has an effect on the classifier regarding 
+class prevalence. Assuming the standard layout of a confusion matrix in a 
+binary case, the balanced accuracy is defined as the average of sensitivity and 
+specificity 
+\begin{equation}
+ balanced accuracy = \frac{\frac{TP}{TP+FN}\frac{TN}{TN+FP}}{2}
+ \label{eq:balanced_acc}
+\end{equation}
+Sensitivity is interpreted as the proportion of people infected with a disease 
+who will test positive for this disease. It is calculated as shown in Equation 
+\ref{eq:sensitivity}. Since it is only calculated using the part of the 
+population with the disease, sensitivity can only give evidence about the true 
+positive rate and not the false positive rate of a test. \cite{RN168}
+\begin{equation}
+ sensitivity = \frac{TP}{TP+FN}
+ \label{eq:sensitivity}
+\end{equation}
+Specificity is defined as the proportion of people without the disease
+\\
+The hyperparameters of the best performing models for Random Forest and 
+Logistic Regression respectively are then used to obtain the final classifiers.
+For the validation, the whole data set is split into training and validation 
+data according to a 80:20 split. The data set is imputed before the split 
+due to the working of the \code{mice()} package in R. The classifiers are 
+trained on the data set and then validated using the validation data. 
+Additionally to the evaluation metrics above, the final classifiers were also 
+evaluated using the ROC curve and the precision-recall curve.
 \begin{changemargin}{50pt}{50pt}
  Describe here k-fold nested cross validation, evaluation metrics used
  \\
