@@ -106,16 +106,42 @@ Maybe include PMM?
 \section{Classifiers}
 The original paper \cite{RN127} implements 7 classifiers.
 \subsection{Decision Tree}
-In order to explain Random Forests, we will take a closer look at Decision Trees since they are the basic building block of Random Forests and since we will use a Decision Tree during the validation to gain some insights into the workings of the Random Forest classifier.
-A Decision Tree has a flowchart-like structure where each internal or decision node tests an attribute, each branch corresponds to one attribute value and each leaf node represents a classification. It is built up using the ID3 algorithm.
+In order to explain Random Forests, we will take a closer look at Decision
+Treessince they are the basic building block of Random Forests and since we will 
+use a Decision Tree during the validation to gain some insights into the 
+workings of the Random Forest classifier.
+A Decision Tree has a flowchart-like structure where each internal or decision 
+node tests an attribute, each branch corresponds to one attribute value and each 
+leaf node represents a classification. It is built up using the ID3 algorithm.
 \\
-ID3 tries to determine the best attribute of a given data set by the distribution of its values. The best attribute is then used as a root of the decision tree and a branch is created for every value this attribute can take which also creates a subset of the data set that only has the attribute value of the branch. This process is repeated for every branch with the remaining subset of the training set until a leaf node is reached.
+ID3 tries to determine the best attribute of a given data set by the 
+distribution of its values. The best attribute is then used as a root of the 
+decision tree and a branch is created for every value this attribute can take 
+which also creates a subset of the data set that only has the attribute value of 
+the branch. This process is repeated for every branch with the remaining subset 
+of the training set until a leaf node is reached.
 \\
-ID3 can use two different measures to decide which is the best attribute, information gain or the Gini index.
+ID3 can use two different measures to decide which is the best attribute, 
+information gain or the Gini Impurity.
 \\
-Information Gain
+In order to compute the Information Gain we have to first define entropy. 
+Infomration Entropy is a common way to measure the impurity in the data set, it 
+is calculated as shown in Equation \ref{eq:entropy}
+\begin{equation}
+ E(S) = \sum_{i=1}^C -p(i) \ log_2(p(i))
+ \label{eq:entropy}
+\end{equation}
+\begin{equation}
+ Gain(S, A) = E(S) - \sum_{i}^{C} \frac{|S_v|}{S} E(S_v)
+ \label{eq:gain}
+\end{equation}
 \\
-Gini index
+Gini Impurity
+\begin{equation}
+ G = 1 - \sum_{i=1}^C p(i)^2
+ \label{eq:gini}
+\end{equation}
+
 \subsection{Random Forest}
 The Random Forest Classifier is an ensemble classifier that uses multiple Decision Tree instances to classify the given data. It uses two methods to diversify the different classification of the DT instances called tree bagging and feature subset selection.
 \subsection{Logistic regression}
