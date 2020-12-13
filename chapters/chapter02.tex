@@ -105,7 +105,19 @@ Maybe include PMM?
 \end{changemargin}
 \section{Classifiers}
 The original paper \cite{RN127} implements 7 classifiers.
+\subsection{Decision Tree}
+In order to explain Random Forests, we will take a closer look at Decision Trees since they are the basic building block of Random Forests and since we will use a Decision Tree during the validation to gain some insights into the workings of the Random Forest classifier.
+A Decision Tree has a flowchart-like structure where each internal or decision node tests an attribute, each branch corresponds to one attribute value and each leaf node represents a classification. It is built up using the ID3 algorithm.
+\\
+ID3 tries to determine the best attribute of a given data set by the distribution of its values. The best attribute is then used as a root of the decision tree and a branch is created for every value this attribute can take which also creates a subset of the data set that only has the attribute value of the branch. This process is repeated for every branch with the remaining subset of the training set until a leaf node is reached.
+\\
+ID3 can use two different measures to decide which is the best attribute, information gain or the Gini index.
+\\
+Information Gain
+\\
+Gini index
 \subsection{Random Forest}
+The Random Forest Classifier is an ensemble classifier that uses multiple Decision Tree instances to classify the given data. It uses two methods to diversify the different classification of the DT instances called tree bagging and feature subset selection.
 \subsection{Logistic regression}
 \section{Model training}
 The two models are trained using 5-fold nested cross validation.
