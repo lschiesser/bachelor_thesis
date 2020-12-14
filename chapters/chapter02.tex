@@ -121,27 +121,49 @@ which also creates a subset of the data set that only has the attribute value of
 the branch. This process is repeated for every branch with the remaining subset 
 of the training set until a leaf node is reached.
 \\
-ID3 can use two different measures to decide which is the best attribute, 
-information gain or the Gini Impurity.
+ID3 can use many different measures to decide which is the best attribute two 
+of the most popular ones are information gain or the Gini Impurity.
 \\
-In order to compute the Information Gain we have to first define entropy. 
-Infomration Entropy is a common way to measure the impurity in the data set, it 
-is calculated as shown in Equation \ref{eq:entropy}
+Information gain uses the entropy measure to compute the impurity in an 
+attribute. Entropy originates from information theory and describes the average 
+information content of an attribute's possible outcomes, it is calculated as 
+shown in Equation \ref{eq:entropy}. A high entropy represents a high average 
+information content in a attribute. Information Gain measures the expected 
+reduction in entropy of a set S caused by learning the state of a random 
+variable A.  It is calculated as shown in Equation \ref{eq:gain} and can be 
+described as the difference between the entropy of a subset S and the weighted 
+average of the child entropies. This is computed for all remaining attributes, 
+the attribute that maximizes the differences is then selected as a new node. 
 \begin{equation}
  E(S) = \sum_{i=1}^C -p(i) \ log_2(p(i))
  \label{eq:entropy}
 \end{equation}
 \begin{equation}
- Gain(S, A) = E(S) - \sum_{i}^{C} \frac{|S_v|}{S} E(S_v)
+ Gain(S, A) = E(S) - \sum_{i}^{C} \frac{|S_i|}{S} E(S_i)
  \label{eq:gain}
 \end{equation}
 \\
-Gini Impurity
+Gini Impurity or Gini index measures the impurity in a set S that is the 
+probability of an incorrect classfication of random sample. It is calculated as 
+shown in Equation \ref{eq:gini_impurity}. The measure which the algorithm bases 
+its decision on which attribute to select as a node is called the Gini gain. It 
+is calculated as shown in Equation \ref{eq:gini_gain} and can be described as 
+the average Gini impurity. For the Gini gain the attribute with 
+lowest value is selected since we want to minimize the incorrect classification 
+of 
+attributes.
 \begin{equation}
  G = 1 - \sum_{i=1}^C p(i)^2
- \label{eq:gini}
+ \label{eq:gini_impurity}
 \end{equation}
-
+\begin{equation}
+ Gini(S, A) = \sum_{i=1}^C \frac{|S_i|}{|S|} G(S_i)
+ \label{eq:gini_gain}
+\end{equation}
+\\
+ID3 is not able to process numerical attributes and missing values. It must 
+therefore be extended to be able to deal with real-world data by the C4.5 
+algorithm.
 \subsection{Random Forest}
 The Random Forest Classifier is an ensemble classifier that uses multiple Decision Tree instances to classify the given data. It uses two methods to diversify the different classification of the DT instances called tree bagging and feature subset selection.
 \subsection{Logistic regression}
@@ -150,7 +172,26 @@ The two models are trained using 5-fold nested cross validation.
 In each outer fold of the nested cross validation, the data is imputed using 
 MICE and then split into training and test data. Since MICE usually generates 
 several imputed data sets to account for the uncertainty in the imputation 
-process, there are 5 different models for each classifier per fold.
+process, there are 5 different models for each classifier per fold. The inner 
+fold of the cross validation is used to determine the best hyperparameter 
+combination for the classifiers using Grid Search which is also called 
+hyperparameter tuning. The parameters for Random Forest are as follows:
+\begin{itemize}
+ \item Number of trees in the forest: [10, 100, 500]
+ \item Number of features to consider looking for best split: [4, 8, 12, 16]
+ \item Quality of split measure: Gini impurity or Information gain
+\end{itemize}
+For logistic regression, Grid Search searches for an optimum among the 
+following hyperparameters:
+\begin{itemize}
+ \item Inverse of regularization strength C: [0.001, 0.01, 0.1, 1, 10, 100, 
+1000],
+ \item Penalty: L1 or L2 regularization
+ \item Algorithm to use during optimization problem: liblinear or saga
+ \item Maximal iteration: [200, 300, 400, 500]
+\end{itemize}
+The remaining hyperparameters use the default values specified in the 
+documentation of sklearn for random forests and logistic regression.
 \\
 The models are then evaluated using accuracy, balanced accuracy, sensitivity, 
 specificity, positive predictive value, and area under the ROC curve. Balanced 
