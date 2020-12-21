@@ -193,13 +193,37 @@ decision trees. By using tree and feature bagging Random Forests average over
 all individual decision tree models and thereby reducing the variance of 
 classification and trying to avoid overfitting.
 \subsection{Logistic regression}
+Logistic regression, especially binary logistic regression, is a modification 
+of linear regression that models the probability $p(X)$ that a sample $X$ has 
+the label 1. To do this, we use a special form of the sigmoid function called 
+the logistic function:
+\begin{equation}
+ p(\mathbf{X}) = \phi_{sig}(\mathbf{X}) = 
+\frac{e^{\mathbf{X}}\vec{\beta}}{1+e^{\mathbf{X}}\vec{\beta}} = 
+\frac{1}{1+e^{-\mathbf{X}}\vec{\beta}}
+ \label{eq:lf}
+\end{equation}
+After some manipulation, we can see
+\begin{equation}
+ \frac{p(\mathbf{X})}{1-p(\mathbf{X})} = e^{\mathbf{X}\vec{\beta}}
+ \label{eq:odds}
+\end{equation}
+Since $\beta_0$ and all $\beta_i$ are unknown, they must be estimated on the 
+available training data. The method that is used here is called maximum 
+likelihood estimation (MLE).
+\begin{equation}
+ L(\vec{\beta}|\vec{y}, \mathbf{X}) = \prod_{i} p(x_i)^{y_i} 
+(1-p(x_i))^{(1-y_i)}
+\label{eq:likelihood}
+\end{equation}
+
 \section{Model training}
 The two models are trained using 5-fold nested cross validation.
 In each outer fold of the nested cross validation, the data is imputed using 
 MICE and then split into training and test data. Since MICE usually generates 
 several imputed data sets to account for the uncertainty in the imputation 
 process, there are 5 different models for each classifier per fold. The inner 
-fold of the cross validation is used to determine the best hyperparameter 
+fold of cross validation is used to determine the best hyperparameter 
 combination for the classifiers using Grid Search which is also called 
 hyperparameter tuning. The parameters for Random Forest are as follows:
 \begin{itemize}
@@ -219,7 +243,8 @@ following hyperparameters:
 The remaining hyperparameters use the default values specified in the 
 documentation of sklearn for random forests and logistic regression.
 \\
-The models are then evaluated using accuracy, balanced accuracy, sensitivity, 
+After the training, the models are then evaluated using accuracy, balanced 
+accuracy, sensitivity, 
 specificity, positive predictive value, and area under the ROC curve. Balanced 
 accuracy is used in addition to the average accuracy due to the slight 
 imbalance in the data set. If the balanced accuracy differs significantly from 
