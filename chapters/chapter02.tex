@@ -40,6 +40,11 @@ is apparent that most of the features are non-normally distributed.
 Additionally, a Shapiro-Wilk test for normality was performed to confirm this 
 observation, its results are provided in table \ref{tab:shapiro-wilk}. 
 % describe Shapiro-Wilk test shortly
+The test tests the null-hypothesis that the samples of a variable come from a 
+normally distributed population. If the p-value of the test is smaller than 
+0.05 which is a commonly chosen alpha level the null-hypothesis is rejected 
+meaning the data is not normally distributed.
+\\
 % end with missing values since it's a good transition to MICE
 Table \ref{tab:nan-overview} shows that most features have missing values. 196 
 samples have at least one feature missing which amounts to 70 \% of the data. 
@@ -101,10 +106,15 @@ Shortly mention that R implementation is not able to apply MICE model to other
 data only to data it is ``trained''/ ``fitted'' on (or maybe that's for the 
 \ref{discussion} Discussion section)
 \\
-Maybe include PMM?
+Maybe include PMM? probably not since this is too deep
 \end{changemargin}
 \section{Classifiers}
-The original paper \cite{RN127} implements 7 classifiers.
+The original paper \cite{RN127} implements 7 classifiers, namely Random Forest, 
+logistic regression, decision tree, k-nearest neighbors, naive Bayes, support 
+vector machines, extremely randomized tree, and three-way random forest. Here, 
+I 
+will reproduce Random Forest, logistic regression, and decision tree. The 
+following section will introduce them.
 \subsection{Decision Tree}
 In order to motivate the use of Random Forests and since we will 
 use a Decision Tree during the validation to gain some insights into the 
@@ -260,43 +270,7 @@ documentation of sklearn for random forests and logistic regression.
 \\
 After the training, the models are then evaluated using accuracy, balanced 
 accuracy, sensitivity, 
-specificity, positive predictive value, and area under the ROC curve. Balanced 
-accuracy is used in addition to the average accuracy due to the slight 
-imbalance in the data set. If the balanced accuracy differs significantly from 
-the average accuracy, the imbalance has an effect on the classifier regarding 
-class prevalence. Assuming the standard layout of a confusion matrix in a 
-binary case, the balanced accuracy is defined as the average of sensitivity and 
-specificity 
-\begin{equation}
- balanced \ accuracy = \frac{\frac{TP}{TP+FN}\frac{TN}{TN+FP}}{2}
- \label{eq:balanced_acc}
-\end{equation}
-Sensitivity is interpreted as the proportion of people infected with a disease 
-who will test positive for this disease. It is calculated as shown in Equation 
-\ref{eq:sensitivity}. Since it is only calculated using the part of the 
-population with the disease, sensitivity can only give evidence about the true 
-positive rate and not the false positive rate of a test. \cite{RN168}
-\begin{equation}
- sensitivity = \frac{TP}{TP+FN}
- \label{eq:sensitivity}
-\end{equation}
-Specificity is defined as the proportion of people without the disease and are 
-identified correctly, i.e., who tested negative for a disease. It is calculated 
-as show in Equation \ref{eq:specificity}. Specificity only gives information 
-about the proportion of people without the disease and a negative test and 
-therefore cannot disclose anything about the false negative rate. \cite{RN168}
-\begin{equation}
- specificity = \frac{TN}{TN+FP}
- \label{eq:specificity}
-\end{equation}
-The positive predictive value (PPV) measures the post-test probability of the 
-disease given a positive test. It is calculated as shown in 
-Equation \ref{eq:ppv}. \cite{RN168}
-\begin{equation}
- PPV = \frac{TP}{TP+FP}
- \label{eq:ppv}
-\end{equation}
-\\
+specificity, positive predictive value, and area under the ROC curve.
 The hyperparameters of the best performing models for Random Forest and 
 Logistic Regression respectively are then used to obtain the final classifiers.
 For the validation, the whole data set is split into training and validation 
@@ -311,4 +285,116 @@ regarding the slight imbalance in the data set.
  Describe here k-fold nested cross validation, evaluation metrics used
  \\
  Here maybe also implementation of MICE in Python using rpy2
+\end{changemargin}
+\section{Evaluation Metrics}
+To describe the the evaluation metrics, the following terms will 
+be used in the equations: True Positive, False Positive, False Negative, and 
+True Negative. They are further characterized in Table 
+\ref{tab:confusion-matrix}. 
+\begin{table}[h]
+\centering
+\begin{tabular}{ll|c|c|}
+\cline{3-4}
+ &  & \multicolumn{2}{c|}{True condition}                                        
+       \\ \cline{3-4} 
+ &  & \multicolumn{1}{l|}{Condition positive} & \multicolumn{1}{l|}{Condition 
+negative} \\ \hline
+\multicolumn{1}{|l|}{\multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}Predicted\\ 
+condition\end{tabular}}} & \begin{tabular}[c]{@{}l@{}}Condition\\ predicted\\ 
+positive\end{tabular} & \begin{tabular}[c]{@{}c@{}}True Positive\\ 
+(TP)\end{tabular} & \begin{tabular}[c]{@{}c@{}}False Positive\\ 
+(FP)\end{tabular} \\ \cline{2-4} 
+\multicolumn{1}{|l|}{}                                     & 
+\begin{tabular}[c]{@{}l@{}}Condition\\ predicted\\ negative\end{tabular} & 
+\begin{tabular}[c]{@{}c@{}}False Negative\\ (FN)\end{tabular} & 
+\begin{tabular}[c]{@{}c@{}}True Negative\\ (TN)\end{tabular}  \\ \hline
+\end{tabular}
+\caption{Confusion matrix for binary classification}
+\label{tab:confusion-matrix}
+\end{table}
+\\
+%add accuracy here
+Accuracy describes the closeness of an individual's predicted label to its true 
+label. It is calculated as shown in Equation \ref{eq:accuracy}. Accuracy alone 
+is not a sensible measure to determine the goodness of fit for a model since 
+the model can be affected by imbalanced data or poor parameter initialization. 
+Accordingly, other measures should be considered during model selection.
+\begin{equation}
+ accuracy = \frac{TP + TN}{TP+FP+FN+TN}
+ \label{eq:accuracy}
+\end{equation}
+Balanced accuracy is used in addition to the average accuracy due to the slight 
+imbalance in the data set. If the balanced accuracy differs significantly from 
+the average accuracy, the imbalance has an effect on the classifier regarding 
+class prevalence. The balanced accuracy is defined as the average of 
+sensitivity and specificity. 
+\begin{equation}
+ balanced \ accuracy = \frac{\frac{TP}{TP+FN}\frac{TN}{TN+FP}}{2}
+ \label{eq:balanced_acc}
+\end{equation}
+Sensitivity is interpreted as the proportion of people infected with a disease 
+who will test positive for this disease. It is calculated as shown in Equation 
+\ref{eq:sensitivity}. Since it is only calculated using the part of the 
+population with the disease, sensitivity can only give evidence about the true 
+positive rate and not the false positive rate of a test.\cite{RN168}
+\begin{equation}
+ sensitivity = \frac{TP}{TP+FN}
+ \label{eq:sensitivity}
+\end{equation}
+Specificity is defined as the proportion of people without the disease and are 
+identified correctly, i.e., who tested negative for a disease. It is calculated 
+as show in Equation \ref{eq:specificity}. Specificity only gives information 
+about the proportion of people without the disease and a negative test and 
+therefore cannot disclose anything about the false negative rate.\cite{RN168}
+\begin{equation}
+ specificity = \frac{TN}{TN+FP}
+ \label{eq:specificity}
+\end{equation}
+The positive predictive value (PPV) measures the post-test probability of the 
+disease given a positive test and therefore refers to the probability that a 
+subject with a positive test has indeed the disease. It is calculated as shown 
+in 
+Equation \ref{eq:ppv}.\cite{RN168}
+\begin{equation}
+ PPV = \frac{TP}{TP+FP}
+ \label{eq:ppv}
+\end{equation}
+The receiver operating characteristic curve (ROC curve) is a commonly used 
+metric to determine the performance of a model describing the tradeoff between 
+specificity and sensitivity. It is calculated using the prediction scores of a 
+model that are either discriminant values or posterior 
+probabilities.\cite{RN161} Most models do not produce a classification label as 
+their out, but rather a prediction score that is then thresholded to correspond 
+to one of the levels of the target variable. The metrics mentioned above are all 
+so called single-thresholded metrics since they are defined only for the 
+thresholded output of the classifier.\cite{RN161, RN167} Since ROC uses the 
+prediction scores instead of the thresholded output of a model, it can compute 
+the sensitivity and specificity for every sensible threshold. The resulting 
+values are then plotted with sensitivity or true positive rate as the vertical 
+axis and the false positive rate calculated as 1 - specificity as the 
+horizontal axis. The points are interpolated linearly to create the ROC curve. 
+\cite{RN161} Usually, a reference line is added to plot illustrating the 
+performance of a model that only makes random predictions, the curve for the 
+trained model is expected to be above the reference line at all time. 
+% einfügen strenght of predicitive model ...
+A model with perfect performance will appear in the very top left hand corner 
+of the ROC space where sensitivity is 1 and false positive rate is 0.
+\\
+The area under the ROC curve can also be measured and is called either AUC for 
+area under the ROC curve or ROC index, it can give a numeric summary of the ROC 
+curve. It is calculated using the integral of the ROC curve which can be easily 
+done using the trapezoidal method since the ROC curve is discrete and stepped. 
+A large AUC value indicates a better model performance. As a rule of thumb, an 
+AUC over 0.7 indicates a strong predicitve model and an AUC below 0.6 indicates 
+a weak model. AUC and ROC both are quite robust against imbalanced data, but 
+there are other non-single-threshold metrics that can be used in this case.
+\\[1\baselineskip]
+The Precision-Recall curve (PRC) is another non-single-threshold metric that is 
+especially useful when dealing with an imbalanced data set. It calculates the 
+precision and recall (or sensitivity) values for each feasible threshold. In 
+contrast to the ROC curve which uses a fixed reference line, the PRC's baseline 
+is determined by the ratio of positive (P) and negative (N) samples in the data 
+set and represented as $y = \frac{P}{P + N}$. 
+\begin{changemargin}{50pt}{50pt}
+ add ROC, Precision-Recall-Curve 
 \end{changemargin}
