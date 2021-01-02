@@ -141,9 +141,10 @@ shown in Equation \ref{eq:entropy}. A high entropy represents a high average
 information content in a attribute. Information Gain measures the expected 
 reduction in entropy of a set S caused by learning the state of a random 
 variable A.  It is calculated as shown in Equation \ref{eq:gain} and can be 
-described as the difference between the entropy of a subset S and the weighted 
-average of the child entropies. This is computed for all remaining attributes, 
-the attribute that maximizes the differences is then selected as a new node. 
+described as the difference between the entropy of a set S and the 
+weighted average of the child entropies. This is computed for all remaining 
+attributes, the attribute that maximizes the differences is then selected as a 
+new node. 
 \begin{equation}
  E(S) = \sum_{i=1}^C -p(i) \ log_2(p(i))
  \label{eq:entropy}
