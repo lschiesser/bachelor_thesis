@@ -1,2 +1,29 @@
 \section{Results of own implementation}
+Table \ref{tab:training-acc} and \ref{tab:training-b_acc} show the mean and 
+standard deviation for the accuracy and balanced accuracy of the models during 
+nested cross-validation. The authors of the original paper provided a 95\% 
+confidence interval for these two measures. Since there is no information on 
+how they computed this interval, it is assumed that they used a two-sided 
+Student's t-distribution which is used to estimate the mean of normally 
+distributed populations where sample size is small. It is calculated using the 
+following formula $\bar{x} \pm \frac{t_{\alpha, v}s}{\sqrt{n}}$ where 
+$t_{\alpha, v}$ is the t-value which can be taken from a table with $\alpha$ 
+as the degress of freedom $n-1$ and $v$ is the confidence level, $s$ is the 
+sample variance, $\bar{x}$ is the sample mean, and $n$ is the number of samples.
+For Random Forest, the 95\% confidence interval of the average accuracy is 
+[0.76, 0.80] and of the average balanced accuracy is [0.73, 0.77]. For Logisitc 
+Regression, the confidence interval of the average accuracy is [0.72, 0.77] and 
+of the average balanced accuracy is [0.68, 0,72]. Since the confidence 
+intervals of the accuracy and balanced accuracy for both classifiers overlap or 
+are near each other, it can be assumed that the slight imbalance of the data 
+set had no signifcant effect on the classifer and that the classifier therefore 
+is not biased against the outcomes of the target variable.
+\\
+The best models where selected by searching for the model with the most numbers 
+of highest evauation measures. The best Random Forest Classifier used maximally 
+4 features and 500 estimators, it achieved an accuracy of 87.5\% and a 
+sensitivity of 90\%. The best Logisitc Regression Classifier used a C of 10, a 
+maximal iteration of 200, and the 'liblinear' solver, it achieved an accuracy 
+of 83.9\% and a sensitivity of 85\%. These settings were then used to retrain 
+the classifiers and compute the validation metrics.
 \section{Comparison with original paper}

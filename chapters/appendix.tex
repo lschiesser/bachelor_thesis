@@ -148,3 +148,49 @@ LDH (lactate dehydrogenase)      & 0.877          & 0.000
 the data set}
 \label{tab:shapiro-wilk}
 \end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{lllllllllllll}
+ &
+  \multicolumn{2}{c}{Fold1} &
+  \multicolumn{2}{c}{Fold2} &
+  \multicolumn{2}{c}{Fold3} &
+  \multicolumn{2}{c}{Fold4} &
+  \multicolumn{2}{c}{Fold5} &
+  \multicolumn{2}{c}{Combined} \\ \hline
+                    & mean & std  & mean & std  & mean & std  & mean & std  & 
+mean & std  & mean & std  \\ \hline
+RF       & 0.72 & 0.01 & 0.84 & 0.03 & 0.81 & 0.03 & 0.75 & 0.03 & 
+0.77 & 0.03 & 0.78 & 0.05 \\
+LR & 0.71 & 0.03 & 0.81 & 0.02 & 0.74 & 0.03 & 0.70 & 0.06 & 
+0.73 & 0.04 & 0.74 & 0.05
+\end{tabular}
+\caption{Mean training accuracies and their standard deviations (std) 
+for each training fold and all training folds combined. Random Forest = RF, 
+Logisitic Regression = LR }
+\label{tab:training-acc}
+\end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{lllllllllllll}
+ &
+  \multicolumn{2}{c}{Fold1} &
+  \multicolumn{2}{c}{Fold2} &
+  \multicolumn{2}{c}{Fold3} &
+  \multicolumn{2}{c}{Fold4} &
+  \multicolumn{2}{c}{Fold5} &
+  \multicolumn{2}{c}{Combined} \\ \hline
+   & mean & std  & mean & std  & mean & std  & mean & std  & mean & std  & mean 
+& std  \\ \hline
+RF & 0.69 & 0.01 & 0.81 & 0.04 & 0.79 & 0.03 & 0.73 & 0.03 & 0.71 & 0.04 & 0.75 
+& 0.05 \\
+LR & 0.67 & 0.02 & 0.78 & 0.03 & 0.72 & 0.03 & 0.68 & 0.06 & 0.67 & 0.04 & 0.70 
+& 0.06
+\end{tabular}
+\caption{Mean training balanced accuracies and their standard deviations (std) 
+for each training fold and all training folds combined. Random Forest = RF, 
+Logisitic Regression = LR }
+\label{tab:training-b_acc}
+\end{table}
