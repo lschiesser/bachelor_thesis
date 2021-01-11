@@ -8,23 +8,26 @@ Student's t-distribution which is used to estimate the mean of normally
 distributed populations where sample size is small. It is calculated using the 
 following formula $\bar{x} \pm \frac{t_{\alpha, v}s}{\sqrt{n}}$ where 
 $t_{\alpha, v}$ is the t-value which can be taken from a table with $\alpha$ 
-as the degress of freedom $n-1$ and $v$ is the confidence level, $s$ is the 
+as the degrees of freedom $n-1$ and $v$ is the confidence level, $s$ is the 
 sample variance, $\bar{x}$ is the sample mean, and $n$ is the number of samples.
 For the Random Forest, the 95\% confidence interval of the average accuracy is 
-[0.76, 0.80] and of the average balanced accuracy is [0.73, 0.77]. For Logisitc 
+[0.76, 0.80] and of the average balanced accuracy is [0.73, 0.77]. For Logistic 
 Regression, the confidence interval of the average accuracy is [0.72, 0.77] and 
 of the average balanced accuracy is [0.68, 0,72]. Since the confidence 
 intervals of the accuracy and balanced accuracy for both classifiers overlap or 
 are near each other, it can be assumed that the slight imbalance of the data 
-set had no signifcant effect on the classifer and that the classifier therefore 
+set had no significant effect on the classifier and that the classifier 
+therefore 
 is not biased against the outcomes of the target variable. All evaluation 
 metrics for each fold and imputed data set are provided in Table 
 \ref{tab:storage}.
 \\
 The best models where selected by searching for the model with the most numbers 
-of highest evauation measures. The best Random Forest Classifier used maximally 
-4 features and 500 estimators, it achieved an accuracy of 87.5\% and a 
-sensitivity of 90\%. The best Logisitc Regression Classifier used a C of 10, a 
+of highest evaluation measures. The best Random Forest Classifier used 
+maximally 
+4 features, 500 estimators and Gini impurity, it achieved an accuracy of 87.5\% 
+and a 
+sensitivity of 90\%. The best Logistic Regression Classifier used a C of 10, a 
 maximal iteration of 200, and the 'liblinear' solver, it achieved an accuracy 
 of 83.9\% and a sensitivity of 85\%. These settings were then used to retrain 
 the classifiers and compute the validation metrics.
@@ -35,14 +38,23 @@ retraining it with the best hyperparameter with an accuracy of 76.8\% and a
 balanced accuracy of 73.7\%. The Logistic Regression achieves an accuracy of 
 73.2\% and a balanced accuracy of 69.4\%. The Decision Tree only achieves an 
 accuracy of 71.4\% and a balanced accuracy of 68.5\%. Accordingly, there is 
-also no signifcant difference between the accuracy and balanced accuracy for 
+also no significant difference between the accuracy and balanced accuracy for 
 all three classifiers, meaning no classifier is biased.
 All single-threshold metrics are provided in Table \ref{tab:validation-metrics}.
 % everything below this needs work
-The two multi-threshold metrics, ROC and PRC curve, are shown in 
-\ref{fig:prc-roc}.
+The two multi-threshold metrics, ROC and PRC curve, are shown in Figure 
+\ref{fig:prc-roc}. Both plots show that the classifiers perform better than the 
+reference line. The values for the area under the ROC and under the PRC curve 
+suggest that Logistic Regression performs better than the Random Forest 
+although all other metrics indicate a better performance for the latter. It 
+should be noted that the difference between the AUC scores for both curves are 
+minimal and are not meaningful enough to declare the Logistic Regression as the 
+better classifier.
 Figure \ref{fig:feature-importance} shows all feature importance plots for the 
 three classifiers. The feature importance for Decision Tree and Random Forest 
-were obtained using the sklearn implementation. The implentation calculates the 
-feature importance by quantifying the mean descrease in impurity.
+were obtained using the sklearn implementation. The implementation calculates 
+the 
+feature importance by quantifying the mean decrease in impurity.\cite{RN178}
+For Logistic Regression, the feature importance is inferred by looking at the 
+coefficients of each feature in the data set.
 \section{Comparison with original paper}

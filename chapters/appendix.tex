@@ -196,9 +196,15 @@ Logisitic Regression = LR }
 \end{table}
 \begin{table}
 \centering
-\begin{tabular}{l}
- hallo \\ \hline
- hallo
+\begin{tabular}{lrrrrrrr}
+Model &   acc &  b\_acc &  sensitivity &  specificity &   ppv &   auc &  
+a\_precision \\ \hline
+   RF & 0.768 &  0.737 &        0.909 &        0.565 & 0.750 & 0.802 &        
+0.829 \\
+   LR & 0.732 &  0.694 &        0.909 &        0.478 & 0.714 & 0.808 &        
+0.855 \\
+   DT & 0.714 &  0.685 &        0.848 &        0.522 & 0.718 & 0.685 &        
+0.698 \\
 \end{tabular}
 \caption{Validation metrics for all classifiers; RF = Random Forest, DT = 
 Decision Tree, LR = Logisitic Regression}

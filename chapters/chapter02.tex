@@ -155,7 +155,8 @@ new node.
 \end{equation}
 \\
 Gini Impurity or Gini index measures the impurity in a set S that is the 
-probability of an incorrect classfication of random sample. It is calculated as 
+probability of an incorrect classification of random sample. It is calculated 
+as 
 shown in Equation \ref{eq:gini_impurity}. The measure which the algorithm bases 
 its decision on which attribute to select as a node is called the Gini gain. It 
 is calculated as shown in Equation \ref{eq:gini_gain} and can be described as 
@@ -374,7 +375,7 @@ Equation \ref{eq:ppv}.\cite{RN168}
  \label{eq:ppv}
 \end{equation}
 The receiver operating characteristic curve (ROC curve) is a commonly used 
-metric to determine the performance of a model describing the tradeoff between 
+metric to determine the performance of a model describing the trade-off between 
 specificity and sensitivity. It is calculated using the prediction scores of a 
 model that are either discriminant values or posterior 
 probabilities.\cite{RN161} Most models do not produce a classification label as 
@@ -400,7 +401,7 @@ area under the ROC curve or ROC index, it can give a numeric summary of the ROC
 curve. It is calculated using the integral of the ROC curve which can be easily 
 done using the trapezoidal method since the ROC curve is discrete and stepped. 
 A large AUC value indicates a better model performance. As a rule of thumb, an 
-AUC over 0.7 indicates a strong predicitve model and an AUC below 0.6 indicates 
+AUC over 0.7 indicates a strong predictive model and an AUC below 0.6 indicates 
 a weak model. AUC and ROC both are quite robust against imbalanced data, but 
 there are other non-single-threshold metrics that can be used in this case.
 \\[1\baselineskip]
@@ -409,7 +410,8 @@ especially useful when dealing with an imbalanced data set. It calculates the
 precision and recall (or sensitivity) values for each feasible threshold. The 
 resulting values are then plotted with precision, also called positive 
 predictive value, as the vertical axis and recall, also called sensitivity, as 
-the horizontal axis, the points are interplated non-linearly to create a curve. 
+the horizontal axis, the points are interpolated non-linearly to create a 
+curve. 
 In contrast to the ROC curve which uses a fixed reference line, the PRC's 
 baseline is determined by the ratio of positive (P) and negative (N) samples in 
 the data set and represented as $y = \frac{P}{P + N}$. Each point in the PRC 
