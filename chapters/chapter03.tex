@@ -21,14 +21,15 @@ therefore
 is not biased against the outcomes of the target variable. All evaluation 
 metrics for each fold and imputed data set are provided in Table 
 \ref{tab:storage}.
-\\
+\par
 The best models where selected by searching for the model with the most numbers 
 of highest evaluation measures. The best Random Forest Classifier used 
 maximally 
 4 features, 500 estimators and Gini impurity, it achieved an accuracy of 87.5\% 
 and a 
 sensitivity of 90\%. The best Logistic Regression Classifier used a C of 10, a 
-maximal iteration of 200, and the 'liblinear' solver, it achieved an accuracy 
+maximal iteration of 200, the 'l2' penalty and the 'liblinear' solver, it 
+achieved an accuracy 
 of 83.9\% and a sensitivity of 85\%. These settings were then used to retrain 
 the classifiers and compute the validation metrics.
 \\
@@ -45,16 +46,39 @@ All single-threshold metrics are provided in Table \ref{tab:validation-metrics}.
 The two multi-threshold metrics, ROC and PRC curve, are shown in Figure 
 \ref{fig:prc-roc}. Both plots show that the classifiers perform better than the 
 reference line. The values for the area under the ROC and under the PRC curve 
-suggest that Logistic Regression performs better than the Random Forest 
-although all other metrics indicate a better performance for the latter. It 
+suggest that Logistic Regression (AUC: 80.8\%, AUC (PRC): 85.5\%) performs 
+better than the Random Forest (AUC: 80.5\%, AUC (PRC): 82.9\%) although all 
+other metrics indicate a better performance for the latter. It 
 should be noted that the difference between the AUC scores for both curves are 
 minimal and are not meaningful enough to declare the Logistic Regression as the 
 better classifier.
+\par
 Figure \ref{fig:feature-importance} shows all feature importance plots for the 
 three classifiers. The feature importance for Decision Tree and Random Forest 
 were obtained using the sklearn implementation. The implementation calculates 
-the 
-feature importance by quantifying the mean decrease in impurity.\cite{RN178}
+the feature importance by quantifying the mean decrease in impurity. 
+It should be noted that impurity-based feature importance can suffer 
+from favoring features with a high number of unique values as well as making 
+predictions based on statistics derived from the training set. This method is 
+therefore not necessarily informative about whether a feature makes for a 
+good prediction or not.\cite{RN178}
 For Logistic Regression, the feature importance is inferred by looking at the 
-coefficients of each feature in the data set.
+coefficients of each feature in the data set. A positive coefficient can be 
+interpreted as contributing to a positive (1) result and a negative coefficient 
+can be interpreted as contributing to a negative (0) result.
+It is difficult to compare non tree-based feature importance with tree-based 
+importance because they have different scales and means of calculation.
+\\
+Both tree-based methods show a similar feature importance plot with AST being 
+the most important feature. The remaining features are differently distributed, 
+but mostly exhibit similar values. Consequently, the Decision Tree and its 
+visualization (Figure \ref{fig:dt}) in combination with the feature 
+importance plot can be used to give some rough insights into the classification 
+procedure of the Random Forest Classifier.
+
 \section{Comparison with original paper}
+Most of the metrics measured in this replication are below the values reported 
+in the original paper \cite{RN127}. Since there is no documentation of 
+individual values during the nested cross validation, only the 95\% confidence 
+intervals for the average and the balanced accuracy. Nonetheless, the results 
+of this replication are still comparable with the original

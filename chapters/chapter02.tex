@@ -269,7 +269,7 @@ following hyperparameters:
 \end{itemize}
 The remaining hyperparameters use the default values specified in the 
 documentation of sklearn for random forests and logistic regression.
-Grid Search selected the best hyperparameters according to the highest \_\_\_\_ 
+Grid Search selects the best hyperparameters according to the highest accuracy 
 value.
 \\
 After the training, the models are then evaluated using accuracy, balanced 
@@ -358,7 +358,7 @@ positive rate and not the false positive rate of a test.\cite{RN168}
 \end{equation}
 Specificity is defined as the proportion of people without the disease that are 
 identified correctly, i.e., who tested negative for a disease. It is calculated 
-as show in Equation \ref{eq:specificity}. Specificity only gives information 
+as shown in Equation \ref{eq:specificity}. Specificity only gives information 
 about the proportion of people without the disease and a negative test and 
 therefore cannot disclose anything about the false negative rate.\cite{RN168}
 \begin{equation}
@@ -379,7 +379,8 @@ metric to determine the performance of a model describing the trade-off between
 specificity and sensitivity. It is calculated using the prediction scores of a 
 model that are either discriminant values or posterior 
 probabilities.\cite{RN161} Most models do not produce a classification label as 
-their out, but rather a prediction score that is then thresholded to correspond 
+their output, but rather a prediction score that is then thresholded to 
+correspond 
 to one of the levels of the target variable. The metrics mentioned above are all 
 so called single-thresholded metrics since they are defined only for the 
 thresholded output of the classifier.\cite{RN161, RN167} Since ROC uses the 
@@ -407,7 +408,7 @@ there are other non-single-threshold metrics that can be used in this case.
 \\[1\baselineskip]
 The Precision-Recall curve (PRC) is another non-single-threshold metric that is 
 especially useful when dealing with an imbalanced data set. It calculates the 
-precision and recall (or sensitivity) values for each feasible threshold. The 
+precision and recall values for each feasible threshold. The 
 resulting values are then plotted with precision, also called positive 
 predictive value, as the vertical axis and recall, also called sensitivity, as 
 the horizontal axis, the points are interpolated non-linearly to create a 
