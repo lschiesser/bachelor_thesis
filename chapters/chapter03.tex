@@ -41,6 +41,9 @@ balanced accuracy of 73.7\%. The Logistic Regression achieves an accuracy of
 accuracy of 71.4\% and a balanced accuracy of 68.5\%. Accordingly, there is 
 also no significant difference between the accuracy and balanced accuracy for 
 all three classifiers, meaning no classifier is biased.
+The aforementioned metrics are lower than the evaluation metrics since the data 
+set used to train during the validation phase is different from the one used 
+during the evaluation phase due to the way MICE imputes missing data.
 All single-threshold metrics are provided in Table \ref{tab:validation-metrics}.
 % everything below this needs work
 The two multi-threshold metrics, ROC and PRC curve, are shown in Figure 
@@ -80,5 +83,7 @@ procedure of the Random Forest Classifier.
 Most of the metrics measured in this replication are below the values reported 
 in the original paper \cite{RN127}. Since there is no documentation of 
 individual values during the nested cross validation, only the 95\% confidence 
-intervals for the average and the balanced accuracy. Nonetheless, the results 
-of this replication are still comparable with the original
+intervals for the average and the balanced accuracy, it is very difficult to 
+compare these results. Additionally, it is also not reported how the authors 
+computed the 95\% confidence interval. Nonetheless, most results 
+of this replication are still comparable with the original.

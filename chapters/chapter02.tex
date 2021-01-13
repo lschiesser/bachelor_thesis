@@ -280,13 +280,14 @@ Logistic Regression respectively are then used to obtain the final classifiers.
 For the validation, the whole data set is split into training and validation 
 data according to a 80:20 split. The data set is imputed before the split 
 due to the working of the \code{mice()} package in R. The classifiers are 
-trained on the data set and then validated using the validation data. 
-Additionally to the evaluation metrics above, the final classifiers were also 
+trained on the training data and then validated using the validation data. 
+In addition to the evaluation metrics above, the final classifiers were also 
 evaluated using the ROC curve and the precision-recall curve. Additionally, the 
 precision-recall curve is used to assess the performance of the classifiers 
 regarding the slight imbalance in the data set. To further gain some insights 
 into the classification reasoning of the random forest a decision tree is 
-trained.
+trained using the standard hyperparameters according to the sklearn 
+implementation.
 \\
 To implement this procedure, the Python libraries scikit-learn, pandas, and 
 numpy are used. To implement the imputation method, the R library \code{mice()} 
@@ -422,6 +423,3 @@ calculated for the precision-recall curve similarly to the AUC of the ROC curve
 and is then denoted by AUC (PRC) or average precision. Similarly, a large value 
 for the AUC (PRC) indicates a strong model and a lower value indicates a weak 
 model.\cite{RN160, RN161}
-\begin{changemargin}{50pt}{50pt}
- add ROC, Precision-Recall-Curve 
-\end{changemargin}
