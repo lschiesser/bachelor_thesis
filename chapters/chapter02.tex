@@ -6,7 +6,7 @@ routine blood screening, and the result of a PCR test for Sars-CoV-2.
 A complete overview over the recorded variables is provided in 
 \ref{tab:overview-features}. The target variable \textit{Swab} is binary and 
 indicates the result of a PCR-test for Sars-CoV-2 taken by naso-pharyngeal 
-swab. A 0 indicates a negative test while a 1 indicates a positive test.
+swab. A 0 indicates a negative test, while a 1 indicates a positive test.
 The data set is slightly imbalanced towards positive cases with 102 (37\%) 
 negative cases and 177 (63\%) positive cases.
 \\
@@ -14,16 +14,16 @@ Since the variable \textit{Gender}
 was provided as a string, it was transformed into two binary numerical 
 variables called \textit{female} and \textit{male} by one-hot encoding.
 Further, two values of the variable \textit{Age} were removed, specifically 
-the values 0 and 1. This was sensible seeing that there was no other 
+the values 0 and 1. This was sensible, seeing that there was no other 
 data recorded from minors under the age of 18 and thus these two values can 
 be presumed to be input errors during the collection process.
 % add recasting Lymphocytes because of input error
 Further, the variable \textit{Lymphocytes} had to be recast using 
 \code{pandas.to\_numeric} because there was an input error for one of its 
-values rendering the contents of the column a string instead of a numerical 
-value. This process created one missing values in place of the erroneous value.
+values rendering the column's contents a string instead of a numerical 
+value. This process created one missing value in place of the erroneous value.
 \\
-Table \ref{tab:feature-dist} provides common statistics for the numerical 
+Table \ref{tab:feature-dist} provides standard statistics for the numerical 
 features of the data set.
 % Rewrite this part, I think it's important but it does not sound good
 All features are skewed. Blood values are 
@@ -38,24 +38,25 @@ distributed.
 By inspecting the kernel density plots provided in Figure \ref{fig:density}, it 
 is apparent that most of the features are non-normally distributed. 
 Additionally, a Shapiro-Wilk test for normality was performed to confirm this 
-observation, its results are provided in table \ref{tab:shapiro-wilk}. 
+observation. The results are provided in Table \ref{tab:shapiro-wilk}. 
 % describe Shapiro-Wilk test shortly
 The test tests the null-hypothesis that the samples of a variable come from a 
-normally distributed population. If the p-value of the test is smaller than 
-0.05 which is a commonly chosen alpha level the null-hypothesis is rejected 
+normally distributed population. If the test's p-value is smaller than 
+0.05, a commonly chosen alpha level, the null-hypothesis is rejected, 
 meaning the data is not normally distributed.
 \\
 % end with missing values since it's a good transition to MICE
 Table \ref{tab:nan-overview} shows that most features have missing values. 196 
-samples have at least one feature missing which amounts to 70 \% of the data. 
-Due to the small size of data set it is not feasible to exclude these 
+samples have at least one feature missing, which amounts to 70 \% of the data. 
+Due to the small data set size, it is not feasible to exclude these 
 individuals from the analysis process. It is rather more constructive to use an 
-imputation method that models the missing values based on the observed values in 
-the data set. Therefore, \citeauthor{RN127} chose to use \textit{Multivariate 
+imputation method that models the missing values based on the data set's 
+observed values. Therefore, \citeauthor{RN127} chose to use 
+\textit{Multivariate 
 Imputation by Chained Equations}. 
 \section{Multivariate Imputation by Chained Equations}
 \textit{Multivariate Imputation by Chained Equations} or \textit{MICE} for 
-short is an imputation method proposed by \citeauthor{RN135} \cite{RN135}, it 
+short is an imputation method proposed by \citeauthor{RN135} \cite{RN135}; it 
 is also known as fully conditional specification (FCS).
 MICE is a method that imputes missing data by estimating a set of possible 
 values from distributions of observed data. Each variable with missing data 
@@ -64,11 +65,11 @@ to the occurrences with observed data in $x_n$.
 \\
 The imputation process is based on the following four main steps \cite{RN142, 
 RN141}: Firstly, all missing values are imputed using a simple imputation 
-method (e.g. mean imputation). These imputations can be thought of as ``place 
+method (e.g., mean imputation). These imputations can be thought of as ``place 
 holders'' used during the first modeling phase. During step 2, the ``place 
 holder'' imputations for one variable \textit{x} are set back to missing. In 
 step 3, all observed values from variable \textit{x} in step 2 are regressed on 
-the other variables in the imputation model. Since this is the model building 
+the imputations model's other variables. Since this is the model building 
 phase, this step only uses samples where \textit{x} has observed values. 
 Therefore, \textit{x} is the dependent variable and all other variables are 
 independent variables used in the regression model. In step 4, the missing 
@@ -82,52 +83,44 @@ algorithm is done cycling through all variables, one iteration or ``cycle'' is
 completed. Steps 2-4 are repeated for a user-specified number of cycles. 
 Generally, ten to twenty cycles should suffice to stabilize the results of the 
 imputation that is the parameters controlling the imputations should have 
-converged by then. This imputation process is usually repeated \textit{m} times 
-creating \textit{m} slightly differently imputed data sets which are then used 
-in the subsequent analysis. According to \cite{RN144, RN141, RN142}, already a 
+converged by then. This imputation process is usually repeated \textit{m} 
+times, creating \textit{m} slightly differently imputed data sets, which are 
+then used in the subsequent analysis. According to \cite{RN144, RN141, RN142}, 
+already a 
 small number of imputed data sets, usually three to ten, is sufficient to 
 provide sensible results during analysis. It can, of course, be advantageous 
 to use a higher number of imputed data sets to get a broader range of 
-estimates, but setting \textit{m} higher requires more computations and storage 
+estimates. However, setting \textit{m} higher requires more computations and 
+storage 
 and may not be worth preoccupying these extra resources \cite{RN144}.
 \\
 MICE assumes that the data is missing at random (MAR) that is the probability 
 of data being missing does not depend on the unobserved data but is only 
 dependent (conditional) on the observed data. Due to its individualistic 
 approach, MICE can handle variables of different types using different 
-modeling choices for different variable types. 
-% auf non-normality eingehen und die zwei Methoden präsentieren
-\begin{changemargin}{50pt}{50pt}
-Describe MICE algorithm (keine Bewertung, findet in Discussion statt)
-\\
-Short description of implementation in Python using rpy2
-\\
-Shortly mention that R implementation is not able to apply MICE model to other 
-data only to data it is ``trained''/ ``fitted'' on (or maybe that's for the 
-\ref{discussion} Discussion section)
-\\
-Maybe include PMM? probably not since this is too deep
-\end{changemargin}
+modeling choices for different variable types.
 \section{Classifiers}
 The original paper \cite{RN127} implements 7 classifiers, namely Random Forest, 
-logistic regression, decision tree, k-nearest neighbors, naive Bayes, support 
+Logistic Regression, decision tree, k-nearest neighbors, naive Bayes, support 
 vector machines, extremely randomized tree, and three-way random forest. Here, 
 I 
-will reproduce Random Forest, logistic regression, and decision tree. The 
+will reproduce Random Forest, Logistic Regression, and decision tree. The 
 following section will introduce them.
 \subsection{Decision Tree}
-In order to motivate the use of Random Forests and since we will 
+To motivate the use of Random Forests and since we will 
 use a Decision Tree during the validation to gain some insights into the 
 workings of the Random Forest classifier, we will take a closer look 
 at Decision Trees since they are the basic building block of Random Forests.
 A Decision Tree has a flowchart-like structure where each internal or decision 
-node tests an attribute, each branch corresponds to one attribute value and each 
+node tests an attribute. Each branch corresponds to one attribute value and 
+each 
 leaf node represents a classification. It is built up using the ID3 algorithm.
 \\
 ID3 tries to determine the best attribute of a given data set by the 
 distribution of its values. The best attribute is then used as a root of the 
 decision tree and a branch is created for every value this attribute can take 
-which also creates a subset of the data set that only has the attribute value of 
+which also creates a subset of the data set that only has the attribute value 
+of 
 the branch. This process is repeated for every branch with the remaining subset 
 of the training set until a leaf node is reached.
 \\
@@ -136,11 +129,11 @@ of the most popular ones are information gain or the Gini Impurity.
 \\
 Information gain uses the entropy measure to compute the impurity in an 
 attribute. Entropy originates from information theory and describes the average 
-information content of an attribute's possible outcomes, it is calculated as 
+information content of an attribute's possible outcomes, it is calculated, as 
 shown in Equation \ref{eq:entropy}. A high entropy represents a high average 
-information content in a attribute. Information Gain measures the expected 
+information content in an attribute. Information Gain measures the expected 
 reduction in entropy of a set S caused by learning the state of a random 
-variable A.  It is calculated as shown in Equation \ref{eq:gain} and can be 
+variable A.  It is calculated, as shown in Equation \ref{eq:gain} and can be 
 described as the difference between the entropy of a set S and the 
 weighted average of the child entropies. This is computed for all remaining 
 attributes, the attribute that maximizes the differences is then selected as a 
@@ -155,15 +148,14 @@ new node.
 \end{equation}
 \\
 Gini Impurity or Gini index measures the impurity in a set S that is the 
-probability of an incorrect classification of random sample. It is calculated 
+probability of an incorrect classification of a random sample. It is calculated 
 as 
 shown in Equation \ref{eq:gini_impurity}. The measure which the algorithm bases 
 its decision on which attribute to select as a node is called the Gini gain. It 
 is calculated as shown in Equation \ref{eq:gini_gain} and can be described as 
-the average Gini impurity. For the Gini gain the attribute with 
-lowest value is selected since we want to minimize the incorrect classification 
-of 
-attributes.
+the average Gini impurity. For the Gini gain, the attribute with the 
+lowest value is selected since we want to minimize the attributes' incorrect 
+classification.
 \begin{equation}
  G = 1 - \sum_{i=1}^C p(i)^2
  \label{eq:gini_impurity}
@@ -179,33 +171,33 @@ algorithm.
 \subsection{Random Forest}
 The Random Forest Classifier is an ensemble classifier that uses multiple 
 Decision Tree instances to classify the given data. It uses two methods to 
-diversify the different classification of the DT instances called tree bagging 
+diversify the different classifications of the DT instances called tree bagging 
 and feature bagging.\cite{RN163}
 \\
 During tree bagging, the decision tree is not trained on the whole training 
-set, but on a subset of the training set. The subsets are generated by sampling 
-the original data set with replacement where a certain percentage of samples 
+set but a subset of the training set. The subsets are generated by sampling 
+the original data set with replacement. A certain percentage of samples 
 is selected from the original data set and the remaining 
-percentage are duplicates of the already selected samples. Thereby this 
+percentage are duplicates of the already selected samples. This 
 process is generating new bagged training sets $S_i$ with the same size as the 
 original training set $S$. If the size of the bagged set is smaller than the 
 size of the original set, then this process is called sub-bagging.\cite{RN175}
 \\
 Feature bagging or feature subset selection limits the number of features the 
-individual decision trees are able to use at each new split in consideration. 
-For each decision node consideration, a number of features are randomly 
-selected and presented to the decision tree algorithm. The number of features 
-available to the algorithm is controlled by a hyperparameter. For 
+individual decision trees can use at each new split in consideration. 
+For each decision node consideration, several features are randomly 
+selected and presented to the decision tree algorithm. A hyperparameter 
+controls the number of features available to the algorithm. For 
 classification problems, this is usually set to $\sqrt{p}$ where p is the 
 number of features present in the complete data set.
 \\
-Each decision tree in the forest generates a classification, the final 
+Each decision tree in the forest generates a classification. The final 
 classification of the Random Forest is determined by a majority vote over all 
 decision trees. By using tree and feature bagging Random Forests average over 
 all individual decision tree models and thereby reducing the variance of 
 classification and trying to avoid overfitting.\cite{RN166}
 \subsection{Logistic regression}
-Logistic regression, especially binary logistic regression, is a modification 
+Logistic regression, especially binary Logistic Regression, is a modification 
 of linear regression that models the probability $p(X)$ that a sample $X$ has 
 the label 1. To do so, it uses a special form of the sigmoid function called 
 the logistic function:
@@ -221,12 +213,16 @@ After some manipulation, we can see
  \label{eq:odds}
 \end{equation}
 The left-hand side of Equation \ref{eq:odds} is called odds, it can take a 
-value between 0 and $\inf$ indicating very low or very high probabilities 
+value between 0 and $\infty$ indicating very low or very high probabilities 
 of having label 1 respectively.
 After applying the logarithm to both sides of Equation \ref{eq:odds}, the 
-log-odds or logit is obtained which is linear in X.
-\\
-Since $\beta_0$ and all $\beta_i$ are unknown, they must be estimated on the 
+log-odds or logit is obtained (Equation \ref{eq:logit}) which is linear in X.
+\begin{equation}
+ ln \Big( \frac{p(\mathbf{X})}{1-p(\mathbf{X})} \Big) = \mathbf{X}\vec{\beta}
+ \label{eq:logit}
+\end{equation}
+Since $\beta_0$ and all $\beta_i$ of the vector $\vec{\beta}$ are unknown, 
+they must be estimated on the 
 available training data. The method that is used to achieve this is called 
 maximum likelihood estimation (MLE). MLE tries to find estimates for the 
 coefficients $\beta$ such that the estimated probability $\hat{p}(x_i)$ of 
@@ -250,7 +246,7 @@ In each outer fold of the nested cross validation, the data is imputed using
 MICE and then split into training and test data. Since MICE usually generates 
 several imputed data sets to account for the uncertainty in the imputation 
 process, there are 5 different models for each classifier per fold. The inner 
-fold of cross validation is used to determine the best hyperparameter 
+fold of the cross validation is used to determine the best hyperparameter 
 combination for the classifiers using Grid Search which is also called 
 hyperparameter tuning. The parameters for Random Forest are as follows:
 % maybe add justification of why to use these parameters
@@ -259,7 +255,7 @@ hyperparameter tuning. The parameters for Random Forest are as follows:
  \item Number of features to consider looking for best split: [4, 8, 12, 16]
  \item Quality of split measure: Gini impurity or Information gain
 \end{itemize}
-For logistic regression, Grid Search searches for an optimum among the 
+For Logistic Regression, Grid Search searches for an optimum among the 
 following hyperparameters:
 \begin{itemize}
  \item Inverse of regularization strength C: [0.001, 0.01, 0.1, 1, 10, 100, 
@@ -269,7 +265,7 @@ following hyperparameters:
  \item Maximal iteration: [200, 300, 400, 500]
 \end{itemize}
 The remaining hyperparameters use the default values specified in the 
-documentation of sklearn for random forests and logistic regression.
+documentation of sklearn for random forests and Logistic Regression.
 Grid Search selects the best hyperparameters according to the highest accuracy 
 value.
 \\
@@ -297,11 +293,7 @@ called rpy2. The R implementation of the imputation method is used instead of a
 Python implementation since it provides more functions to inspect the MICE 
 procedure and since it is able to handle non-normally distributed data. To 
 visualize the results the libraries seaborn and matplotlib are used.
-\begin{changemargin}{50pt}{50pt}
- Describe here k-fold nested cross validation, evaluation metrics used
- \\
- Here maybe also implementation of MICE in Python using rpy2
-\end{changemargin}
+
 \section{Evaluation Metrics}
 To describe the the evaluation metrics, the following terms will 
 be used in the equations: True Positive, False Positive, False Negative, and 
