@@ -1,11 +1,14 @@
 \section{Data}
-The data used to train the classifiers was provided by \citeauthor{RN127} \cite{RN127}. 
-It was collected between the end of February 2020 and mid of March 2020 from patients admitted to the \textit{IRCSS Ospedale San Raffaele} and consists of 279 individuals who were selected randomly.
+The data used to train the classifiers was provided by 
+\citeauthor{RN127} \cite{RN127}. 
+It was collected between the end of February 2020 and mid of March 2020 from 
+patients admitted to the \textit{IRCSS Ospedale San Raffaele} and consists of 
+279 individuals who were selected randomly.
 For each individual, the data set provides their age, gender, results of a 
-routine blood screening, and the result of a PCR test for Sars-CoV-2.
-A complete overview over the recorded variables is provided in 
+routine blood screening, and a PCR test for Sars-CoV-2.
+A complete overview of the recorded variables is provided in 
 \ref{tab:overview-features}. The target variable \textit{Swab} is binary and 
-indicates the result of a PCR-test for Sars-CoV-2 taken by naso-pharyngeal 
+indicates the result of a PCR-test for Sars-CoV-2 taken by nasopharyngeal 
 swab. A 0 indicates a negative test, while a 1 indicates a positive test.
 The data set is slightly imbalanced towards positive cases with 102 (37\%) 
 negative cases and 177 (63\%) positive cases.
@@ -15,7 +18,7 @@ was provided as a string, it was transformed into two binary numerical
 variables called \textit{female} and \textit{male} by one-hot encoding.
 Further, two values of the variable \textit{Age} were removed, specifically 
 the values 0 and 1. This was sensible, seeing that there was no other 
-data recorded from minors under the age of 18 and thus these two values can 
+data recorded from minors under the age of 18. Thus these two values can 
 be presumed to be input errors during the collection process.
 % add recasting Lymphocytes because of input error
 Further, the variable \textit{Lymphocytes} had to be recast using 
@@ -27,23 +30,23 @@ Table \ref{tab:feature-dist} provides standard statistics for the numerical
 features of the data set.
 % Rewrite this part, I think it's important but it does not sound good
 All features are skewed. Blood values are 
-skewed positively exhibiting a left-leaning distribution because for most blood 
-values a lower or centered value is significant for a better health. Age 
-is skewed negatively exhibiting a right-leaning distribution since COVID-19 
-affected older individuals more severely than younger individuals especially in 
-Italy. 
+skewed positively, exhibiting a left-leaning distribution because, for most 
+blood values, a lower or centered value is significant for better health. Age 
+is skewed negatively, exhibiting a right-leaning distribution since COVID-19 
+affected older individuals more severely than younger individuals, especially 
+in Italy. 
+\\
 % non-normal distribution
-As you can see in Figure \ref{fig:density}, most of the data is non-normally 
-distributed.
-By inspecting the kernel density plots provided in Figure \ref{fig:density}, it 
-is apparent that most of the features are non-normally distributed. 
-Additionally, a Shapiro-Wilk test for normality was performed to confirm this 
-observation. The results are provided in Table \ref{tab:shapiro-wilk}. 
-% describe Shapiro-Wilk test shortly
+As shown in the kernel density plots provided in Figure \ref{fig:density}, most 
+of the data is non-normally distributed.
+In order to confirm this observation, a Shapiro-Wilk test for normality was 
+performed.
 The test tests the null-hypothesis that the samples of a variable come from a 
 normally distributed population. If the test's p-value is smaller than 
 0.05, a commonly chosen alpha level, the null-hypothesis is rejected, 
 meaning the data is not normally distributed.
+The test results are provided in Table \ref{tab:shapiro-wilk} and show 
+that all of the variables are non-normally distributed.
 \\
 % end with missing values since it's a good transition to MICE
 Table \ref{tab:nan-overview} shows that most features have missing values. 196 
@@ -71,7 +74,7 @@ holder'' imputations for one variable \textit{x} are set back to missing. In
 step 3, all observed values from variable \textit{x} in step 2 are regressed on 
 the imputations model's other variables. Since this is the model building 
 phase, this step only uses samples where \textit{x} has observed values. 
-Therefore, \textit{x} is the dependent variable and all other variables are 
+Therefore, \textit{x} is the dependent variable, and all other variables are 
 independent variables used in the regression model. In step 4, the missing 
 values in \textit{x} are replaced with imputations (predictions) from the 
 regression model built in step 3. All values of \textit{x}, the observed and the 
@@ -81,8 +84,8 @@ variables.
 Steps 2-4 are repeated for every variable with missing data. After the 
 algorithm is done cycling through all variables, one iteration or ``cycle'' is 
 completed. Steps 2-4 are repeated for a user-specified number of cycles. 
-Generally, ten to twenty cycles should suffice to stabilize the results of the 
-imputation that is the parameters controlling the imputations should have 
+Generally, ten to twenty cycles should suffice to stabilize the imputation 
+results, indicating the parameters controlling the imputations should have 
 converged by then. This imputation process is usually repeated \textit{m} 
 times, creating \textit{m} slightly differently imputed data sets, which are 
 then used in the subsequent analysis. According to \cite{RN144, RN141, RN142}, 
@@ -94,17 +97,17 @@ estimates. However, setting \textit{m} higher requires more computations and
 storage 
 and may not be worth preoccupying these extra resources \cite{RN144}.
 \\
-MICE assumes that the data is missing at random (MAR) that is the probability 
-of data being missing does not depend on the unobserved data but is only 
+MICE assumes that the data are missing at random (MAR). That is the probability 
+of missing data does not depend on the unobserved data but is only 
 dependent (conditional) on the observed data. Due to its individualistic 
 approach, MICE can handle variables of different types using different 
 modeling choices for different variable types.
 \section{Classifiers}
 The original paper \cite{RN127} implements 7 classifiers, namely Random Forest, 
-Logistic Regression, decision tree, k-nearest neighbors, naive Bayes, support 
+Logistic Regression, Decision Tree, k-nearest neighbors, naive Bayes, support 
 vector machines, extremely randomized tree, and three-way Random Forest. Here, 
 I 
-will reproduce Random Forest, Logistic Regression, and decision tree. The 
+will reproduce Random Forest, Logistic Regression, and Decision Tree. The 
 following section will introduce them.
 \subsection{Decision Tree}
 To motivate the use of Random Forests and since we will 
@@ -112,19 +115,18 @@ use a Decision Tree during the validation to gain some insights into the
 workings of the Random Forest classifier, we will take a closer look 
 at Decision Trees since they are the basic building block of Random Forests.
 A Decision Tree has a flowchart-like structure where each internal or decision 
-node tests an attribute. Each branch corresponds to one attribute value and 
-each 
-leaf node represents a classification. It is built up using the ID3 algorithm.
+node tests an attribute. Each branch corresponds to one attribute value, and 
+each leaf node represents a classification. It is built up using the ID3 
+algorithm.
 \\
 ID3 tries to determine the best attribute of a given data set by the 
 distribution of its values. The best attribute is then used as a root of the 
-decision tree and a branch is created for every value this attribute can take 
+Decision Tree, and a branch is created for every value this attribute can take, 
 which also creates a subset of the data set that only has the attribute value 
-of 
-the branch. This process is repeated for every branch with the remaining subset 
-of the training set until a leaf node is reached.
+of the branch. This process is repeated for every branch with the remaining 
+subset of the training set until a leaf node is reached.
 \\
-ID3 can use many different measures to decide which is the best attribute two 
+ID3 can use many different measures to decide which is the best attribute. Two 
 of the most popular ones are information gain or the Gini Impurity.
 \\
 Information gain uses the entropy measure to compute the impurity in an 
@@ -133,7 +135,7 @@ information content of an attribute's possible outcomes, it is calculated, as
 shown in Equation \ref{eq:entropy}. A high entropy represents a high average 
 information content in an attribute. Information Gain measures the expected 
 reduction in entropy of a set S caused by learning the state of a random 
-variable A.  It is calculated, as shown in Equation \ref{eq:gain} and can be 
+variable A.  It is calculated, as shown in Equation \ref{eq:gain}, and can be 
 described as the difference between the entropy of a set S and the 
 weighted average of the child entropies. This is computed for all remaining 
 attributes, the attribute that maximizes the differences is then selected as a 
@@ -148,13 +150,12 @@ new node.
 \end{equation}
 \\
 Gini Impurity or Gini index measures the impurity in a set S that is the 
-probability of an incorrect classification of a random sample. It is calculated 
-as 
-shown in Equation \ref{eq:gini_impurity}. The measure which the algorithm bases 
-its decision on which attribute to select as a node is called the Gini gain. It 
-is calculated as shown in Equation \ref{eq:gini_gain} and can be described as 
-the average Gini impurity. For the Gini gain, the attribute with the 
-lowest value is selected since we want to minimize the attributes' incorrect 
+probability of incorrect classification of a random sample. It is calculated 
+as shown in Equation \ref{eq:gini_impurity}. The measure by which the algorithm 
+bases its decision on which attribute to select as a node is called the Gini 
+gain. It is calculated as shown in Equation \ref{eq:gini_gain} and can be 
+described as the average Gini impurity. The attribute with the lowest value is 
+selected for the Gini gain since we want to minimize the attributes' incorrect 
 classification.
 \begin{equation}
  G = 1 - \sum_{i=1}^C p(i)^2
@@ -165,37 +166,38 @@ classification.
  \label{eq:gini_gain}
 \end{equation}
 \\
+% maybe throw this out?
 ID3 is not able to process numerical attributes and missing values. It must 
 therefore be extended to be able to deal with real-world data by the C4.5 
 algorithm.
 \subsection{Random Forest}
 The Random Forest Classifier is an ensemble classifier that uses multiple 
 Decision Tree instances to classify the given data. It uses two methods to 
-diversify the different classifications of the DT instances called tree bagging 
-and feature bagging.\cite{RN163}
+diversify the different classifications of the Decision Tree instances called 
+tree bagging and feature bagging.\cite{RN163}
 \\
-During tree bagging, the decision tree is not trained on the whole training 
+During tree bagging, the Decision Tree is not trained on the whole training 
 set but a subset of the training set. The subsets are generated by sampling 
 the original data set with replacement. A certain percentage of samples 
 is selected from the original data set and the remaining 
 percentage are duplicates of the already selected samples. This 
-process is generating new bagged training sets $S_i$ with the same size as the 
+process generates new bagged training sets $S_i$ with the same size as the 
 original training set $S$. If the size of the bagged set is smaller than the 
-size of the original set, then this process is called sub-bagging.\cite{RN175}
+size of the original set, this process is called sub-bagging.\cite{RN175}
 \\
 Feature bagging or feature subset selection limits the number of features the 
-individual decision trees can use at each new split in consideration. 
+individual Decision Trees can use at each new split in consideration. 
 For each decision node consideration, several features are randomly 
-selected and presented to the decision tree algorithm. A hyperparameter 
+selected and presented to the Decision Tree algorithm. A hyperparameter 
 controls the number of features available to the algorithm. For 
 classification problems, this is usually set to $\sqrt{p}$ where p is the 
 number of features present in the complete data set.
 \\
-Each decision tree in the forest generates a classification. The final 
-classification of the Random Forest is determined by a majority vote over all 
-decision trees. By using tree and feature bagging Random Forests average over 
-all individual decision tree models and thereby reducing the variance of 
-classification and trying to avoid overfitting.\cite{RN166}
+Each Decision Tree in the forest generates a classification. A majority vote 
+over all Decision Trees determines the final classification fo the Random 
+Forest. Using tree and feature bagging, Random Forests average over 
+all individual Decision Tree models, reducing the variance of 
+classification and avoiding overfitting.\cite{RN166}
 \subsection{Logistic regression}
 Logistic regression, especially binary Logistic Regression, is a modification 
 of linear regression that models the probability $p(X)$ that a sample $X$ has 
@@ -212,11 +214,11 @@ After some manipulation, we can see
  \frac{p(\mathbf{X})}{1-p(\mathbf{X})} = e^{\mathbf{X}\vec{\beta}}
  \label{eq:odds}
 \end{equation}
-The left-hand side of Equation \ref{eq:odds} is called odds, it can take a 
+The left-hand side of Equation \ref{eq:odds} is called odds. It can take a 
 value between 0 and $\infty$ indicating very low or very high probabilities 
-of having label 1 respectively.
+of having the label 1.
 After applying the logarithm to both sides of Equation \ref{eq:odds}, the 
-log-odds or logit is obtained (Equation \ref{eq:logit}) which is linear in X.
+log-odds or logit is obtained (Equation \ref{eq:logit}), which is linear in X.
 \begin{equation}
  ln \Big( \frac{p(\mathbf{X})}{1-p(\mathbf{X})} \Big) = \mathbf{X}\vec{\beta}
  \label{eq:logit}
@@ -245,9 +247,9 @@ The two models are trained using 5-fold nested cross validation.
 In each outer fold of the nested cross validation, the data is imputed using 
 MICE and then split into training and test data. Since MICE usually generates 
 several imputed data sets to account for the uncertainty in the imputation 
-process, there are 5 different models for each classifier per fold. The inner 
-fold of the cross validation is used to determine the best hyperparameter 
-combination for the classifiers using Grid Search which is also called 
+process, there are 5 different models for each classifier per fold. The cross 
+validation's inner fold is used to determine the best hyperparameter 
+combination for the classifiers using Grid Search, also called 
 hyperparameter tuning. The parameters for Random Forest are as follows:
 % maybe add justification of why to use these parameters
 \begin{itemize}
@@ -269,20 +271,22 @@ documentation of sklearn for Random Forests and Logistic Regression.
 Grid Search selects the best hyperparameters according to the highest accuracy 
 value.
 \\
-After the training, the models are then evaluated using accuracy, balanced 
+After the training, the models are evaluated using accuracy, balanced 
 accuracy, sensitivity, 
 specificity, positive predictive value, and area under the ROC curve.
 The hyperparameters of the best performing models for Random Forest and 
-Logistic Regression respectively are then used to obtain the final classifiers.
+Logistic Regression are then used to obtain the final classifiers.
 For the validation, the whole data set is split into training and validation 
-data according to a 80:20 split. The data set is imputed before the split 
+data according to an 80:20 split. The data set is imputed 
+before the split 
 due to the working of the \code{mice()} package in R. The classifiers are 
 trained on the training data and then validated using the validation data. 
 In addition to the evaluation metrics above, the final classifiers were also 
 evaluated using the ROC curve and the precision-recall curve. Additionally, the 
-precision-recall curve is used to assess the performance of the classifiers 
+precision-recall curve is used to assess the classifiers' performance 
 regarding the slight imbalance in the data set. To further gain some insights 
-into the classification reasoning of the Random Forest a decision tree is 
+into the Random Forest classification reasoning a Decision 
+Tree is 
 trained using the standard hyperparameters according to the sklearn 
 implementation.
 \\
@@ -292,11 +296,11 @@ is used and connected to the Python implementation using a bridge package
 called rpy2. The R implementation of the imputation method is used instead of a 
 Python implementation since it provides more functions to inspect the MICE 
 procedure and since it is able to handle non-normally distributed data. To 
-visualize the results the libraries seaborn and matplotlib are used.
+visualize the results, the libraries seaborn and matplotlib are used.
 
 \section{Evaluation Metrics}
-To describe the the evaluation metrics, the following terms will 
-be used in the equations: True Positive, False Positive, False Negative, and 
+The following terms will be used in the equations to describe the evaluation 
+metrics: True Positive, False Positive, False Negative, and 
 True Negative. They are further characterized in Table 
 \ref{tab:confusion-matrix}. 
 \begin{table}[h]
@@ -334,7 +338,7 @@ selection.\cite{RN167}
 \end{equation}
 Balanced accuracy is used in addition to the average accuracy due to the slight 
 imbalance in the data set. If the balanced accuracy differs significantly from 
-the average accuracy, the imbalance has an effect on the classifier regarding 
+the average accuracy, the imbalance affects the classifier regarding 
 class prevalence. The balanced accuracy is defined as the average of 
 sensitivity and specificity. \cite{RN167, RN127}
 \begin{equation}
@@ -345,23 +349,24 @@ Sensitivity is interpreted as the proportion of people infected with a disease
 who will test positive for this disease. It is calculated as shown in Equation 
 \ref{eq:sensitivity}. Since it is only calculated using the part of the 
 population with the disease, sensitivity can only give evidence about the true 
-positive rate and not the false positive rate of a test.\cite{RN168}
+positive rate and not the test's false positive rate.\cite{RN168}
 \begin{equation}
  sensitivity = \frac{TP}{TP+FN}
  \label{eq:sensitivity}
 \end{equation}
 Specificity is defined as the proportion of people without the disease that are 
-identified correctly, i.e., who tested negative for a disease. It is calculated 
-as shown in Equation \ref{eq:specificity}. Specificity only gives information 
-about the proportion of people without the disease and a negative test and 
-therefore cannot disclose anything about the false negative rate.\cite{RN168}
+identified correctly, i.e., who tested negative for the disease. It is 
+calculated as shown in Equation \ref{eq:specificity}. Specificity only gives 
+information about the proportion of people without the disease and a negative 
+test and cannot disclose anything about the false negative 
+rate.\cite{RN168}
 \begin{equation}
  specificity = \frac{TN}{TN+FP}
  \label{eq:specificity}
 \end{equation}
 The positive predictive value (PPV) measures the post-test probability of the 
-disease given a positive test and therefore refers to the probability that a 
-subject with a positive test has indeed the disease. It is calculated as shown 
+disease given a positive test. It, therefore, refers to the probability that a 
+subject with a positive test has the disease indeed. It is calculated as shown 
 in 
 Equation \ref{eq:ppv}.\cite{RN168}
 \begin{equation}
@@ -369,50 +374,52 @@ Equation \ref{eq:ppv}.\cite{RN168}
  \label{eq:ppv}
 \end{equation}
 The receiver operating characteristic curve (ROC curve) is a commonly used 
-metric to determine the performance of a model describing the trade-off between 
+metric to determine a model's performance describing the trade-off between 
 specificity and sensitivity. It is calculated using the prediction scores of a 
 model that are either discriminant values or posterior 
 probabilities.\cite{RN161} Most models do not produce a classification label as 
-their output, but rather a prediction score that is then thresholded to 
+their output but rather a prediction score that is then thresholded to 
 correspond 
-to one of the levels of the target variable. The metrics mentioned above are all 
+to one of the target variable levels. The metrics mentioned above are all 
 so called single-thresholded metrics since they are defined only for the 
-thresholded output of the classifier.\cite{RN161, RN167} Since ROC uses the 
+classifier's thresholded output.\cite{RN161, RN167} Since ROC uses the 
 prediction scores instead of the thresholded output of a model, it can compute 
 the sensitivity and specificity for every sensible threshold. The resulting 
 values are then plotted with sensitivity or true positive rate as the vertical 
-axis and the false positive rate calculated as 1 - specificity as the 
+axis and the false positive rate or 1 - specificity as the 
 horizontal axis. The points are interpolated linearly to create the ROC curve. 
-\cite{RN161} Usually, a reference line is added to the plot illustrating the 
-performance of a model that only makes random predictions, the curve for the 
-trained model is expected to be above the reference line at all time. 
-% einfügen strenght of predicitive model ...
-A model with perfect performance will appear in the very top left hand corner 
-of the ROC space where sensitivity is 1 and false positive rate is 
-0.\cite{RN167, RN159}
+\cite{RN161} Usually, a reference line is added to the plot illustrating a 
+model's performance that only makes random predictions. The curve for the 
+trained model is expected to be above the reference line at all times. 
+% add strenght of predicitive model ...
+A model with perfect performance will appear in the top left-hand corner 
+of the ROC space where the sensitivity is one, and the false positive rate is 
+zero.\cite{RN167, RN159}
 \\
 The area under the ROC curve can also be measured and is called either AUC for 
-area under the ROC curve or ROC index, it can give a numeric summary of the ROC 
-curve. It is calculated using the integral of the ROC curve which can be easily 
+area under the ROC curve or ROC index. It can give a numeric summary of the ROC 
+curve. It is calculated using the ROC curve's integral which can be easily 
 done using the trapezoidal method since the ROC curve is discrete and stepped. 
 A large AUC value indicates a better model performance. As a rule of thumb, an 
-AUC over 0.7 indicates a strong predictive model and an AUC below 0.6 indicates 
+AUC over 0.7 indicates a strong predictive model, and an AUC below 0.6 
+indicates 
 a weak model. AUC and ROC both are quite robust against imbalanced data, but 
-there are other non-single-threshold metrics that can be used in this case.
-\\[1\baselineskip]
+other non-single-threshold metrics can be used in this case as 
+well.\cite{RN167, RN159}
+\par
 The Precision-Recall curve (PRC) is another non-single-threshold metric that is 
 especially useful when dealing with an imbalanced data set. It calculates the 
 precision and recall values for each feasible threshold. The 
 resulting values are then plotted with precision, also called positive 
 predictive value, as the vertical axis and recall, also called sensitivity, as 
-the horizontal axis, the points are interpolated non-linearly to create a 
+the horizontal axis. The points are interpolated non-linearly to create a 
 curve. 
-In contrast to the ROC curve which uses a fixed reference line, the PRC's 
+In contrast to the ROC curve, which uses a fixed reference line, the PRC's 
 baseline is determined by the ratio of positive (P) and negative (N) samples in 
 the data set and represented as $y = \frac{P}{P + N}$. Each point in the PRC 
 plot corresponds to exactly one point in the ROC plot since one of the measures 
 in the plot is the same. The area under the curve can also be 
-calculated for the precision-recall curve similarly to the AUC of the ROC curve 
+calculated for the precision-recall curve similar to the AUC of the ROC curve 
 and is then denoted by AUC (PRC) or average precision. Similarly, a large value 
-for the AUC (PRC) indicates a strong model and a lower value indicates a weak 
+for the AUC (PRC) indicates a strong model, and a lower value indicates a weak 
 model.\cite{RN160, RN161}
