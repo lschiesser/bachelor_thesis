@@ -102,7 +102,7 @@ modeling choices for different variable types.
 \section{Classifiers}
 The original paper \cite{RN127} implements 7 classifiers, namely Random Forest, 
 Logistic Regression, decision tree, k-nearest neighbors, naive Bayes, support 
-vector machines, extremely randomized tree, and three-way random forest. Here, 
+vector machines, extremely randomized tree, and three-way Random Forest. Here, 
 I 
 will reproduce Random Forest, Logistic Regression, and decision tree. The 
 following section will introduce them.
@@ -265,7 +265,7 @@ following hyperparameters:
  \item Maximal iteration: [200, 300, 400, 500]
 \end{itemize}
 The remaining hyperparameters use the default values specified in the 
-documentation of sklearn for random forests and Logistic Regression.
+documentation of sklearn for Random Forests and Logistic Regression.
 Grid Search selects the best hyperparameters according to the highest accuracy 
 value.
 \\
@@ -282,7 +282,7 @@ In addition to the evaluation metrics above, the final classifiers were also
 evaluated using the ROC curve and the precision-recall curve. Additionally, the 
 precision-recall curve is used to assess the performance of the classifiers 
 regarding the slight imbalance in the data set. To further gain some insights 
-into the classification reasoning of the random forest a decision tree is 
+into the classification reasoning of the Random Forest a decision tree is 
 trained using the standard hyperparameters according to the sklearn 
 implementation.
 \\
