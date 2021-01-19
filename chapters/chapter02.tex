@@ -117,14 +117,14 @@ at Decision Trees since they are the basic building block of Random Forests.
 A Decision Tree has a flowchart-like structure where each internal or decision 
 node tests an attribute. Each branch corresponds to one attribute value, and 
 each leaf node represents a classification. It is built up using the ID3 
-algorithm.
+algorithm.\cite{RN171}
 \\
 ID3 tries to determine the best attribute of a given data set by the 
 distribution of its values. The best attribute is then used as a root of the 
 Decision Tree, and a branch is created for every value this attribute can take, 
 which also creates a subset of the data set that only has the attribute value 
 of the branch. This process is repeated for every branch with the remaining 
-subset of the training set until a leaf node is reached.
+subset of the training set until a leaf node is reached. \cite{RN165}
 \\
 ID3 can use many different measures to decide which is the best attribute. Two 
 of the most popular ones are information gain or the Gini Impurity.
@@ -139,7 +139,7 @@ variable A.  It is calculated, as shown in Equation \ref{eq:gain}, and can be
 described as the difference between the entropy of a set S and the 
 weighted average of the child entropies. This is computed for all remaining 
 attributes, the attribute that maximizes the differences is then selected as a 
-new node. 
+new node.\cite{RN165}
 \begin{equation}
  E(S) = \sum_{i=1}^C -p(i) \ log_2(p(i))
  \label{eq:entropy}
@@ -156,7 +156,7 @@ bases its decision on which attribute to select as a node is called the Gini
 gain. It is calculated as shown in Equation \ref{eq:gini_gain} and can be 
 described as the average Gini impurity. The attribute with the lowest value is 
 selected for the Gini gain since we want to minimize the attributes' incorrect 
-classification.
+classification. \cite{RN171}
 \begin{equation}
  G = 1 - \sum_{i=1}^C p(i)^2
  \label{eq:gini_impurity}
