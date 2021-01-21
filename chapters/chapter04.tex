@@ -26,9 +26,50 @@ This is more desirable because it is better to be over cautious and recommend
 more tests.
 % maybe add PPV part from Schreibplan
 \par
+% this sentence sould be rewritten
 Since the question about the relevance of the classifier has been clarified, 
-this paragraph deals with the internal classfification reasoning of the 
+this paragraph deals with the internal classification reasoning of the 
 classifier and their accordance with findings from medical studies.
+When inspecting the feature importance plots for the tree-based classifiers, 
+both plots (Figure \ref{fig:rf_importance} and \ref{fig:dt_importance}) show 
+that the AST, WBC, CRP and lymphocyte counts are under the five most important 
+features.
+% this sentence is also shit
+In the Random Forest, the LDH count replaces the age variable in 
+Decision Trees. For the Logistic Regression (Figure \ref{fig:lr_importance}), 
+the eosinophil, WBC, basophil and lymphocyte counts are the most important 
+features together with the age variable. All feature importance measures have 
+the WBC and lymphocyte count in common. Multiple studies also show that these 
+two blood values are significant indicators for a COVID-19 infection. The WBC 
+or white blood cell count refers to the actual number of white blood cells per 
+volume of blood while the lymphocytes are a subgroup of white blood cells 
+involved in eliciting a immune response to foreign agents.\cite{RN137, RN188} 
+During an infection with Sars-CoV-2, the WBC and lymphocyte counts will 
+decrease since this is a sign of a viral infection and the body's response to 
+it.\cite{RN162,RN186, RN185}
+AST or aspartate aminotransferase, the most important feature in the tree-based 
+methods, is an enzyme mainly found in heart and liver, its levels increase when 
+the muscles of these organs are injured.\cite{RN189, RN188} This is also the 
+case during a COVID-19 infection since the virus attacks not only the upper 
+respiratory tracts but the whole body including the liver and 
+heart.\cite{RN182} CRP or C-reactive protein is another substance found during 
+a COVID-19 infection. It is produced in the liver and is discharged after 
+tissue damage, the start of an infection or other inflammatory causes. 
+Increased volumes of this protein are often the first indication of an 
+infection or inflammation in the body.\cite{RN138, RN188} Elevated levels of 
+this protein can also be observed during a COVID-19 infection since it is an 
+infection and primarily targets lung tissue.\cite{RN187, RN162} LDH or lactate 
+dehydrogenase is an enzyme involved in metabolic cycles for energy production, 
+it is present in almost all cells in the body especially in the heart, 
+liver, lungs, kidneys, muscles and blood cells. An increase in LDH can indicate 
+acute kidney or liver disease, hypoxia, or heart and lung 
+infarction.\cite{RN190, RN188} According to \cite{RN162, RN187}, a blood test 
+reveals elevated levels of LDH because Sars-CoV-2 primarily attack the upper 
+respiratory tracts which leads to lung damage and the discharge of LDH into the 
+blood stream. s
+\par
+% Real-world validation
+The findings above are all theoretical and have to be proven in the real world.
 \begin{changemargin}{50pt}{50pt}
  Plausibility of models in terms of recorded metrics, i.e., sensitivity, 
 specificity, ... and what that means for their predictive ``statements''
