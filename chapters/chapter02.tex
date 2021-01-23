@@ -2,8 +2,8 @@
 The data used to train the classifiers was provided by 
 \citeauthor{RN127} \cite{RN127}. 
 It was collected between the end of February 2020 and mid of March 2020 from 
-patients admitted to the \textit{IRCSS Ospedale San Raffaele} and consists of 
-279 individuals who were selected randomly.
+patients admitted to the \textit{IRCSS Ospedale San Raffaele} in Milan, Italy 
+and consists of 279 individuals who were selected randomly.
 For each individual, the data set provides their age, gender, the results of a 
 routine blood screening, and a PCR test for Sars-CoV-2.
 A complete overview of the recorded variables is provided in Table 
@@ -39,7 +39,7 @@ skewed positively, exhibiting a right-tailed distribution because, for most
 blood values, a lower or centered value is a sign of better health. Age 
 is skewed negatively, exhibiting a left-tailed distribution since COVID-19 
 affected older individuals more severely than younger individuals, especially 
-in Italy. 
+in Italy \cite{RN193}. 
 \\
 In order to confirm the observation of non-normality, a Shapiro-Wilk test for 
 normality was performed.
@@ -106,23 +106,22 @@ storage
 and may not be worth preoccupying these extra resources \cite{RN144}.
 
 \section{Classifiers}
-The original paper \cite{RN127} implements eight classifiers, namely Random 
-Forest, 
-Logistic Regression, Decision Tree, K-nearest Neighbors, Naive Bayes, Support 
-Vector Machines, Extremely Randomized Trees, and three-way Random Forest. Here, 
-I 
-will reproduce the Random Forest, Logistic Regression, and Decision Tree 
-classifiers. The 
-following section introduces them.
+The original paper implements eight classifiers, namely Random 
+Forest, Logistic Regression, Decision Tree, K-nearest Neighbors, Naive Bayes, 
+Support Vector Machines, Extremely Randomized Trees, and three-way Random 
+Forest \cite{RN127}. 
+Here, I will reproduce the Random Forest, Logistic Regression, and Decision 
+Tree classifiers. The following section introduces them.
 \subsection{Decision Tree}
 Since Decision Trees are the basic building block of Random Forest and we will 
-use them during the validation it is necessary to take a closer look at them. 
+use them during the validation it is necessary to take a closer look at them 
+\cite{RN163}. 
 Thereby the use of Random Forests will be motivated and we will gain some 
 insights into the workings of the Random Forest Classifier.
 A Decision Tree has a flowchart-like structure where each internal or decision 
 node tests an attribute. Each branch corresponds to one attribute value, and 
 each leaf node represents a classification. It is built up using the ID3 
-algorithm.\cite{RN171}
+algorithm \cite{RN171}.
 \\
 ID3 tries to determine the best attribute of a given data set by the 
 distribution of its values. The best attribute is then used as a root of the 
@@ -134,20 +133,22 @@ subset of the training set until a leaf node is reached. \cite{RN165}
 ID3 can use many different measures to decide which is the best attribute. Two 
 of the most popular ones are Information Gain and the Gini Impurity.
 \\
-Information Gain uses the entropy measure to compute the impurity in an 
-attribute. Entropy originates from information theory and describes the average 
+Information Gain uses the entropy measure to compute the impurity also known as 
+heterogeneity of an attribute. Entropy originates from information theory and 
+describes the average 
 information content of an attribute's possible outcome, it is calculated, as 
 shown in Equation \ref{eq:entropy} where S is a set of samples and C are the 
 possible outcome labels of the target variable. A high entropy represents a 
 high average 
-information content in an attribute. Information Gain measures the expected 
+information content in an attribute \cite{RN167}. Information Gain measures the 
+expected 
 reduction in entropy of a set S caused by learning the state of a random 
 attribute A.  It is calculated, as shown in Equation \ref{eq:gain}, and can be 
 described as the difference between the entropy of a set S and the 
 weighted average of the child entropies $E(S_v)$ where $S_v$ is a subset of S 
 where the attribute A has the value v. This is computed for all remaining 
 attributes, the attribute that maximizes the differences is then selected as a 
-new node.\cite{RN165}
+new node \cite{RN165}.
 \begin{equation}
  E(S) = \sum_{i=1}^C -p(i) \ log_2(p(i))
  \label{eq:entropy}
@@ -164,7 +165,7 @@ bases its decision which attribute to select as a node is called the Gini
 gain. It is calculated as shown in Equation \ref{eq:gini_gain} and can be 
 described as the average Gini Impurity. The attribute with the lowest value is 
 selected for the Gini gain since we want to minimize the attributes' incorrect 
-classification. \cite{RN171}
+classification \cite{RN171}.
 \begin{equation}
  G = 1 - \sum_{i=1}^C p(i)^2
  \label{eq:gini_impurity}
@@ -175,14 +176,14 @@ classification. \cite{RN171}
 \end{equation}
 \\
 % maybe throw this out?
-ID3 is not able to process numerical attributes and missing values. It must 
-therefore be extended to be able to deal with real-world data by the C4.5 
-algorithm.
+%ID3 is not able to process numerical attributes and missing values. It must 
+%therefore be extended to be able to deal with real-world data by the C4.5 
+%algorithm.
 \subsection{Random Forest}
 The Random Forest Classifier is an ensemble classifier that uses multiple 
 Decision Tree instances to classify the given data. It uses two methods to 
 diversify the different classifications of the Decision Tree instances called 
-tree bagging and feature bagging.\cite{RN163}
+tree bagging and feature bagging \cite{RN163}.
 \\
 During tree bagging, the Decision Tree is not trained on the whole training 
 set but a subset of the training set. The subsets are generated by sampling 
@@ -191,7 +192,8 @@ is selected from the original data set and the remaining
 percentage are duplicates of the already selected samples. This 
 process generates new bagged training sets $S_i$ with the same size as the 
 original training set $S$. If the size of the bagged set is smaller than the 
-size of the original set, this process is called sub-bagging.\cite{RN175}
+size of the original set, this process is called sub-bagging \cite{RN163, 
+RN170}.
 \\
 Feature bagging or feature subset selection limits the number of features the 
 individual Decision Trees can use at each new split in consideration. 
@@ -199,19 +201,19 @@ For each decision node consideration, several features are randomly
 selected and presented to the Decision Tree algorithm. A hyperparameter 
 controls the number of features available to the algorithm. For 
 classification problems, this is usually set to $\sqrt{p}$ where p is the 
-number of features present in the complete data set.
+number of features present in the complete data set \cite{RN163, RN166}.
 \\
 Each Decision Tree in the forest generates a classification. A majority vote 
 over all Decision Trees determines the final classification fo the Random 
 Forest. Using tree and feature bagging, Random Forests average over 
 all individual Decision Tree models, reducing the variance of 
-classification and avoiding overfitting.\cite{RN166}
+classification and avoiding overfitting \cite{RN166}.
 \subsection{Logistic Regression}
 Logistic Regression is a modification of linear regression that models the 
 probability $p(X)$ that a sample $X$ has the label 1. To do so, it uses a 
 special form of the sigmoid function called the logistic function where 
 $\mathbf{X}$ is a vector or matrix of samples and $\vec{\beta}$ is a vector of 
-the coefficients:
+the coefficients \cite{RN170, RN166}:
 \begin{equation}
  p(\mathbf{X}) = \phi_{sig}(\mathbf{X}) = 
 \frac{e^{\mathbf{X}\vec{\beta}}}{1+e^{\mathbf{X}\vec{\beta}}} = 
@@ -227,7 +229,8 @@ The left-hand side of Equation \ref{eq:odds} is called odds. It can take a
 value between 0 and $\infty$ indicating very low or very high probabilities 
 of having the label 1.
 After applying the logarithm to both sides of Equation \ref{eq:odds}, the 
-log-odds or logit is obtained (Equation \ref{eq:logit}), which is linear in X.
+log-odds or logit is obtained (Equation \ref{eq:logit}), which is linear in X 
+\cite{RN174, RN166}.
 \begin{equation}
  ln \Big( \frac{p(\mathbf{X})}{1-p(\mathbf{X})} \Big) = \mathbf{X}\vec{\beta}
  \label{eq:logit}
@@ -244,7 +247,7 @@ coefficients $\beta$ of the model $P(\mathbf{X})$ described in Equation
 individual's observed label is 1 and close to zero if the individual's label is 
 0. This can be formalized as a likelihood function as shown in Equation 
 \ref{eq:likelihood}. The estimates for $\beta$ are then chosen to maximize the 
-likelihood function.\cite{RN166}
+likelihood function \cite{RN166}.
 \begin{equation}
  L(\vec{\beta}|\vec{y}, \mathbf{X}) = \prod_{i} p(x_i)^{y_i} 
 (1-p(x_i))^{(1-y_i)}
@@ -259,7 +262,8 @@ several imputed data sets to account for the uncertainty in the imputation
 process, there are 5 different models for each classifier per fold. The cross 
 validation's inner fold is used to determine the best hyperparameter 
 combination for the classifiers using \textit{Grid Search}, also called 
-hyperparameter tuning. The parameters for Random Forest are:
+hyperparameter tuning \cite{RN191}. Figure \ref{fig:cv} explains this process 
+in further detail. The parameters for Random Forest are:
 % maybe add justification of why to use these parameters
 \begin{itemize}
  \item Number of trees in the forest: [10, 100, 500]
@@ -296,9 +300,8 @@ In addition to the evaluation metrics above, the final classifiers were also
 evaluated using the ROC curve and the precision-recall curve. Additionally, the 
 precision-recall curve is used to assess the classifiers' performance 
 regarding the slight imbalance in the data set. To further gain some insights 
-into the Random Forest classification reasoning a Decision 
-Tree is 
-trained using the standard hyperparameters according to the sklearn 
+into the Random Forest's classification reasoning, a Decision 
+Tree is trained using the standard hyperparameters according to the sklearn 
 implementation \cite{RN191}.
 \\
 To implement this procedure, the Python libraries scikit-learn, pandas, and 
@@ -342,7 +345,7 @@ label. It is calculated as shown in Equation \ref{eq:accuracy}. Accuracy alone
 is not a sensible measure to determine the goodness of fit for a model since 
 the model can be affected by imbalanced data or poor parameter initialization. 
 Accordingly, other measures should be considered during model 
-selection.\cite{RN167}
+selection \cite{RN167}.
 \begin{equation}
  accuracy = \frac{TP + TN}{TP+FP+FN+TN}
  \label{eq:accuracy}
@@ -351,7 +354,7 @@ Balanced accuracy is used in addition to the average accuracy due to the slight
 imbalance in the data set. If the balanced accuracy differs significantly from 
 the average accuracy, the imbalance affects the classifier regarding 
 class prevalence. The balanced accuracy is defined as the average of 
-sensitivity and specificity. \cite{RN167, RN127}
+sensitivity and specificity \cite{RN167, RN127}.
 \begin{equation}
  balanced \ accuracy = \frac{\frac{TP}{TP+FN}\frac{TN}{TN+FP}}{2}
  \label{eq:balanced_acc}
@@ -360,7 +363,7 @@ Sensitivity is interpreted as the proportion of people infected with a disease
 who will test positive for this disease. It is calculated as shown in Equation 
 \ref{eq:sensitivity}. Since it is only calculated using the part of the 
 population with the disease, sensitivity can only give evidence about the true 
-positive rate and not the test's false positive rate.\cite{RN168}
+positive rate and not the test's false positive rate \cite{RN168}.
 \begin{equation}
  sensitivity = \frac{TP}{TP+FN}
  \label{eq:sensitivity}
@@ -370,7 +373,7 @@ identified correctly, i.e., who tested negative for the disease. It is
 calculated as shown in Equation \ref{eq:specificity}. Specificity only gives 
 information about the proportion of people without the disease and a negative 
 test and cannot disclose anything about the false negative 
-rate.\cite{RN168}
+rate \cite{RN168}.
 \begin{equation}
  specificity = \frac{TN}{TN+FP}
  \label{eq:specificity}
@@ -378,8 +381,7 @@ rate.\cite{RN168}
 The positive predictive value (PPV) measures the post-test probability of the 
 disease given a positive test. It, therefore, refers to the probability that a 
 subject with a positive test has indeed the disease. It is calculated as shown 
-in 
-Equation \ref{eq:ppv}.\cite{RN168}
+in Equation \ref{eq:ppv} \cite{RN168}.
 \begin{equation}
  PPV = \frac{TP}{TP+FP}
  \label{eq:ppv}
@@ -388,24 +390,24 @@ The receiver operating characteristic curve (ROC curve) is a commonly used
 metric to determine a model's performance describing the trade-off between 
 specificity and sensitivity. It is calculated using the prediction scores of a 
 model that are either discriminant values or posterior 
-probabilities.\cite{RN161} Most models do not produce a classification label as 
-their output but rather a prediction score that is then thresholded to 
-correspond 
-to one of the target variable levels. The metrics mentioned above are all 
+probabilities \cite{RN161}. Most models do not produce a classification label 
+as their output but rather a prediction score that is then thresholded to 
+correspond to one of the target variable levels. The metrics mentioned above 
+are all 
 so called single-thresholded metrics since they are defined only for the 
-classifier's thresholded output.\cite{RN161, RN167} Since ROC uses the 
+classifier's thresholded output \cite{RN161, RN167}. Since ROC uses the 
 prediction scores instead of the thresholded output of a model, it can compute 
 the sensitivity and specificity for every sensible threshold. The resulting 
 values are then plotted with sensitivity or true positive rate as the vertical 
 axis and the false positive rate or 1 - specificity as the 
-horizontal axis. The points are interpolated linearly to create the ROC curve. 
-\cite{RN161} Usually, a reference line is added to the plot illustrating a 
+horizontal axis. The points are interpolated linearly to create the ROC curve  
+\cite{RN161}. Usually, a reference line is added to the plot illustrating a 
 model's performance that only makes random predictions. The curve for the 
 trained model is expected to be above the reference line at all times. 
 % add strenght of predicitive model ...
 A model with perfect performance will appear in the top left-hand corner 
 of the ROC space where the sensitivity is one, and the false positive rate is 
-zero.\cite{RN167, RN159}
+zero \cite{RN167, RN159}.
 \\
 The area under the ROC curve can also be measured and is called either AUC for 
 area under the ROC curve or ROC index. It can give a numeric summary of the ROC 
@@ -416,7 +418,7 @@ AUC over 0.7 indicates a strong predictive model, and an AUC below 0.6
 indicates 
 a weak model. AUC and ROC both are quite robust against imbalanced data, but 
 other non-single-threshold metrics can be used in this case as 
-well.\cite{RN167, RN159}
+well \cite{RN167, RN159}.
 \par
 The Precision-Recall curve (PRC) is another non-single-threshold metric that is 
 especially useful when dealing with an imbalanced data set. It calculates the 
@@ -433,4 +435,4 @@ in the plot is the same. The area under the curve can also be
 calculated for the precision-recall curve similar to the AUC of the ROC curve 
 and is then denoted by AUC (PRC) or average precision. Similarly, a large value 
 for the AUC (PRC) indicates a strong model, and a lower value indicates a weak 
-model.\cite{RN160, RN161}
+model \cite{RN160, RN161}.
