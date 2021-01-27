@@ -79,20 +79,110 @@ variability.
 In conclusion, the comparison of the most important features of every 
 classifier with the findings from medical research reveals that the models use 
 feature that medical research deemed as significant to identify patients with 
-COVID-19. Thereby, they can be considered valid in an medical environment.
+COVID-19. Thereby, they can be considered valid regarding their reasoning and 
+classification in a theoretical or laboratory setting.
 \par
 % Real-world validation
-The findings above are all theoretical and have to be proven in the real world.
-\begin{changemargin}{50pt}{50pt}
- Plausibility of models in terms of recorded metrics, i.e., sensitivity, 
-specificity, ... and what that means for their predictive ``statements''
-\\
-Accordance of feature importance and scientific research (do most important 
-features in model coincide with blood values identified as being evidence for a 
-COVID-19 illness)
-\end{changemargin}
+The two paragraphs above certify the model statistical and theoretical 
+validity, but they lack to prove that these models will also benefit medical 
+personnel in the real world. Relational and ecological validity inspect how a 
+model impacts the clinical workflow and the overall social environment. 
+Specifically, relational validity refers to which extent different user groups, 
+e.g., medical workers or patients, can relate to the model, i.e., how much they 
+trust the predictions of the model \cite{RN151}. Users can either under-rely on 
+the model ignoring all the predictions presented to them, or over-rely on the 
+model accepting all predictions without questioning them. The former is 
+disadvantageous because in this case the model would not have any benefit in a 
+clinical setting. The latter could be seen as detrimental as this can lead to 
+biased decision making or automation bias which could affect patients 
+negatively \cite{RN151, RN152}.
+Ecological validity investigates the impact of the technology further 
+scrutinizing the intersection of the clinical and social settings a model is 
+deployed in. A simple way to assess this type of validity is to compare 
+performance-, outcome- and practice-oriented measures of different medical 
+teams utilizing the model and relying on traditional technology in the same 
+setting \cite{RN152}. Moreover, relational validity also assesses the 
+sustainability of a model by continuously examining the effect of the model 
+over time. As \citeauthor{RN198} \cite{RN198} notes ``unlike a drug or device, 
+algorithms are not static products [as] their inputs […] can change with 
+context''. Accordingly, AI models should be assessed periodically examining 
+if they continue to provide comparable net benefits \cite{RN152}.
 \section{Discussion of Methods}
 % auf non-normality eingehen und die zwei Methoden präsentieren
+The discussion of the methods is mainly focused on the imputation method MICE 
+since it is a fairly new technique and is not commonly used to impute missing 
+values.
+\\
+In order to asses the imputation procedure, this section will look at which 
+method the imputation model used to impute the missing values and how the 
+imputations compare to the original (non-imputed) data. The \code{mice()} 
+package in R provides functions to inspect the imputation model used after the 
+imputation is done. Since MICE can handle variables of different types and 
+distributions and due to its individualistic approach, every variable can 
+utilize a different model type to impute the missing values. In our case, the 
+imputation method used the same model type for all variables as a consequence 
+of the non-normality of the data called \textit{Predictive Mean Matching} (PMM).
+PMM imputes missing values by using a small subset of complete observations 
+called the donor pool. The donor pool contains 3 to 10 donor candidates which 
+exhibit the same or similar predicted values compared to the predicted value of 
+the missing entry. One donor is randomly selected from the candidates, and the
+observed value of the donor is then used to replace the missing value 
+\cite{RN144, RN145, RN146}. It is usually used to model data when the 
+assumptions of normality and homoscedasticity are in questions, as is the case 
+for the data used in this thesis \cite{RN146}.
+\\
+The imputations of the model can be assesed by generating summary statistics 
+for the observed and the imputed values separately as well as jointly for each 
+variable.
+Especially comparing the differences in mean and standard deviation 
+between the observed and imputed values of each variable can help identify 
+variables of concern \cite{RN141}. When comparing the mean of the observed data 
+with the mean of all samples of the imputed sets, most variables exhibit 
+similar values for the summary statistics. Only ALP, GGT, LDH and Neutrophils 
+exhibit apparent deviations from the observed data. It should be noted that 
+most deviations are not significant.
+When comparing the summary statistics of the observed data and only the imputed 
+values for each data set, there are obvious deviations in every variable. 
+However, it should be noted that with 70\% of samples missing at least one 
+feature, it is hard to compare the statistics of the observed values with the 
+imputed ones. Especially, since 117 of the 196 missing samples have a negative 
+test result, which amounts to almost 60\% of the missing samples and 42\% of 
+all samples, and only 79 of the missing samples have a negative test result. 
+This imbalance is also reflected in the samples where all features are present. 
+Of 83 complete samples only 8 samples have a negative test result and 60 have a 
+positive result. Although the target variable was not available to the 
+imputation model at the time of imputation, the characteristics of the target 
+should have transpired in the data.
+% this should definitley be reviewed
+Since MICE operates on the characteristics 
+of the data, this imbalance could be reflected in the imputation model. As 
+reported in the section above the values for lymphocytes, eosinophils and 
+basophils are decreased in patients who have the disease and therefore also 
+have a positive test result. Inspecting the summary statistics of the 
+imputed sets with this in mind, makes the lower mean and standard deviation 
+more sensible.
+It should also be noted that ALP and GGT have the highest missing value 
+proportion. Since MICE has less data to base its imputations on, it can be 
+expected taht the imputation exhibit apparent deviations from the observed 
+values. MICE also accounts for the uncertainty during the impuatation process, 
+meaning a higher number of missing values represents a higher uncertainty and 
+therefore the imputation model is not able to make as educated guesses as for 
+other variables with more observed data.
+\\
+In conclusion, it is very hard to make statements about the goodness of the 
+imputation model. Most imputed sets do not exhibit drastic deviations from the 
+observed set of observations and for those variables that show apparent 
+deviations it can be ascribed to an imbalance when looking at the samples with 
+missing values. Further, there is no standard procedure to asses the 
+imputations produced by MICE and can therefore be very subjective. Intuitively, 
+the imputations still seem like a fairly good approximation of the data.
+For further research, I would nontheless recommend using another method to 
+impute missing values that is more commonly used and has a theoretical basis. 
+For example, \citeauthor{RN127} use K-nearest neighbor imputation in a 
+subsequent study \cite{RN179} which uses a larger dataset than the one in 
+\cite{RN127}.
+\par
+MICE as a method discussion
 \begin{changemargin}{50pt}{50pt}
 Shortly mention that R implementation is not able to apply MICE model to other 
 data only to data it is ``trained''/ ``fitted'' on (or maybe that's for the 
