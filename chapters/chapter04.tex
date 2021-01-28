@@ -181,16 +181,54 @@ impute missing values that is more commonly used and has a theoretical basis.
 For example, \citeauthor{RN127} use K-nearest neighbor imputation in a 
 subsequent study \cite{RN179} which uses a larger dataset than the one in 
 \cite{RN127}.
-\par
-MICE as a method discussion
+\\
+The implementation of MICE used to impute the missing values is, as already 
+mentioned, the R package \code{mice()} since the sklearn implementation was at 
+the time not able to impute non-normal data correctly. The R implementation, 
+although much better suited, has its own limitation. Namely, it is not able to 
+apply the imputation model to other data only the data it is fitted on. 
+Usually, when using any form of cross-validation the data is split into 
+training and testing data before the imputation is done. The imputation method 
+is then trained on the training data and the trained imputation model is 
+applied to the training as well as the testing data. Using this process, the 
+risk of data leakage is lowered.
+% better description of data leakage
+Data leakage is a term in machine learning 
+that describes the contamination of a model with information from outside the 
+training data where the model could learn something that it could not 
+otherwise \cite{RN199}.
+In the context of this thesis, data leakage could take place during the 
+imputation process. Due to the limitation of the R implementation the whole 
+data set is used to fit the imputation model because it is not possible to 
+apply the model to different data sets. Therefore, charactersitics from the 
+test data are used to build the imputation for the training data and vice 
+versa. However, the data is split into training and test data after the 
+imputation, consequently lowering the risk of leakage. Moreover, it could be 
+argued that it is not necessarily data leakage as no test data is used to train 
+the classifier themselves but only to perform the imputation.
+Even if it had been possible to fit the imputation model only on the training 
+data and apply it to both the training and test data, the appropriateness would 
+have been questionable. As MICE is built on the facets of the data, applying 
+the imputation model based on the training data to test data could lead to 
+false or unreliable imputations since the training data does not necessarily 
+carry the characteristics of the test data. Hence, training the imputation 
+model on the whole data set could be advantageous as it would encompass the 
+characteristics of the whole data set. Additionally, training MICE on a very 
+small sample size cannot account for the complex relationships between the 
+features due to the reduced variability and sparseness of the data set.
+Regardless of the implementation, MICE is also not a commonly used imputation 
+method. Thus, there are no guidelines or procedure to identify a good 
+imputations. Further, MICE lacks a theoretical basis since fitting a series of 
+conditional probabilites may not be consistent with a proper joint distribution 
+\cite{RN141}. The method relies on empricial studies rather than a theoretical 
+basis to justify its proceudre. In practice, however, this may not be a large 
+issue, but further research is needed here. Despite these shortcomings, MICE 
+provides a great advantage over other missing data techniques in terms of 
+flexibility regarding variable type and number of variables to impute 
+\cite{RN141, RN142}. After all, MICE should be used where traditional 
+imputation methods face their limits due to small sample size and where the 
+charateristics of the variables and their relations are still recognizable.
 \begin{changemargin}{50pt}{50pt}
-Shortly mention that R implementation is not able to apply MICE model to other 
-data only to data it is ``trained''/ ``fitted'' on (or maybe that's for the 
-\ref{discussion} Discussion section)
-\\
-discuss imputation process further and its connection to cross-validation, 
-keyword: data leakage
-\\
 discuss the original paper in light of replication and open science, e.g., lack 
 of information about parameters/settings, missing information regarding 
 results, ...
