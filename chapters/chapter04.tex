@@ -131,7 +131,7 @@ observed value of the donor is then used to replace the missing value
 assumptions of normality and homoscedasticity are in questions, as is the case 
 for the data used in this thesis \cite{RN146}.
 \\
-The imputations of the model can be assesed by generating summary statistics 
+The imputations of the model can be assessed by generating summary statistics 
 for the observed and the imputed values separately as well as jointly for each 
 variable.
 Especially comparing the differences in mean and standard deviation 
@@ -163,8 +163,8 @@ imputed sets with this in mind, makes the lower mean and standard deviation
 more sensible.
 It should also be noted that ALP and GGT have the highest missing value 
 proportion. Since MICE has less data to base its imputations on, it can be 
-expected taht the imputation exhibit apparent deviations from the observed 
-values. MICE also accounts for the uncertainty during the impuatation process, 
+expected that the imputation exhibit apparent deviations from the observed 
+values. MICE also accounts for the uncertainty during the imputation process, 
 meaning a higher number of missing values represents a higher uncertainty and 
 therefore the imputation model is not able to make as educated guesses as for 
 other variables with more observed data.
@@ -176,10 +176,10 @@ deviations it can be ascribed to an imbalance when looking at the samples with
 missing values. Further, there is no standard procedure to asses the 
 imputations produced by MICE and can therefore be very subjective. Intuitively, 
 the imputations still seem like a fairly good approximation of the data.
-For further research, I would nontheless recommend using another method to 
+For further research, I would nonetheless recommend using another method to 
 impute missing values that is more commonly used and has a theoretical basis. 
 For example, \citeauthor{RN127} use K-nearest neighbor imputation in a 
-subsequent study \cite{RN179} which uses a larger dataset than the one in 
+subsequent study \cite{RN179} which uses a larger data set than the one in 
 \cite{RN127}.
 \\
 The implementation of MICE used to impute the missing values is, as already 
@@ -200,7 +200,7 @@ otherwise \cite{RN199}.
 In the context of this thesis, data leakage could take place during the 
 imputation process. Due to the limitation of the R implementation the whole 
 data set is used to fit the imputation model because it is not possible to 
-apply the model to different data sets. Therefore, charactersitics from the 
+apply the model to different data sets. Therefore, characteristics from the 
 test data are used to build the imputation for the training data and vice 
 versa. However, the data is split into training and test data after the 
 imputation, consequently lowering the risk of leakage. Moreover, it could be 
@@ -219,18 +219,38 @@ features due to the reduced variability and sparseness of the data set.
 Regardless of the implementation, MICE is also not a commonly used imputation 
 method. Thus, there are no guidelines or procedure to identify a good 
 imputations. Further, MICE lacks a theoretical basis since fitting a series of 
-conditional probabilites may not be consistent with a proper joint distribution 
-\cite{RN141}. The method relies on empricial studies rather than a theoretical 
-basis to justify its proceudre. In practice, however, this may not be a large 
+conditional probabilities may not be consistent with a proper joint 
+distribution 
+\cite{RN141}. The method relies on empirical studies rather than a theoretical 
+basis to justify its procedure. In practice, however, this may not be a large 
 issue, but further research is needed here. Despite these shortcomings, MICE 
 provides a great advantage over other missing data techniques in terms of 
 flexibility regarding variable type and number of variables to impute 
 \cite{RN141, RN142}. After all, MICE should be used where traditional 
 imputation methods face their limits due to small sample size and where the 
-charateristics of the variables and their relations are still recognizable.
-\begin{changemargin}{50pt}{50pt}
-discuss the original paper in light of replication and open science, e.g., lack 
-of information about parameters/settings, missing information regarding 
-results, ...
-\end{changemargin}
+characteristics of the variables and their relations are still recognizable.
+\par
+% rewrite transition
+Another explanation for the differing results of this re-implementation is the 
+way the authors provided information on their implementation of the model 
+training and selection process. Namely, they did not provide detailed 
+information about which hyperparameters were tuned during cross-validation nor 
+their ranges. Further, the structure of the cross-validation process was not 
+clear at all times.
+\\
+Moreover, \citeauthor{RN127} do not report all evaluation metrics used to 
+determine the best classifiers. They only report 95\% confidence intervals for 
+the average accuracy and balanced accuracy as well as point references for the 
+classifiers they deemed as best performing. There was no further information 
+on other evaluation metrics like sensitivity or AUC. Additionally, the authors 
+did only provide the configuration for one of the best performing models, 
+namely the Random Forest. Unfortunately, this did not inform about the ranges 
+for each hyperparameter used during Grid Search.
+Nevertheless, the authors did provide their data and a description of each 
+variable in the data set. It should also be noted that \cite{RN127} was only a 
+feasibility study to explore if machine learning classifiers can help identify 
+patients with COVID-19 solely based on a routine blood exam where the focus was 
+not on replicability but feasibility. However, research like this that has a 
+potential effect on an individual's health should strive to be as transparent 
+and comprehensible as possible.
 \section{Conclusion}
