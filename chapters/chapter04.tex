@@ -254,3 +254,35 @@ not on replicability but feasibility. However, research like this that has a
 potential effect on an individual's health should strive to be as transparent 
 and comprehensible as possible.
 \section{Conclusion}
+In conclusion, this thesis replicates two of the eight classifiers in 
+\cite{RN127}. The classifiers predict the outcome of a PCR test for COVID-19 
+using a routine blood exam. Although the classifiers perform worse than in the 
+original paper, they still can be regarded as substantial due to a 90\% 
+sensitivity and an accuracy above 70\% for both classifiers.
+%rewrite this sentence (paper)
+Further, a Decision Tree model was built to give a graphical representation of 
+a possible classification reasoning.
+%-----
+A comparison with findings from medical research revealed that features 
+identified as most important by the classifiers were also deemed pivotal in 
+diagnosing COVID-19. Thereby, confirming the patterns found by the classifiers 
+and certifying them a theoretical validity.
+This implementation used Multiple Imputation using Chained Equations to impute 
+the missing values. This method was used due to the small sample size of 279 
+individuals and the proportionally high rate of sampels with at least one 
+missing value. Though MICE lacks a theoretical basis and justifies its 
+procedure with experimental studies, it provides great advantages especially 
+where sample size is too small for more conventional and theoretically 
+justified imputation methods and where the variables differ in terms of their 
+type and distribution.
+Seeing that the replicated paper was a feasibility study investigating if it is 
+possible to predict a PCR test result from a range of blood values, further 
+research should be done on this topic. For instance, \citeauthor{RN127} did a 
+follow up study using a data set comprising more samples, more blood values and 
+symptomatic observations at the time of triage or admittance to a hospital 
+\cite{RN179}.
+Importantly, it should always be brought to attention that these kind of models 
+should never replace the actual medical test. They should be seen as a valuable 
+though non-conclusive tool to detect patients with a certain disease earlier 
+and better, resulting in improved management of these patients while awaiting 
+confirmation by the medical test.
