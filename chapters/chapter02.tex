@@ -2,8 +2,8 @@
 The data used to train the classifiers was provided by 
 \citeauthor{RN127} \cite{RN127}. 
 It was collected between the end of February 2020 and mid of March 2020 from 
-patients admitted to the \textit{IRCSS Ospedale San Raffaele} in Milan, Italy 
-and consists of 279 individuals who were selected randomly.
+patients admitted to the \textit{IRCSS Ospedale San Raffaele} in Milan, 
+Italy. It consists of 279 individuals who were selected randomly.
 For each individual, the data set provides their age, gender, the results of a 
 routine blood screening, and a PCR test for Sars-CoV-2.
 A complete overview of the recorded variables is provided in Table 
@@ -13,7 +13,7 @@ swab. 0 indicates a negative test, while 1 indicates a positive test.
 The data set is slightly imbalanced towards positive cases, with 102 (37\%) 
 negative cases and 177 (63\%) positive cases.
 \\
-The data was cleaned and wrangled in order to properly analyze it.
+The data was cleaned and wrangled in order to analyze it properly.
 Since the variable \textit{Gender} 
 was provided as a string, it was transformed into two binary numerical 
 variables called \textit{female} and \textit{male} by one-hot encoding.
@@ -23,17 +23,17 @@ the values 0 and 1. This was sensible, seeing that there was no other
 data recorded from minors. Thus these two values can 
 be presumed to be input errors during the collection process.
 % add recasting Lymphocytes because of input error
-Further, the variable \textit{Lymphocytes} had to be recasted to a numeric 
+Further, the variable \textit{Lymphocytes} had to be recast to a numeric 
 format because there was an input error for one of its 
 values rendering the column's contents a string instead of a numerical 
 value. This process created one missing value in place of the erroneous value.
 \\
-Table \ref{tab:feature-dist} provides standard statistics for the numerical 
-features of the data set, specifically their measurement unit, mean, standard 
-deviation and median.
+Table \ref{tab:feature-dist} provides standard statistics for the data set's 
+numerical features, specifically their measurement unit, mean, standard 
+deviation, and median.
 % Rewrite this part, I think it's important but it does not sound good
-These standard statistics in combination with the kernel density plots 
-provided in Figure \ref{fig:density} show that all features are skewed 
+These standard statistics, combined with the kernel density plots 
+provided in Figure \ref{fig:density}, show that all features are skewed 
 relative to a (standard) normal distribution. Blood values are 
 skewed positively, exhibiting a right-tailed distribution because, for most 
 blood values, a lower or centered value is a sign of better health. Age 
@@ -48,7 +48,9 @@ normally distributed population. If the test's p-value is smaller than
 0.05, a commonly chosen $\alpha$ level, the null-hypothesis is rejected, 
 meaning the data is not normally distributed \cite{RN196}.
 The test results are provided in Table \ref{tab:shapiro-wilk} and show 
-that all of the variables are non-normally distributed.
+that all of the variables are non-normally distributed. This observation will 
+be important during the assesment of the imputation method, but is of no 
+concern during the model training process itself.
 \\
 % end with missing values since it's a good transition to MICE
 Table \ref{tab:nan-overview} shows that most features have missing values. 196 
@@ -65,8 +67,9 @@ short is an imputation method proposed by \citeauthor{RN135} \cite{RN135}; it
 is also known as \textit{fully conditional specification} (FCS).
 MICE is a method that imputes missing data by estimating a set of possible 
 values from distributions of observed data. Each variable with missing data 
-$x_n$ is regressed on all other variables $x_1, ..., x_n$ which are restricted 
-to the occurrences with observed data in $x_k$.
+$x_k$ is regressed on the set of all other variables $x_1,..., x_n$. This set 
+is restricted to occurrences where the incomplete variable $x_k$ has 
+observed values.
 MICE assumes that the data are missing at random (MAR). That is, the 
 probability 
 of missing data does not depend on the unobserved data but is only 
@@ -113,33 +116,32 @@ Forest \cite{RN127}.
 Here, I will reproduce the Random Forest, Logistic Regression, and Decision 
 Tree classifiers. The following section introduces them.
 \subsection{Decision Tree}
-Since Decision Trees are the basic building block of Random Forest and we will 
-use them during the validation it is necessary to take a closer look at them 
-\cite{RN163}. 
-Thereby the use of Random Forests will be motivated and we will gain some 
-insights into the workings of the Random Forest Classifier.
+Since Decision Trees are the basic building block of Random Forests it 
+is necessary to take a closer look at them \cite{RN163}. Consequently, the use 
+of Random Forests will be motivated. Moreover, a Decision Tree will be used 
+during the validation phase to make the Random Forest model more intuitive.
 A Decision Tree has a flowchart-like structure where each internal or decision 
 node tests an attribute. Each branch corresponds to one attribute value, and 
 each leaf node represents a classification. It is built up using the ID3 
 algorithm \cite{RN171}.
 \\
-ID3 tries to determine the best attribute of a given data set by the 
-distribution of its values. The best attribute is then used as a root of the 
+ID3 tries to determine the most informative attribute of a given data set by 
+the distribution of its values. This attribute is then used as a root of the 
 Decision Tree, and a branch is created for every value this attribute can take, 
 which also creates a subset of the data set that only has the attribute value 
 of the branch. This process is repeated for every branch with the remaining 
 subset of the training set until a leaf node is reached. \cite{RN165}
 \\
-ID3 can use many different measures to decide which is the best attribute. Two 
-of the most popular ones are Information Gain and the Gini Impurity.
+ID3 can use many different measures to decide which is the most informative 
+attribute. Two of the most popular ones are Information Gain and the Gini 
+Impurity.
 \\
-Information Gain uses the entropy measure to compute the impurity also known as 
-heterogeneity of an attribute. Entropy originates from information theory and 
-describes the average 
-information content of an attribute's possible outcome, it is calculated, as 
-shown in Equation \ref{eq:entropy} where S is a set of samples and C are the 
-possible outcome labels of the target variable. A high entropy represents a 
-high average 
+Information Gain uses the entropy measure to compute the impurity, also known 
+as an attribute's heterogeneity. Entropy originates from information 
+theory and describes the average information content of an attribute's possible 
+outcome. It is calculated, as shown in Equation \ref{eq:entropy}, where S is a 
+set of samples and C are the possible outcome labels of the target variable. A 
+high entropy represents a high average 
 information content in an attribute \cite{RN167}. Information Gain measures the 
 expected 
 reduction in entropy of a set S caused by learning the state of a random 
@@ -210,10 +212,10 @@ all individual Decision Tree models, reducing the variance of
 classification and avoiding overfitting \cite{RN166}.
 \subsection{Logistic Regression}
 Logistic Regression is a modification of linear regression that models the 
-probability $p(X)$ that a sample $X$ has the label 1. To do so, it uses a 
-special form of the sigmoid function called the logistic function where 
-$\mathbf{X}$ is a vector or matrix of samples and $\vec{\beta}$ is a vector of 
-the coefficients \cite{RN170, RN166}:
+probability $p(X)$ that a sample $X$ belongs to a specific category. To do so, 
+it uses a special form of the sigmoid function called the logistic function 
+where $\mathbf{X}$ is a vector or matrix of samples and $\vec{\beta}$ is a 
+vector of the coefficients \cite{RN170, RN166}:
 \begin{equation}
  p(\mathbf{X}) = \phi_{sig}(\mathbf{X}) = 
 \frac{e^{\mathbf{X}\vec{\beta}}}{1+e^{\mathbf{X}\vec{\beta}}} = 
@@ -227,7 +229,8 @@ After some manipulation, we can see
 \end{equation}
 The left-hand side of Equation \ref{eq:odds} is called odds. It can take a 
 value between 0 and $\infty$ indicating very low or very high probabilities 
-of having the label 1.
+of having a particular category, e.g. 0 for a negative case and 1 for a 
+positive case.
 After applying the logarithm to both sides of Equation \ref{eq:odds}, the 
 log-odds or logit is obtained (Equation \ref{eq:logit}), which is linear in X 
 \cite{RN174, RN166}.
@@ -240,14 +243,14 @@ they must be estimated on the
 available training data. The method that is used to achieve this is called 
 maximum likelihood estimation (MLE). MLE tries to find estimates for the 
 coefficients $\beta$ such that the estimated probability $\hat{p}(x_i)$ of 
-having label 1 for each individual is as close as possible to the individual's 
-observed label. In other words, MLE tries to find estimates for the 
-coefficients $\beta$ of the model $P(\mathbf{X})$ described in Equation 
+having a paricular category for each individual is as close as possible to 
+the individual's observed category. In other words, MLE tries to find estimates 
+for the coefficients $\beta$ of the model $P(\mathbf{X})$ described in Equation 
 \ref{eq:lf} such that the resulting probability is close to one if the 
-individual's observed label is 1 and close to zero if the individual's label is 
-0. This can be formalized as a likelihood function as shown in Equation 
-\ref{eq:likelihood}. The estimates for $\beta$ are then chosen to maximize the 
-likelihood function \cite{RN166}.
+individual's observed category is a positive case and close to zero if the 
+individual's label is a negative case. This can be formalized as a likelihood 
+function as shown in Equation \ref{eq:likelihood}. The estimates for $\beta$ 
+are then chosen to maximize the likelihood function \cite{RN166}.
 \begin{equation}
  L(\vec{\beta}|\vec{y}, \mathbf{X}) = \prod_{i} p(x_i)^{y_i} 
 (1-p(x_i))^{(1-y_i)}
@@ -359,17 +362,18 @@ sensitivity and specificity \cite{RN167, RN127}.
  balanced \ accuracy = \frac{\frac{TP}{TP+FN}\frac{TN}{TN+FP}}{2}
  \label{eq:balanced_acc}
 \end{equation}
-Sensitivity is interpreted as the proportion of people infected with a disease 
-who will test positive for this disease. It is calculated as shown in Equation 
-\ref{eq:sensitivity}. Since it is only calculated using the part of the 
-population with the disease, sensitivity can only give evidence about the true 
-positive rate and not the test's false positive rate \cite{RN168}.
+In the context of this data set, sensitivity is interpreted as the proportion 
+of people infected with a disease who will test positive for this disease. It 
+is calculated as shown in Equation \ref{eq:sensitivity}. Since it is only 
+calculated using the part of the population with the disease, sensitivity can 
+only give evidence about the true positive rate and not the test's false 
+positive rate \cite{RN168}.
 \begin{equation}
  sensitivity = \frac{TP}{TP+FN}
  \label{eq:sensitivity}
 \end{equation}
-Specificity is defined as the proportion of people without the disease that are 
-identified correctly, i.e., who tested negative for the disease. It is 
+Specificity can be defined as the proportion of people without the disease that 
+are identified correctly, i.e., who tested negative for the disease. It is 
 calculated as shown in Equation \ref{eq:specificity}. Specificity only gives 
 information about the proportion of people without the disease and a negative 
 test and cannot disclose anything about the false negative 
@@ -378,10 +382,10 @@ rate \cite{RN168}.
  specificity = \frac{TN}{TN+FP}
  \label{eq:specificity}
 \end{equation}
-The positive predictive value (PPV) measures the post-test probability of the 
-disease given a positive test. It, therefore, refers to the probability that a 
-subject with a positive test has indeed the disease. It is calculated as shown 
-in Equation \ref{eq:ppv} \cite{RN168}.
+In a medical setting, the positive predictive value (PPV) measures the 
+post-test probability of the disease given a positive test. It, therefore, 
+refers to the probability that a subject with a positive test has indeed the 
+disease. It is calculated as shown in Equation \ref{eq:ppv} \cite{RN168}.
 \begin{equation}
  PPV = \frac{TP}{TP+FP}
  \label{eq:ppv}
