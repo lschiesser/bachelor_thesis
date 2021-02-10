@@ -49,13 +49,12 @@ normally distributed population. If the test's p-value is smaller than
 meaning the data is not normally distributed \cite{RN196}.
 The test results are provided in Table \ref{tab:shapiro-wilk} and show 
 that all of the variables are non-normally distributed. This observation will 
-be important during the assesment of the imputation method, but is of no 
-concern during the model training process itself.
+be important during the assessment of the imputation method.
 \\
 % end with missing values since it's a good transition to MICE
 Table \ref{tab:nan-overview} shows that most features have missing values. 196 
 samples have at least one feature missing, which amounts to 70\% of the data. 
-Due to the small data set size, it is not feasible to exclude these 
+Due to the data set's small size, it is not feasible to exclude these 
 individuals from the analysis process. It is rather more constructive to use an 
 imputation method that models the missing values based on the data set's 
 observed values. Therefore, \citeauthor{RN127} chose to use 
@@ -81,14 +80,14 @@ The imputation process is based on the following four main steps \cite{RN142,
 RN141}: Firstly, all missing values are imputed using a simple imputation 
 method (e.g., mean imputation). These imputations can be thought of as ``place 
 holders'' used during the first modeling phase. During step 2, the ``place 
-holder'' imputations for one variable \textit{x} are set back to missing. In 
-step 3, all observed values from variable \textit{x} in step 2 are regressed on 
+holder'' imputations for one variable $x_k$ are set back to missing. In 
+step 3, all observed values from variable $x_k$ in step 2 are regressed on 
 the imputations model's other variables. Since this is the model building 
-phase, this step only uses samples where \textit{x} has observed values. 
-Therefore, \textit{x} is the dependent variable, and all other variables are 
+phase, this step only uses samples where $x_k$ has observed values. 
+Therefore, $x_k$ is the dependent variable, and all other variables are 
 independent variables used in the regression model. In step 4, the missing 
-values in \textit{x} are replaced with imputations (predictions) from the 
-regression model built in step 3. All values of \textit{x}, the observed and the 
+values in $x_k$ are replaced with imputations (predictions) from the 
+regression model built in step 3. All values of $x_k$, the observed and the 
 imputed values, are then used in subsequent regression models of other 
 variables.
 \\
@@ -125,12 +124,12 @@ node tests an attribute. Each branch corresponds to one attribute value, and
 each leaf node represents a classification. It is built up using the ID3 
 algorithm \cite{RN171}.
 \\
-ID3 tries to determine the most informative attribute of a given data set by 
+ID3 tries to determine the most informative attribute of a given data set given 
 the distribution of its values. This attribute is then used as a root of the 
 Decision Tree, and a branch is created for every value this attribute can take, 
 which also creates a subset of the data set that only has the attribute value 
 of the branch. This process is repeated for every branch with the remaining 
-subset of the training set until a leaf node is reached. \cite{RN165}
+subset of the training set until a leaf node is reached \cite{RN165}.
 \\
 ID3 can use many different measures to decide which is the most informative 
 attribute. Two of the most popular ones are Information Gain and the Gini 
@@ -143,13 +142,12 @@ outcome. It is calculated, as shown in Equation \ref{eq:entropy}, where S is a
 set of samples and C are the possible outcome labels of the target variable. A 
 high entropy represents a high average 
 information content in an attribute \cite{RN167}. Information Gain measures the 
-expected 
-reduction in entropy of a set S caused by learning the state of a random 
-attribute A.  It is calculated, as shown in Equation \ref{eq:gain}, and can be 
-described as the difference between the entropy of a set S and the 
+expected reduction in entropy of a set S caused by learning the state of a 
+random attribute A.  It is calculated, as shown in Equation \ref{eq:gain}, and 
+can be described as the difference between the entropy of a set S and the 
 weighted average of the child entropies $E(S_v)$ where $S_v$ is a subset of S 
 where the attribute A has the value v. This is computed for all remaining 
-attributes, the attribute that maximizes the differences is then selected as a 
+attributes, the attribute that maximizes Information Gain is then selected as a 
 new node \cite{RN165}.
 \begin{equation}
  E(S) = \sum_{i=1}^C -p(i) \ log_2(p(i))
@@ -162,9 +160,9 @@ new node \cite{RN165}.
 \\
 The Gini Impurity or Gini index measures the impurity in a set S that is the 
 probability of incorrect classification of a random sample. It is calculated 
-as shown in Equation \ref{eq:gini_impurity}. The measure on which the algorithm 
-bases its decision which attribute to select as a node is called the Gini 
-gain. It is calculated as shown in Equation \ref{eq:gini_gain} and can be 
+as shown in Equation \ref{eq:gini_impurity}. The measure, which the algorithm 
+uses to determine which attribute is chosen as a node, is called the Gini gain. 
+It is calculated as shown in Equation \ref{eq:gini_gain} and can be 
 described as the average Gini Impurity. The attribute with the lowest value is 
 selected for the Gini gain since we want to minimize the attributes' incorrect 
 classification \cite{RN171}.
@@ -316,9 +314,10 @@ procedure and since it is able to handle non-normally distributed data. To
 visualize the results, the libraries seaborn and matplotlib are used.
 
 \section{Evaluation Metrics}
-The following terms will be used in the equations to describe the evaluation 
-metrics: True Positive, False Positive, False Negative, and 
-True Negative. They are further characterized in Table 
+This section introduces and defines the metrics used to evaluate and 
+validate the classifiers. To do so, the following terms will be used in the 
+equations to describe them: True Positive, False Positive, 
+False Negative, and True Negative. They are further characterized in Table 
 \ref{tab:confusion-matrix}. 
 \begin{table}[h]
 \centering
@@ -421,10 +420,10 @@ A large AUC value indicates a better model performance. As a rule of thumb, an
 AUC over 0.7 indicates a strong predictive model, and an AUC below 0.6 
 indicates 
 a weak model. AUC and ROC both are quite robust against imbalanced data, but 
-other non-single-threshold metrics can be used in this case as 
+other threshold-free metrics can be used in this case as 
 well \cite{RN167, RN159}.
 \par
-The Precision-Recall curve (PRC) is another non-single-threshold metric that is 
+The Precision-Recall curve (PRC) is another threshold-free metric that is 
 especially useful when dealing with an imbalanced data set. It calculates the 
 precision and recall values for each feasible threshold. The 
 resulting values are then plotted with precision, also called positive 
