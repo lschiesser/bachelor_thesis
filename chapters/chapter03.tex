@@ -17,13 +17,13 @@ Regression, the confidence interval of the average accuracy is [0.72, 0.77] and
 of the average balanced accuracy is [0.68, 0,72]. Since the confidence 
 intervals of the accuracy and balanced accuracy for both classifiers overlap or 
 are near each other, it can be assumed that the slight imbalance of the data 
-set had no significant effect on the classifier and that the classifier 
+set had no significant effect on the classifiers and that the classifiers 
 therefore 
-is not biased against the outcomes of the target variable. All evaluation 
+are not biased against the outcomes of the target variable. All evaluation 
 metrics for each fold and imputed data set are provided in Table 
 \ref{tab:storage}.
 \par
-The best models where selected by searching for the model with the most numbers 
+The best models were selected by searching for the model with the most numbers 
 of highest evaluation measures. The best Random Forest Classifier used 
 maximally 
 4 features, 500 estimators and Gini impurity, it achieved an accuracy of 87.5\% 
@@ -46,7 +46,7 @@ set used to train during the validation phase is different from the one used
 during the evaluation phase due to the way MICE imputes missing data.
 All single-threshold metrics are provided in Table \ref{tab:validation-metrics}.
 % everything below this needs work
-The two multi-threshold metrics, ROC and PRC curve, are shown in Figure 
+The two threshold-free metrics, ROC and PRC curve, are shown in Figure 
 \ref{fig:prc-roc}. Both plots show that the classifiers perform better than the 
 reference line. The values for the area under the ROC and under the PRC curve 
 suggest that Logistic Regression (AUC: 80.8\%, AUC (PRC): 85.5\%) performs 
@@ -66,15 +66,15 @@ these low metrics, the Decision Tree can still be used as an aid to
 help clinicians make quick decisions and to interpret the result of the Random 
 Forest.
 \par
-Figure \ref{fig:feature-importance} shows all feature importance plots for the 
+Figure \ref{fig:feature-importance} shows the feature importance plots for the 
 three classifiers. The feature importance for Decision Tree and Random Forest 
-were obtained using the sklearn implementation. The implementation calculates 
+was obtained using the sklearn implementation. The implementation calculates 
 the feature importance by quantifying the mean decrease in impurity. 
 It should be noted that impurity-based feature importance can suffer 
 from favoring features with a high number of unique values as well as making 
 predictions based on statistics derived from the training set. This method is 
 therefore not necessarily informative about whether a feature makes for a 
-good prediction or not.\cite{RN178}
+good prediction or not \cite{RN178}.
 For Logistic Regression, the feature importance is inferred by looking at the 
 coefficients of each feature in the data set. A positive coefficient can be 
 interpreted as contributing to a positive (1) result and a negative coefficient 
@@ -100,14 +100,16 @@ for Logistic Regression. Since there is no information about individual values
 during the nested cross validation and it is also not reported how the authors 
 computed the 95\% confidence intervals, it can be difficult to compare them. 
 Nevertheless, the overlap of the intervals suggests that the classifiers can be 
-compared to a certain degree. Unfortunately, there is no more information about 
-further evaluation metrics.
+compared to a certain degree. Since the confidence interval of the replication 
+is in the confidence interval of the original, the performance of the 
+classifiers during the cross-validation can be compared. Unfortunately, there 
+is no more information about further evaluation metrics.
 \\
 The validation metrics of the retrained classifiers show a lower performance 
 than the classifiers in the original paper. The differences between the Random 
 Forest and Logistic Regression are however similar to the ones in the original 
 paper. In this replication, the single-threshold metrics are higher for the 
-Random Forest and the multi-threshold metrics are higher for the Logistic 
+Random Forest and the threshold-free metrics are higher for the Logistic 
 Regression reflecting a behavior similar to that in the original paper. The 
 ROC curve for both classifiers exhibits a similar course as in the original 
 except that the curves in the original rise higher in the beginning due to 
@@ -115,4 +117,4 @@ their higher discriminative power. Seeing that the precision-recall curve only
 plots the performance of the Random Forest, we can only compare these results. 
 The replication and the original differ greatly in this plot, but still 
 exhibiting a similar course at some points, e.g., the sharp drop between 
-sensitivity = [0.0, 0.2]. 
+sensitivity [0.0, 0.2]. 
