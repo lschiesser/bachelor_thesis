@@ -1,25 +1,26 @@
 \section{Discussion of Results}
-Although the classifiers perform worse than the ones in the original paper, 
+Although the classifiers perform worse than those in the original paper, 
 most recorded metrics still certify them a good discriminative performance.
 With a sensitivity of 90\% for both models and accuracy values between 73\% and 
-76\%, the classifiers can still serve as supplementary decision tools to help 
+76\%, the classifiers can still serve as additional decision tools to help 
 physicians make decisions about allocating testing based on their predictions 
 and other indicators. 
 A high sensitivity is preferable in this scenario since it makes a negative test 
 result more meaningful than a positive result. A test with high sensitivity 
-rarely misdiagnoses patients who have the disease and thereby is a good tool to 
-rule out the disease. This is preferable because we want to sort out the 
-patients that are not infected and only include those where we are sure or not 
-certain of they contracted the disease \cite{RN168}.
-Further, the AUC and AUC (PRC) values which are over 80\% 
-for both classifiers indicate that they are indeed strong classifiers 
+rarely misdiagnoses patients who have the disease and thereby is a useful tool 
+to rule out the disease. This is preferable because we want to sort out the 
+patients who are not infected and only include those where we are sure or not 
+certain if they contracted the disease \cite{RN168}.
+Further, the AUC and AUC (PRC) values, which are over 80\% 
+for both classifiers, indicate that they are indeed effective classifiers 
 \cite{RN167}.
 Due to the slight imbalance of the data set, it is  favorable to examine the 
-classifiers regarding this potential source of bias. If there was a significant 
-difference between the accuracy and the balanced accuracy for a classifier, it 
+classifiers regarding this potential source of bias. If there were a 
+significant difference between the accuracy and the balanced accuracy for a 
+classifier, it 
 would entail a bias against one of the target outcomes. This is not the case 
-for both classifiers. Moreover, the high values of the AUC (PRC) suggest that 
-the classifiers are not significantly affected by the imbalance of the data.
+for both classifiers. Moreover, the high AUC (PRC) values suggest that 
+the classifiers are not significantly affected by the data's imbalance.
 The metrics can also make statements about an infection event and the 
 expressiveness of the classifiers. The high sensitivity signals that 90\% of 
 patients with the disease will get a positive test result and will be correctly 
@@ -28,97 +29,98 @@ While the specificity is comparatively low, it does not necessarily pose a
 problem. A low specificity in combination with a high sensitivity indicates a 
 higher false positive rate than a high false negative rate \cite{RN168}.
 % rephrase this sentences, it is super weird
-Therefore, if the result of the classifier is negative, it will be safe to 
-assume that a PCR test for COVID-19 will also be negative and thus the patient 
+Therefore, if the classifier's result is negative, it will be safe to 
+assume that a PCR test for COVID-19 will also be negative, and thus the patient 
 will not have the disease.
 This is more desirable because it is better to be over cautious and recommend 
 more tests.
 % maybe add PPV part from Schreibplan
 \par
 % this sentence sould be rewritten
-Since the question regarding the relevance of the classifier has been 
-clarified, this paragraph deals with the internal classification reasoning of 
-the classifiers and their accordance with findings from medical studies.
+Since the question regarding the classifiers' relevance has been 
+clarified, this paragraph deals with the classifiers' internal classification 
+reasoning and their accordance with findings from medical studies.
 When inspecting the feature importance plots for the tree-based classifiers, 
 both plots (Figure \ref{fig:rf_importance} and \ref{fig:dt_importance}) show 
-that the AST, WBC, CRP and lymphocyte counts are among the five most important 
+that the AST, WBC, CRP, and lymphocyte counts are among the five most important 
 features.
 % this sentence is also shit
 The fifth most important feature is the LDH count for the Random Forest and the 
 age variable for the Decision Tree. For the Logistic Regression (Figure 
-\ref{fig:lr_importance}), the eosinophil, WBC, basophil, lymphocyte counts and 
+\ref{fig:lr_importance}), the eosinophil, WBC, basophil, lymphocyte counts, and 
 both gender variables are the most important features. All feature importance 
 measures have the WBC and lymphocyte count in common. Multiple studies also show 
 that these two blood values are significant indicators for a COVID-19 infection. 
 The WBC or white blood cell count refers to the actual number of white blood 
-cells per volume of blood while the lymphocytes are a subgroup of white blood 
+cells per volume of blood, while the lymphocytes are a subgroup of white blood 
 cells 
-involved in eliciting a immune response to foreign agents \cite{RN137, RN188}. 
+involved in eliciting an immune response to foreign agents \cite{RN137, RN188}. 
 During an infection with Sars-CoV-2, the WBC and lymphocyte counts will 
 decrease since this is a sign of a viral infection and the body's response to 
 it \cite{RN162,RN186, RN185}.
 AST or aspartate aminotransferase, the most important feature in the tree-based 
-methods, is an enzyme mainly found in heart and liver, its levels increase when 
+methods, is an enzyme mainly found in the heart and liver; its levels increase 
+when 
 the muscles of these organs are injured \cite{RN189, RN188}. This is also the 
 case during a COVID-19 infection since the virus attacks not only the upper 
-respiratory tracts but the whole body including the liver and 
+respiratory tracts but the whole body, including the liver and 
 heart \cite{RN182}. CRP or C-reactive protein is another substance found during 
 a COVID-19 infection. It is produced in the liver and is discharged after 
-tissue damage, the start of an infection or other inflammatory causes. 
+tissue damage, the start of an infection, or other inflammatory causes. 
 Increased volumes of this protein are often the first indication of an 
 infection or inflammation in the body \cite{RN138, RN188}. Elevated levels of 
 this protein can also be observed during a COVID-19 infection since it is an 
-infection which primarily targets lung tissue \cite{RN187, RN162}. LDH or 
+infection that primarily targets lung tissue \cite{RN187, RN162}. LDH or 
 lactate 
-dehydrogenase is an enzyme involved in metabolic cycles for energy production, 
-it is present in almost all cells in the body especially in the heart, 
-liver, lungs, kidneys, muscles and blood cells. An increase in LDH can indicate 
-acute kidney or liver disease, hypoxia, or heart and lung 
+dehydrogenase is an enzyme involved in metabolic cycles for energy production. 
+It is present in almost all cells in the body, especially in the heart, 
+liver, lungs, kidneys, muscles, and blood cells. An increase in LDH can 
+indicate acute kidney or liver disease, hypoxia, or heart and lung 
 infarction \cite{RN190, RN188}. According to \cite{RN162, RN187}, a blood test 
 reveals elevated levels of LDH because Sars-CoV-2 primarily attacks the upper 
-respiratory tracts which leads to lung damage and the discharge of LDH into the 
-blood stream. Age as the fourth important feature in the Decision Tree can also 
-be a predictor for a positive result. \citeauthor{RN193} \cite{RN193} 
+respiratory tracts, which leads to lung damage and the discharge of LDH into 
+the bloodstream. Age as the fourth important feature in the Decision Tree can 
+also be a predictor for a positive result. \citeauthor{RN193} \cite{RN193} 
 determine that individuals 
 older than 70 years are more susceptible to a severe course of the disease or 
-even death. Further, the study revealed a higher risk for male individuals 
-which is one of the most important features in Logistic Regression.
+even death. Further, the study revealed a higher risk for male individuals, 
+one of the most important features in Logistic Regression.
 For eosinophils and basophils, \cite{RN162, RN185} reveal a significant 
-decrease for patients with a positive test result. But \cite{RN162} notes that 
-these differences might not have any clinical implication during diagnosis since 
-the count in healthy individuals is also rather low and exhibits a large 
+decrease for patients with a positive test result. However, \cite{RN162} notes 
+that these differences might not have any clinical implication during diagnosis 
+since the count in healthy individuals is also rather low and exhibits a large 
 variability.
 % rewrite this
-In conclusion, the comparison of the most important features of every 
-classifier with the findings from medical research reveals that the models use 
+In conclusion, the comparison of every classifier's most important features 
+with the findings from medical research reveals that the models use 
 features that medical research deemed as significant to identify patients with 
 COVID-19. Thereby, they can be considered valid regarding their reasoning and 
 classification in a theoretical or laboratory setting.
 \par
 % Real-world validation
 The two paragraphs above certify the models' statistical and theoretical 
-validity, but they lack prove that these models will also benefit medical 
+validity, but they lack evidence that these models will also benefit medical 
 personnel in the real world. Relational and ecological validity inspect how a 
 model impacts the clinical workflow and the overall social environment. 
 Specifically, relational validity refers to which extent different user groups, 
 e.g., medical workers or patients, can relate to the model, i.e., how much they 
-trust the predictions of the model \cite{RN151}. Users can either under-rely on 
-the model ignoring all the predictions presented to them, or over-rely on the 
+trust the model's predictions \cite{RN151}. Users can either under-rely on 
+the model, ignoring all the predictions presented to them, or over-rely on the 
 model accepting all predictions without questioning them. The former is 
-disadvantageous because in this case the model would not have any benefit in a 
-clinical setting. The latter could be seen as detrimental as this can lead to 
-biased decision making or automation bias which could affect patients 
+disadvantageous because, in this case, the model would not have any benefit in 
+a clinical setting. The latter could be seen as detrimental as this can lead to 
+biased decision making or automation bias, affecting patients 
 negatively \cite{RN151, RN152}.
-Ecological validity investigates the impact of the technology further 
-scrutinizing the intersection of the clinical and social settings a model is 
-deployed in. A simple way to assess this type of validity is to compare 
+Ecological validity investigates the impact of the technology, further 
+scrutinizing the intersection of the clinical and social settings in which a 
+model is deployed. A simple way to assess this type of validity is to compare 
 performance-, outcome- and practice-oriented measures of different medical 
 teams utilizing the model and relying on traditional technology in the same 
 setting \cite{RN152}. Moreover, relational validity also assesses the 
-sustainability of a model by continuously examining the effect of the model 
-over time. As \citeauthor{RN198} \cite{RN198} note ``unlike a drug or device, 
+sustainability of a model by continuously examining the model's effect 
+over time. As \citeauthor{RN198} \cite{RN198} note, ``unlike a drug or device, 
 algorithms are not static products [as] their inputs […] can change with 
-context''. Accordingly, AI models should be assessed periodically examining 
+context''. Accordingly, AI models should be assessed periodically, examining 
 if they continue to provide net benefits comparable to earlier times 
 \cite{RN152}.
 \section{Discussion of Methods}
@@ -127,7 +129,7 @@ The discussion of the methods is mainly focused on the imputation method MICE
 since it is a fairly new technique and is not commonly used to impute missing 
 values.
 \\
-In order to assess the imputation procedure, this section will look at which 
+To assess the imputation procedure, this section will look at which 
 method the imputation model used to impute the missing values and how the 
 imputations compare to the original (non-imputed) data. The \code{mice()} 
 package in R provides functions to inspect the imputation model used after the 
@@ -137,120 +139,121 @@ utilize a different model type to impute the missing values. In our case, the
 imputation method used the same model type for all variables as a consequence 
 of the non-normality of the data called \textit{Predictive Mean Matching} (PMM).
 PMM imputes missing values by using a small subset of complete observations 
-called the donor pool. The donor pool contains 3 to 10 donor candidates which 
-exhibit the same or similar predicted values compared to the predicted value of 
-the missing entry. One donor is randomly selected from the candidates, and the
-observed value of the donor is then used to replace the missing value 
+called the donor pool. The donor pool contains three to ten donor candidates 
+that exhibit the same or similar predicted values compared to the missing 
+entry's predicted value. One donor is randomly selected from the candidates, 
+and the observed value of the donor is then used to replace the missing value 
 \cite{RN144, RN145, RN146}. It is usually used to model data where the 
-assumptions of normality and homoscedasticity are in questions, as is the case 
+assumptions of normality and homoscedasticity are in question, as is the case 
 for the data used in this thesis \cite{RN146}.
 \\
-The imputations of the model can be assessed by generating summary statistics 
-for the observed and the imputed values separately as well as jointly for each 
+The model's imputations can be assessed by generating summary statistics 
+for the observed and the imputed values separately and jointly for each 
 variable.
 Especially comparing the differences in mean and standard deviation 
 between the observed and imputed values of each variable can help identify 
 variables of concern \cite{RN141}. When comparing the mean of the observed data 
 with the mean of all samples of the imputed sets, most variables exhibit 
-similar values for the summary statistics. Only ALP, GGT, LDH and Neutrophils 
+similar values for the summary statistics. Only ALP, GGT, LDH, and Neutrophils 
 exhibit apparent deviations from the observed data. It should be pointed out 
 that most deviations are not significant.
-When comparing the summary statistics of the observed data and only the imputed 
-values for each data set, there are obvious deviations in every variable. 
+When comparing the observed data's summary statistics and only the imputed 
+values for each data set, there are apparent deviations in every variable. 
 However, it should be noted that with 70\% of samples missing at least one 
 feature, it is hard to compare the statistics of the observed values with the 
-imputed ones. Especially, since 117 of the 196 missing samples have a negative 
+imputed ones. Especially since 117 of the 196 missing samples have a negative 
 test result, which amounts to almost 60\% of the missing samples and 42\% of 
 all samples, and only 79 of the missing samples have a negative test result. 
 This imbalance is also reflected in the samples where all features are present. 
-Of 83 complete samples only 23 samples have a negative test result and 60 have 
+Of 83 complete samples, only 23 samples have a negative test result, and 60 
+have 
 a positive result. Although the target variable was not available to the 
-imputation model at the time of imputation, the characteristics of the target 
+imputation model at the time of imputation, the target's characteristics 
 should have transpired in the data.
 % this should definitley be reviewed
-Since MICE operates on the characteristics of the data, this imbalance could be 
+Since MICE operates on the data's characteristics, this imbalance could be 
 reflected in the imputation model as well. As 
-reported in the section above the values for lymphocytes, eosinophils and 
-basophils are decreased in patients infected with COVID-19 and therefore also 
+reported in the section above, the values for lymphocytes, eosinophils and 
+basophils decrease in patients infected with COVID-19 and therefore also 
 have a positive test result \cite{RN162, RN181}. Inspecting the summary 
 statistics of the 
-imputed sets with this in mind, makes the lower mean and standard deviation 
+imputed sets with this in mind makes the lower mean and standard deviation 
 more sensible.
 It should also be noted that ALP and GGT have the highest missing value 
-proportion. Since MICE has less data to base its imputations on, it can be 
+proportion. Since MICE has fewer data to base its imputations on, it can be 
 expected that the imputation exhibit apparent deviations from the observed 
 values. MICE also accounts for the uncertainty during the imputation process, 
-meaning a higher number of missing values represents a higher uncertainty and 
-therefore the imputation model is not able to make as educated guesses as for 
+meaning a higher number of missing values represents a higher uncertainty. 
+Therefore the imputation model cannot make as educated guesses as for 
 other variables with more observed data \cite{RN141, RN142}.
 \\
-In conclusion, it is very hard to make statements about the goodness of the 
+In conclusion, it is tough to make statements about the goodness of the 
 imputation model. Most imputed sets do not exhibit drastic deviations from the 
-observed set of observations and for those variables that show apparent 
-deviations it can be ascribed to an imbalance when looking at the samples with 
-missing values. Further, there is no standard procedure to assess the 
-imputations produced by MICE and can therefore be very subjective. Intuitively, 
-the imputations still seem like a fairly good approximation of the data and are 
-therefore appropriate to use during the training of the models.
+observed set of observations. Those variables that show apparent 
+deviations can be ascribed to an imbalance when looking at the samples with 
+missing values. Further, there is no standard procedure to assess MICE's 
+imputations and can therefore be very subjective. Intuitively, 
+the imputations still seem like a rasonably good approximation of the data and 
+are 
+therefore appropriate to use during the models' training.
 For further research, I would nonetheless recommend using another method to 
 impute missing values that is more commonly used and has a theoretical basis. 
 For example, \citeauthor{RN127} use K-nearest neighbor imputation in a 
-subsequent study \cite{RN179} which uses a larger data set than the one in 
-\cite{RN127}.
+subsequent study \cite{RN179}, which uses a more extensive data set than the 
+one in \cite{RN127}.
 \\
 The implementation of MICE used to impute the missing values is the R package 
-\code{mice()} since the sklearn implementation was not able to impute 
-non-normal data correctly, at the time. The R implementation, 
-though much better suited, has its own limitation. Namely, it is not able to 
-apply the imputation model to other data but only the data it is fitted on. 
-Usually, when using any form of cross-validation the data is split into 
+\code{mice()} since the sklearn implementation could not impute 
+non-normal data correctly at the time. The R implementation, 
+though much better suited, has its own limitation. Namely, it cannot 
+apply the imputation model to other data but only the data it is fitted. 
+Usually, when using cross-validation the data is split into 
 training and testing data before the imputation is done. The imputation method 
-is then trained on the training data and the trained imputation model is 
-applied to the training as well as the testing data. Using this process, the 
+is then trained on the training data, and the trained imputation model is 
+applied to the training and the testing data. Using this process, the 
 risk of data leakage is lowered.
 % better description of data leakage
 Data leakage is a term in machine learning 
-that describes the contamination of a model with information from outside the 
+that describes a model's contamination with information from outside the 
 training data where the model could learn something that it otherwise could not 
 \cite{RN199}.
 In the context of this thesis, data leakage could take place during the 
-imputation process. Due to the limitation of the R implementation the whole 
+imputation process. Due to the limitation of the R implementation, the whole 
 data set is used to fit the imputation model because it is not possible to 
-apply the model to different data sets. Therefore, characteristics from the 
-test data are used to build the imputation for the training data and vice 
+apply the model to different data sets. Therefore, test data's characteristics 
+are used to build the imputation for the training data and vice 
 versa. However, the data is split into training and test data after the 
 imputation, consequently lowering the risk of leakage. Moreover, it could be 
 argued that it is not necessarily data leakage as no test data is used to train 
 the classifier themselves but only to perform the imputation.
 Even if it had been possible to fit the imputation model only on the training 
 data and apply it to both the training and test data, the appropriateness would 
-have been questionable. As MICE is built on the facets of the data, applying 
+have been questionable. As MICE is built on the data's facets, applying 
 the imputation model based on the training data to test data could lead to 
 false or unreliable imputations since the training data does not necessarily 
 carry the characteristics of the test data. Hence, training the imputation 
 model on the whole data set could be advantageous as it would encompass the 
-characteristics of the whole data set. Additionally, training MICE on a very 
-small sample size cannot account for the complex relationships between the 
+whole data set's characteristics. Additionally, training MICE on an inadequate 
+sample size cannot account for the complex relationships between the 
 features due to the reduced variability and increased sparseness of the data 
 set.
 Regardless of the implementation, MICE is also not a commonly used imputation 
-method. Thus, there are currently no guidelines or procedures to identify a 
-good 
-imputations. Further, MICE lacks a theoretical basis since fitting a series of 
-conditional probabilities may not be consistent with a proper joint 
-distribution 
-\cite{RN141}. The method relies on empirical studies rather than a theoretical 
-basis to justify its procedure. In practice, however, this may not be a large 
-issue, but further research is needed here. Despite these shortcomings, MICE 
-provides a great advantage over other missing data techniques in terms of 
-flexibility regarding variable type and number of variables to impute 
+method. Thus, there are currently no guidelines or procedures to identify 
+good imputations. Further, MICE lacks a theoretical basis since fitting a 
+series of conditional probabilities may not be consistent with a proper joint 
+distribution \cite{RN141}. The method relies on empirical studies rather than a 
+theoretical basis to justify its procedure. However, this may not be a large 
+issue in practice, but further research is needed here. Despite these 
+shortcomings, MICE 
+provides a great advantage over other missing data techniques regarding 
+flexibility regarding variable type and the number of variables to impute 
 \cite{RN141, RN142}. After all, MICE should be used where traditional 
-imputation methods face their limits due to small sample size and where the 
+imputation methods face their limits due to the small sample size and where the 
 characteristics of the variables and their relations are still recognizable.
 \par
 % rewrite transition
-Another explanation for the differing results of this re-implementation is the 
-way the authors provided information on their implementation of the model 
+Another explanation for the differing results of this re-implementation is how 
+the authors provided information on their implementation of the model 
 training and selection process. Namely, they did not provide detailed 
 information about which hyperparameters were tuned during cross-validation nor 
 their ranges. Further, the structure of the cross-validation process was not 
@@ -258,10 +261,10 @@ clear at all times.
 \\
 Moreover, \citeauthor{RN127} do not report all evaluation metrics used to 
 determine the best classifiers. They only report 95\% confidence intervals for 
-the average accuracy and balanced accuracy as well as point references for the 
+the average accuracy and balanced accuracy and point references for the 
 classifiers they deemed as best performing. There was no further information 
 on other evaluation metrics like sensitivity or AUC. Additionally, the authors 
-did only provide the configuration for one of the best performing models, 
+only provided the configuration for one of the best performing models, 
 namely the Random Forest. Unfortunately, this did not inform about the ranges 
 for each hyperparameter used during Grid Search.
 Nevertheless, the authors did provide their data and a description of each 
@@ -281,26 +284,27 @@ sensitivity and an accuracy above 70\% for both classifiers.
 Further, a Decision Tree model was built to give a graphical representation of 
 a possible classification reasoning.
 %-----
-A comparison with findings from medical research revealed that features 
+A comparison with medical research findings revealed that features 
 identified as most important by the classifiers were also deemed pivotal in 
-diagnosing COVID-19. Thereby, confirming the patterns found by the classifiers 
-and certifying them a theoretical validity.
+diagnosing COVID-19. They are thereby confirming the patterns found by the 
+classifiers and certifying them a theoretical validity.
 This implementation used Multiple Imputation using Chained Equations to impute 
 the missing values. This method was used due to the small sample size of 279 
-individuals and the proportionally high rate of samples with at least one 
+individuals and the proportionally high samples with at least one 
 missing value. Though MICE lacks a theoretical basis and justifies its 
-procedure with experimental studies, it provides great advantages especially 
-where sample size is too small for more conventional and theoretically 
+procedure with experimental studies, it provides great advantages, especially 
+where the sample size is too small for more conventional and theoretically 
 justified imputation methods and where the variables differ in terms of their 
 type and distribution.
 Seeing that the replicated paper was a feasibility study investigating if it is 
 possible to predict a PCR test result from a range of blood values, further 
 research should be done on this topic. For instance, \citeauthor{RN127} did a 
-follow-up study using a data set comprising more samples, more blood values and 
-symptomatic observations at the time of triage or admittance to a hospital 
+follow-up study using a data set comprising more samples, more blood values, 
+and symptomatic observations at the time of triage or admittance to a hospital 
 \cite{RN179}.
-Importantly, it should always be brought to attention that these kind of models 
-should never replace the actual medical test. They should be seen as a valuable 
-though non-conclusive tool to detect patients with a certain disease earlier 
+Importantly, it should always be brought to attention that these 
+models should never replace the actual medical test. They should be seen as a 
+valuable 
+though non-conclusive tool to detect patients with a particular disease earlier 
 and better, resulting in improved management of these patients while awaiting 
 confirmation by the medical test.
