@@ -3,9 +3,9 @@ The data used to train the classifiers was provided by
 \citeauthor{RN127} \cite{RN127}. 
 It was collected between the end of February 2020 and mid of March 2020 from 
 patients admitted to the \textit{IRCSS Ospedale San Raffaele} in Milan, 
-Italy. It consists of 279 individuals who were selected randomly.
+Italy. It consists data from 279 individuals who were selected randomly.
 For each individual, the data set provides their age, gender, the results of a 
-routine blood screening, and a PCR test for Sars-CoV-2.
+routine blood screening and a PCR test for Sars-CoV-2.
 A complete overview of the recorded variables is provided in Table 
 \ref{tab:overview-features}. The target variable \textit{Swab} is binary and 
 indicates the result of a PCR-test for Sars-CoV-2 taken by a nasopharyngeal 
@@ -13,13 +13,13 @@ swab. 0 indicates a negative test, while 1 indicates a positive test.
 The data set is slightly imbalanced towards positive cases, with 102 (37\%) 
 negative cases and 177 (63\%) positive cases.
 \\
-The data was cleaned and wrangled in order to analyze it properly.
+The data was cleaned and wrangled in order to analyze it.
 Since the variable \textit{Gender} 
 was provided as a string, it was transformed into two binary numerical 
 variables called \textit{female} and \textit{male} by one-hot encoding.
 Further, two values of the variable \textit{Age} were replaced with a missing 
 value indicator, specifically 
-the values 0 and 1. This was sensible, seeing that there was no other 
+the age 0 and 1. This was sensible, seeing that there was no other 
 data recorded from minors. Thus these two values can 
 be presumed to be input errors during the collection process.
 % add recasting Lymphocytes because of input error
@@ -44,12 +44,12 @@ in Italy \cite{RN193}.
 In order to confirm the observation of non-normality, a Shapiro-Wilk test for 
 normality was performed.
 The test probes the null-hypothesis that the samples of a variable come from a 
-normally distributed population. If the test's p-value is smaller than 
-0.05, a commonly chosen $\alpha$ level, the null-hypothesis is rejected, 
+normal distribution. If the test's p-value is smaller than 
+0.05, a commonly chosen $\alpha$-level, the null-hypothesis is rejected, 
 meaning the data is not normally distributed \cite{RN196}.
 The test results are provided in Table \ref{tab:shapiro-wilk} and show 
-that all of the variables are non-normally distributed. This observation will 
-be important during the assessment of the imputation method.
+that all of the numerical variables are non-normally distributed. This 
+observation will be important during the assessment of the imputation method.
 \\
 % end with missing values since it's a good transition to MICE
 Table \ref{tab:nan-overview} shows that most features have missing values. 196 
@@ -61,8 +61,8 @@ observed values. Therefore, \citeauthor{RN127} chose to use
 \textit{Multivariate 
 Imputation by Chained Equations}. 
 \section{Multivariate Imputation by Chained Equations}
-\textit{Multivariate Imputation by Chained Equations} or \textit{MICE} for 
-short is an imputation method proposed by \citeauthor{RN135} \cite{RN135}; it 
+\textit{Multivariate Imputation by Chained Equations}, or \textit{MICE} for 
+short, is an imputation method proposed by \citeauthor{RN135} \cite{RN135}; it 
 is also known as \textit{fully conditional specification} (FCS).
 MICE is a method that imputes missing data by estimating a set of possible 
 values from distributions of observed data. Each variable with missing data 
@@ -79,15 +79,15 @@ modeling choices for different variable types.
 The imputation process is based on the following four main steps \cite{RN142, 
 RN141}: Firstly, all missing values are imputed using a simple imputation 
 method (e.g., mean imputation). These imputations can be thought of as ``place 
-holders'' used during the first modeling phase. During step 2, the ``place 
+holders'' used during the first modeling phase. During Step 2, the ``place 
 holder'' imputations for one variable $x_k$ are set back to missing. In 
-step 3, all observed values from variable $x_k$ in step 2 are regressed on 
-the imputations model's other variables. Since this is the model building 
+Step 3, all observed values from variable $x_k$ in Step 2 are regressed on 
+the imputation model's other variables. Since this is the model building 
 phase, this step only uses samples where $x_k$ has observed values. 
 Therefore, $x_k$ is the dependent variable, and all other variables are 
-independent variables used in the regression model. In step 4, the missing 
+independent variables used in the regression model. In Step 4, the missing 
 values in $x_k$ are replaced with imputations (predictions) from the 
-regression model built in step 3. All values of $x_k$, the observed and the 
+regression model built in Step 3. All values of $x_k$, the observed and the 
 imputed values, are then used in subsequent regression models of other 
 variables.
 \\
@@ -101,7 +101,7 @@ times, creating \textit{m} slightly differently imputed data sets, which are
 then used in the subsequent analysis. According to \cite{RN144, RN141, RN142}, 
 already a 
 small number of imputed data sets, usually three to ten, is sufficient to 
-provide sensible results during analysis. It can, of course, be advantageous 
+provide sensible results during analysis. It can be advantageous 
 to use a higher number of imputed data sets to get a broader range of 
 estimates. However, setting \textit{m} higher requires more computations and 
 storage 
@@ -110,7 +110,7 @@ and may not be worth preoccupying these extra resources \cite{RN144}.
 \section{Classifiers}
 The original paper implements eight classifiers, namely Random 
 Forest, Logistic Regression, Decision Tree, K-nearest Neighbors, Naive Bayes, 
-Support Vector Machines, Extremely Randomized Trees, and three-way Random 
+Support Vector Machine, Extremely Randomized Trees, and three-way Random 
 Forest \cite{RN127}. 
 Here, I will reproduce the Random Forest, Logistic Regression, and Decision 
 Tree classifiers. The following section introduces them.
@@ -119,7 +119,7 @@ Since Decision Trees are the basic building block of Random Forests, it
 is necessary to take a closer look at them \cite{RN163}. Consequently, the use 
 of Random Forests will be motivated. Moreover, a Decision Tree will be used 
 during the validation phase to make the Random Forest model more intuitive.
-A Decision Tree has a flowchart-like structure where each internal or decision 
+A Decision Tree has a flowchart-like structure where each internal (decision) 
 node tests an attribute. Each branch corresponds to one attribute value, and 
 each leaf node represents a classification. It is built up using the ID3 
 algorithm \cite{RN171}.
@@ -132,11 +132,11 @@ of the branch. This process is repeated for every branch with the remaining
 subset of the training set until a leaf node is reached \cite{RN165}.
 \\
 ID3 can use many different measures to decide which is the most informative 
-attribute. Two of the most popular ones are Information Gain and the Gini 
-Impurity.
+attribute. Two of the most popular ones are \textit{Information Gain} and the 
+\textit{Gini Impurity}.
 \\
-Information Gain uses the entropy measure to compute the impurity, also known 
-as an attribute's heterogeneity. Entropy originates from information 
+Information Gain uses the \textit{entropy} measure to compute the impurity, 
+also known as an attribute's heterogeneity. Entropy originates from information 
 theory and describes the average information content of an attribute's possible 
 outcome. It is calculated, as shown in Equation \ref{eq:entropy}, where S is a 
 set of samples and C are the possible outcome labels of the target variable. A 
@@ -146,7 +146,7 @@ expected reduction in entropy of a set S caused by learning the state of a
 random attribute A.  It is calculated, as shown in Equation \ref{eq:gain}, and 
 can be described as the difference between the entropy of a set S and the 
 weighted average of the child entropies $E(S_v)$ where $S_v$ is a subset of S 
-where the attribute A has the value v. This is computed for all remaining 
+where the attribute A has the value v. This is computed for all 
 attributes, the attribute that maximizes Information Gain is then selected as a 
 new node \cite{RN165}.
 \begin{equation}
@@ -164,7 +164,7 @@ as shown in Equation \ref{eq:gini_impurity}. The measure, which the algorithm
 uses to determine which attribute is chosen as a node, is called the Gini gain. 
 It is calculated as shown in Equation \ref{eq:gini_gain} and can be 
 described as the average Gini Impurity. The attribute with the lowest value is 
-selected for the Gini gain since we want to minimize the attributes' incorrect 
+selected for the Gini gain since we want to minimize the attribute's incorrect 
 classification \cite{RN171}.
 \begin{equation}
  G = 1 - \sum_{i=1}^C p(i)^2
@@ -183,7 +183,7 @@ classification \cite{RN171}.
 The Random Forest Classifier is an ensemble classifier that uses multiple 
 Decision Tree instances to classify the given data. It uses two methods to 
 diversify the different classifications of the Decision Tree instances called 
-tree bagging and feature bagging \cite{RN163}.
+\textit{tree bagging} and \textit{feature bagging} \cite{RN163}.
 \\
 During tree bagging, the Decision Tree is not trained on the whole training 
 set but a subset of the training set. The subsets are generated by sampling 
@@ -255,7 +255,7 @@ are then chosen to maximize the likelihood function \cite{RN166}.
 \label{eq:likelihood}
 \end{equation}
 \section{Model Training}
-Random Forest and Decision Tree are trained using 5-fold nested cross 
+The Random Forest and Logistic Regression are trained using 5-fold nested cross 
 validation.
 In each outer fold of the nested cross validation, the data is imputed using 
 MICE and then split into training and test data. Since MICE usually generates 
@@ -263,8 +263,8 @@ several imputed data sets to account for the uncertainty in the imputation
 process, there are five different models for each classifier per fold. The 
 cross validation's inner fold is used to determine the best hyperparameter 
 combination for the classifiers using \textit{Grid Search}, also called 
-hyperparameter tuning \cite{RN191}. Figure \ref{fig:cv} explains this process 
-in further detail. The parameters for Random Forest are:
+\textit{hyperparameter tuning} \cite{RN191}. Figure \ref{fig:cv} explains this 
+process in further detail. The parameters for the Random Forest are:
 % maybe add justification of why to use these parameters
 \begin{itemize}
  \item Number of trees in the forest: [10, 100, 500]
@@ -281,7 +281,7 @@ following hyperparameters:
  \item Maximal iteration: [200, 300, 400, 500]
 \end{itemize}
 The remaining hyperparameters use the default values specified in the 
-documentation of sklearn for Random Forests and Logistic Regression 
+documentation of \code{sklearn} for Random Forests and Logistic Regression 
 \cite{RN191}.
 Grid Search selects the best hyperparameters according to the highest accuracy 
 value.
@@ -298,20 +298,22 @@ before the split
 due to how the \code{mice()} package runs in R. The classifiers are 
 trained on the training data and validated using the validation data. 
 In addition to the evaluation metrics above, the final classifiers were also 
-evaluated using the ROC curve and the precision-recall curve. Additionally, the 
+evaluated using the ROC curve. Additionally, the 
 precision-recall curve is used to assess the classifiers' performance 
 regarding the slight imbalance in the data set. To further gain some insights 
 into the Random Forest's classification reasoning, a Decision 
 Tree is trained using the standard hyperparameters according to the sklearn 
 implementation \cite{RN191}.
 \\
-To implement this procedure, the Python libraries scikit-learn, pandas, and 
-numpy are used. To implement the imputation method, the R library \code{mice()} 
+To implement this procedure, the Python libraries \code{scikit-learn}, 
+\code{pandas}, and \code{numpy} are used. To implement the imputation method, 
+the R library \code{mice()} 
 is used and connected to the Python implementation using a bridge package 
-called rpy2. The R implementation of the imputation method is used instead of a 
-Python implementation since it provides more functions to inspect the MICE 
-procedure and since it can handle non-normally distributed data. To 
-visualize the results, the libraries seaborn and matplotlib are used.
+called \code{rpy2}. The R implementation of the imputation method is used 
+instead of a Python implementation since it provides more functions to inspect 
+the MICE procedure and since it can handle non-normally distributed data. The 
+libraries \code{seaborn} and \code{matplotlib} are used to visualize the 
+results.
 
 \section{Evaluation Metrics}
 This section introduces and defines the metrics used to evaluate and 
@@ -396,7 +398,8 @@ model that are either discriminant values or posterior
 probabilities \cite{RN161}. Most models do not produce a classification label 
 as their output but rather a prediction score that is then thresholded to 
 correspond to one of the target variable levels. The metrics mentioned above 
-are also called single-thresholded metrics since they are defined only for the 
+are also called \textit{single-threshold} metrics since they are defined only 
+for the 
 classifier's thresholded output \cite{RN161, RN167}. Since ROC uses the 
 prediction scores instead of a mdoel's thresholded output, it can compute 
 the sensitivity and specificity for every sensible threshold. The resulting 
@@ -412,10 +415,10 @@ of the ROC space where the sensitivity is one, and the false positive rate is
 zero \cite{RN167, RN159}.
 \\
 The area under the ROC curve can also be measured and is called either AUC for 
-area under the ROC curve or ROC index. It can give a numeric summary of the ROC 
-curve. It is calculated using the ROC curve's integral, which can be easily 
+area under the ROC curve, or ROC index. It can give a numeric summary of the 
+ROC curve. It is calculated using the ROC curve's integral, which can be easily 
 done using the trapezoidal method since the ROC curve is discrete and stepped. 
-A large AUC value indicates a better model performance. As a rule of thumb, an 
+A large AUC value indicates a better model performance. As a heuristic, an 
 AUC over 0.7 indicates a strong predictive model, and an AUC below 0.6 
 indicates 
 a weak model. AUC and ROC both are quite robust against imbalanced data, but 
@@ -424,11 +427,11 @@ well \cite{RN167, RN159}.
 \par
 The Precision-Recall curve (PRC) is another threshold-free metric that is 
 especially useful when dealing with an imbalanced data set. It calculates the 
-precision and recall values for each feasible threshold. The 
-resulting values are then plotted with precision, also called positive 
-predictive value, as the vertical axis and recall, also called sensitivity, as 
-the horizontal axis. The points are interpolated non-linearly to create a 
-curve. 
+precision (or positive predicitive value) and recall (or sensitivity) values 
+for each feasible threshold. The 
+resulting values are then plotted with precision as the y-axis and 
+recall as the x-axis. The points are interpolated non-linearly to 
+create a curve. 
 In contrast to the ROC curve, which uses a fixed reference line, the PRC's 
 baseline is determined by the ratio of positive (P) and negative (N) samples in 
 the data set and represented as $y = \frac{P}{P + N}$. Each point in the PRC 

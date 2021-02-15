@@ -1,4 +1,4 @@
-\section{Results of own implementation}
+\section{Results of Own Implementation}
 Table \ref{tab:training-acc} and \ref{tab:training-b_acc} show the mean and 
 standard deviation for models' the accuracy and balanced accuracy during 
 nested cross-validation. The authors of the original paper provided a 95\% 
@@ -22,8 +22,8 @@ classifiers, therefore, are not biased against the outcomes of the target
 variable. All evaluation metrics for each fold and imputed data set are 
 provided in Table \ref{tab:storage}.
 \par
-The best models were selected by searching for the model with the most numbers 
-of highest evaluation measures. The best Random Forest Classifier used 
+The best models were selected by searching for the model with the highest 
+evaluation measures. The best Random Forest Classifier used 
 maximally 
 four features, 500 estimators, and Gini impurity. It achieved an accuracy of 
 87.5\% and a 
@@ -51,15 +51,15 @@ The two threshold-free metrics, ROC and PRC curve, are shown in Figure
 reference line. The values for the area under the ROC and under the PRC curve 
 suggest that Logistic Regression (AUC: 80.8\%, AUC (PRC): 85.5\%) performs 
 better than the Random Forest (AUC: 80.5\%, AUC (PRC): 82.9\%) although all 
-other metrics indicate better performance for the latter. It 
-should be noted that the difference between the AUC scores for both curves are 
-minimal and are not meaningful enough to declare the Logistic Regression as the 
+other metrics indicate better performance of the latter. It 
+should be noted that the difference between the AUC scores for both curves is 
+minimal and is not meaningful enough to declare the Logistic Regression as the 
 better classifier. The more apparent differences in the AUC (PRC) for both 
 classifiers, on the other hand, could indicate that the Logistic Regression is 
 less affected by the imbalance in the data set than the Random Forest is.
 \\
 The Decision Tree Classifier exhibits a lower discriminative performance,
-especially when looking at the AUC and AUC (PRC) with 68.5\% and 69.8\% 
+as indicated by the AUC and AUC (PRC) with 68.5\% and 69.8\% 
 indicating a relatively weak classifier. Additionally, it only 
 achieves an accuracy of 71.4\% and a balanced accuracy of 68.5\%. Despite 
 these low metrics, the Decision Tree can still be used to 
@@ -67,13 +67,14 @@ help clinicians make quick decisions and interpret the result of the Random
 Forest.
 \par
 Figure \ref{fig:feature-importance} shows the feature importance plots for the 
-three classifiers. The feature importance for Decision Tree and Random Forest 
-was obtained using the sklearn implementation. The implementation calculates 
+three classifiers. The feature importance for the Decision Tree and Random 
+Forest was obtained using the sklearn implementation. The implementation 
+calculates 
 the feature importance by quantifying the mean decrease in impurity. 
 It should be noted that impurity-based feature importance can suffer 
 from favoring features with a high number of unique values and making 
 predictions based on statistics derived from the training set. Therefore, this 
-method is not necessarily informative about whether a feature makes for a 
+method is not necessarily informative about whether a feature makes a 
 good prediction or not \cite{RN178}.
 For Logistic Regression, the feature importance is inferred by looking at the 
 each feature's coefficients in the data set. A positive coefficient can be 
@@ -89,12 +90,13 @@ visualization (Figure \ref{fig:dt}), combined with the feature
 importance plots for both tree-based classifiers, can be used to give some 
 rough insights into the Random Forest classification procedure.
 
-\section{Comparison with original paper}
+\section{Comparison with Original Paper}
 The 95\% confidence intervals for the accuracy and balanced accuracy of this 
 replication overlap with the ones from the original paper. The average accuracy 
-for Random Forest in the original is [0.74, 0.80] (replication: [0.76, 0.80]) 
+for the Random Forest in the original is [0.74, 0.80] (replication: [0.76, 
+0.80]) 
 and [0.70, 0.81] (replication: [0.72, 0.77]) for Logistic Regression. The 
-average balanced accuracy in the original is [0.70, 0.82] (replication: 
+average balanced accuracy in the original work is [0.70, 0.82] (replication: 
 [0.73, 0.77]) for Random Forest and [0.65, 0.74] (replication: [0.68, 0.72]) 
 for Logistic Regression. Since there is no information about individual values 
 during the nested cross validation and it is also not reported how the authors 
@@ -103,7 +105,7 @@ Nevertheless, the overlap of the intervals suggests that the classifiers can be
 compared to a certain degree. Since the confidence interval of the replication 
 is in the original's confidence interval, the performance of the 
 classifiers during the cross-validation can be compared. Unfortunately, there 
-is no more information about other evaluation metrics.
+is no more information about other evaluation metrics in the original paper.
 \\
 The validation metrics of the retrained classifiers show lower performance 
 than the classifiers in the original paper. However, the differences between 

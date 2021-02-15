@@ -7,7 +7,7 @@
 \begin{figure}[ht]
  \centering
  \includegraphics[width=1.1\textwidth]{k-fold-nested-cv.png}
- \caption{K-fold nested cross validation \cite{RN194}}
+ \caption{Pseudo-code for K-fold nested cross validation \cite{RN194}}
  \label{fig:cv}
 \end{figure}
 \begin{figure}
@@ -39,12 +39,17 @@
   \caption{Decision Tree}
   \label{fig:dt_importance}
  \end{subfigure}
- \begin{subfigure}{\textwidth}
- \centering
-  \includegraphics[width=0.5\linewidth]{lr_importance.png}
-  \caption{Logistic Regression}
+ \begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{lr_importance.png}
+  \caption{Logistic Regression (log space)}
   \label{fig:lr_importance}
  \end{subfigure}
+ \begin{subfigure}{0.5\textwidth}
+  \includegraphics[width=\linewidth]{lr_importance_abs.png}
+  \caption{Logistic Regression (absolute log space)}
+  \label{fig:lr_importance_abs}
+ \end{subfigure}
+
  \caption{Feature importance plots}
  \label{fig:feature-importance}
 \end{figure}
