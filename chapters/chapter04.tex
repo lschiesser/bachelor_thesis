@@ -18,11 +18,10 @@ Due to the slight imbalance of the data set, it is  favorable to examine the
 classifiers regarding this potential source of bias. If there were a 
 significant difference between the accuracy and the balanced accuracy for a 
 classifier, it 
-would entail a bias against one of the target outcomes. This is not the case 
-for both classifiers. Moreover, the high AUC (PRC) values suggest that 
-the classifiers are not significantly affected by the data's imbalance.
-The metrics can also make statements about an infection event and the 
-expressiveness of the classifiers. The high sensitivity signals that 90\% of 
+would entail a bias against one of the target outcomes. Moreover, the high AUC 
+(PRC) values suggest that the classifiers are not significantly affected by the 
+data's imbalance.
+The high sensitivity signals that 90\% of 
 patients with the disease will get a positive test result and will be correctly 
 identified. 
 While the specificity is comparatively low, it does not necessarily pose a 
@@ -34,9 +33,8 @@ assume that a PCR test for COVID-19 will also be negative, and thus the patient
 will not have the disease.
 This is more desirable because it is better to be over cautious and recommend 
 more tests.
-% maybe add PPV part from Schreibplan
 \par
-% this sentence sould be rewritten
+\label{sec:medical}
 Since the question regarding the classifiers' relevance has been 
 clarified, this paragraph deals with the classifiers' internal classification 
 reasoning and their accordance with findings from medical studies.
@@ -44,13 +42,13 @@ When inspecting the feature importance plots for the tree-based classifiers,
 both plots (Figure \ref{fig:rf_importance} and \ref{fig:dt_importance}) show 
 that the AST, WBC, CRP, and lymphocyte counts are among the five most important 
 features.
-% this sentence is also shit
-The fifth most important feature is the LDH count for the Random Forest and the 
-age variable for the Decision Tree. For the Logistic Regression (Figure 
+The 5 most important feature also includes the LDH count for the Random Forest 
+and the age variable for the Decision Tree. For the Logistic Regression (Figure 
 \ref{fig:lr_importance}), the eosinophil, WBC, basophil, lymphocyte counts, and 
 gender are the most important features. All feature importance 
 measures have the WBC and lymphocyte count in common. Multiple studies also show 
-that these two blood values are significant indicators for a COVID-19 infection. 
+that these two blood values are significant indicators for a COVID-19 infection 
+\cite{RN162, RN185, RN186}. 
 The WBC or white blood cell count refers to the actual number of white blood 
 cells per volume of blood, while the lymphocytes are a subgroup of white blood 
 cells 
@@ -116,20 +114,21 @@ scrutinizing the intersection of the clinical and social settings in which a
 model is deployed. A simple way to assess this type of validity is to compare 
 performance, outcome and practice oriented measures of different medical 
 teams utilizing the model and relying on traditional technology in the same 
-setting \cite{RN152}. Moreover, relational validity also assesses the 
-sustainability of a model by continuously examining the model's effect 
-over time. As \citeauthor{RN198} \cite{RN198} note, ``unlike a drug or device, 
-algorithms are not static products [as] their inputs […] can change with 
-context''. Accordingly, AI models should be assessed periodically, examining 
-if they continue to provide net benefits comparable to earlier times 
-\cite{RN152}.
+setting \cite{RN152}. Moreover, relational and ecological validity also 
+assesses the sustainability of a model by continuously examining the model's 
+effect over time. As \citeauthor{RN198} \cite{RN198} note, ``unlike a drug or 
+device, algorithms are not static products [as] their inputs […] can change 
+with context''. Accordingly, AI models should be assessed periodically, 
+examining if they continue to provide net benefits comparable to earlier times 
+\cite{RN152}. Therefore, these kinds of validities need to be investigated in 
+future research.
 \section{Discussion of Methods}
 % auf non-normality eingehen und die zwei Methoden präsentieren
 The discussion of the methods is mainly focused on the imputation method MICE 
 since it is a fairly new technique and is not commonly used to impute missing 
 values.
 \\
-To assess the imputation procedure, this section will look at which 
+To assess the imputation procedure, this section will look at the 
 method the imputation model used to impute the missing values and how the 
 imputations compare to the original (non-imputed) data. The \code{mice()} 
 package in R provides functions to inspect the imputation model used after the 
@@ -141,7 +140,7 @@ of the non-normality of the data called \textit{Predictive Mean Matching} (PMM).
 PMM imputes missing values by using a small subset of complete observations 
 called the \textit{donor pool}. The donor pool contains three to ten donor 
 candidates 
-that exhibit the same or similar predicted values compared to the missing 
+that exhibit the same or similar observed values compared to the missing 
 entry's predicted value. One donor is randomly selected from the candidates, 
 and the observed value of the donor is then used to replace the missing value 
 \cite{RN144, RN145, RN146}. It is usually used to model data where the 
@@ -175,17 +174,15 @@ might have transpired in the data.
 Since MICE operates on the data's characteristics, this imbalance could be 
 reflected in the imputation model as well. As 
 reported in the section above, the values for lymphocytes, eosinophils and 
-basophils decrease in patients infected with COVID-19 and therefore also 
-have a positive test result \cite{RN162, RN181}. When inspecting the summary 
-statistics of the 
-imputed sets with this in mind, the lower mean and standard deviation are 
-more sensible.
+basophils decrease in patients infected with COVID-19 \cite{RN162, RN181}. When 
+inspecting the summary statistics of the imputed sets with this in mind, the 
+lower mean and standard deviation are more sensible.
 It should also be noted that ALP and GGT have the highest missing value 
 proportion. Since MICE has fewer data to base its imputations on, it can be 
 expected that the imputations exhibit apparent deviations from the observed 
 values. MICE also accounts for the uncertainty during the imputation process, 
 meaning a higher number of missing values represents a higher uncertainty. 
-Therefore the imputation model cannot make as educated guesses as for 
+Therefore the imputation model cannot make as educated predictions as for 
 other variables with more observed data \cite{RN141, RN142}.
 \\
 In conclusion, it is tough to make statements about the goodness of the 
@@ -193,19 +190,18 @@ imputation model. Most imputed sets do not exhibit drastic deviations from the
 observed set of observations. The variables that show apparent 
 deviations can be ascribed to an imbalance when looking at the samples with 
 missing values. Further, there is no standard procedure to assess MICE's 
-imputations and can therefore be very subjective. Intuitively, 
+imputations and can therefore be a very subjective procedure. Intuitively, 
 the imputations still seem like a rasonably good approximation of the data and 
-are 
-therefore appropriate to use during the models' training.
+are therefore appropriate to use during the models' training.
 For further research, I would nonetheless recommend using another method to 
 impute missing values that is more commonly used and has a theoretical basis. 
 For example, \citeauthor{RN127} use K-nearest neighbor imputation in a 
 subsequent study \cite{RN179}, which uses a more extensive data set than the 
 one in \cite{RN127}.
 \\
-The implementation of MICE used to impute the missing values is the R package 
-\code{mice()} since the sklearn implementation could not impute 
-non-normal data correctly at the time. The R implementation, 
+The implementation of MICE used to impute the missing values is provided in the 
+R package \code{mice()} since the \code{sklearn} implementation could not 
+impute non-normal data correctly at the time. The R implementation, 
 though much better suited, has its own limitation. Specifically, it cannot 
 apply the imputation model to other data but only the data it is fitted. 
 Usually, when using cross-validation the data is split into 
@@ -279,18 +275,21 @@ potential effect on an individual's health should strive to be as transparent
 and comprehensible as possible.
 \section{Conclusion}
 In conclusion, this thesis replicates two of the eight classifiers in 
-\cite{RN127}. The classifiers predict the outcome of a PCR test for COVID-19 
-using a routine blood exam. Although the classifiers perform worse than in the 
+\cite{RN127}, namely the Random Forest and Logistic Regression. A Decision Tree 
+was constructed to provide support for the interpretation of the predictions 
+from other models. The classifiers predict the outcome of a PCR test for 
+COVID-19 using a routine blood exam. Although the classifiers perform worse 
+than in the 
 original paper, they still can be regarded as substantial due to a 90\% 
-sensitivity and an accuracy above 70\% for both classifiers.
-%rewrite this sentence (paper)
+sensitivity and an accuracy above 70\% for both classifiers performing above 
+chance level.
 Further, a Decision Tree model was built to give a graphical representation of 
 a possible classification reasoning.
 %-----
 A comparison with medical research findings revealed that features 
 identified as most important by the classifiers were also deemed pivotal in 
-diagnosing COVID-19. They are thereby confirming the patterns found by the 
-classifiers and certifying them a theoretical validity.
+diagnosing COVID-19. Thereby, the patterns were confirmed and their theoretical 
+validity was certified.
 This implementation used Multiple Imputation using Chained Equations to impute 
 the missing values. This method was used due to the small sample size of 279 
 individuals and the proportionally high samples with at least one 
@@ -307,7 +306,6 @@ and symptomatic observations at the time of triage or admittance to a hospital
 \cite{RN179}.
 Importantly, it should always be brought to attention that these 
 models should never replace the actual medical test. They should be seen as a 
-valuable 
-though non-conclusive tool to detect patients with a particular disease earlier 
-and better, resulting in improved management of these patients while awaiting 
-confirmation by the medical test.
+valuable though non-conclusive tool to detect patients with a particular 
+disease earlier and better, resulting in improved management of these patients 
+while awaiting confirmation by the medical test.

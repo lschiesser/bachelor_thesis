@@ -6,22 +6,25 @@ confidence interval for these two measures. Since there is no information on
 how they computed this interval, it is assumed that they used a two-sided 
 Student's t-distribution, which is used to estimate the mean of normally 
 distributed populations where the sample size is small. It is calculated using 
-the following formula $\bar{x} \pm \frac{t_{\alpha, v}s}{\sqrt{n}}$ where 
+Equation \ref{eq:t-dist} where 
 $t_{\alpha, v}$ is the t-value which can be taken from a table with $\alpha$ 
 as the degrees of freedom $n-1$ and $v$ as the confidence level, $s$ is the 
 sample variance, $\bar{x}$ is the sample mean, and $n$ is the number of samples 
 \cite{RN197}.
 For the Random Forest, the 95\% confidence interval of the average accuracy is 
-[0.76, 0.80], and of the average balanced accuracy is [0.73, 0.77]. For 
-Logistic Regression, the confidence interval of the average accuracy is [0.72, 
-0.77], and of the average balanced accuracy is [0.68, 0,72]. Since the 
+[0.76, 0.80], andof the average balanced accuracy is [0.73, 0.77]. 
+For Logistic Regression, the confidence interval of the average accuracy is 
+[0.72, 0.77], and of the average balanced accuracy is [0.68, 0,72]. Since the 
 confidence intervals of the accuracy and balanced accuracy for both classifiers 
 overlap or are near each other, it can be assumed that the slight imbalance of 
 the data set had no significant effect on the classifiers and that the 
 classifiers, therefore, are not biased against the outcomes of the target 
 variable. All evaluation metrics for each fold and imputed data set are 
 provided in Table \ref{tab:storage}.
-\par
+\begin{equation}
+ \bar{x} \pm \frac{t_{\alpha, v}s}{\sqrt{n}}
+ \label{eq:t-dist}
+\end{equation}
 The best models were selected by searching for the model with the highest 
 evaluation measures. The best Random Forest Classifier used 
 maximally 
@@ -44,8 +47,8 @@ The metrics mentioned above are lower than the evaluation metrics since the
 data 
 set used to train during the validation phase is different from the one used 
 during the evaluation phase due to the way MICE imputes missing data.
+\\
 All single-threshold metrics are provided in Table \ref{tab:validation-metrics}.
-% everything below this needs work
 The two threshold-free metrics, ROC and PRC curve, are shown in Figure 
 \ref{fig:prc-roc}. Both plots show that the classifiers perform better than the 
 reference line. The values for the area under the ROC and under the PRC curve 
@@ -72,23 +75,28 @@ Forest was obtained using the sklearn implementation. The implementation
 calculates 
 the feature importance by quantifying the mean decrease in impurity. 
 It should be noted that impurity-based feature importance can suffer 
-from favoring features with a high number of unique values and making 
+from favoring features with a high number of unique values and from making 
 predictions based on statistics derived from the training set. Therefore, this 
 method is not necessarily informative about whether a feature makes a 
 good prediction or not \cite{RN178}.
 For Logistic Regression, the feature importance is inferred by looking at the 
-each feature's coefficients in the data set. A positive coefficient can be 
-interpreted as contributing to a positive (1) result, and a negative 
-coefficient can be interpreted as contributing to a negative (0) result.
+each feature's coefficients in log space. A positive coefficient can be 
+interpreted as contributing to a positive (1) classification, and a negative 
+coefficient can be interpreted as contributing to a negative (0) classification.
 It is difficult to compare non tree-based feature importance with tree-based 
-importance because they have different scales and calculations.
+importance because they have different scales and calculations. Nontheless, the 
+absolute values of the coefficients in log space can be compared with the 
+impurity-based importance features of the tree based-methods
 \\
 Both tree-based methods show a similar feature importance plot, with AST being 
 the most important feature. The remaining features are differently distributed 
 but mostly exhibit similar values. Consequently, the Decision Tree and its 
 visualization (Figure \ref{fig:dt}), combined with the feature 
 importance plots for both tree-based classifiers, can be used to give some 
-rough insights into the Random Forest classification procedure.
+rough insights into the Random Forest classification procedure. 
+\hyperref[sec:medical]{Chapter 4.1} will take a closer look at the feature 
+importance of the three classifiers and compare them to findings from medical 
+research.
 
 \section{Comparison with Original Paper}
 The 95\% confidence intervals for the accuracy and balanced accuracy of this 
@@ -107,17 +115,17 @@ is in the original's confidence interval, the performance of the
 classifiers during the cross-validation can be compared. Unfortunately, there 
 is no more information about other evaluation metrics in the original paper.
 \\
-The validation metrics of the retrained classifiers show lower performance 
+The validation metrics of the final classifiers show lower performance 
 than the classifiers in the original paper. However, the differences between 
 the Random Forest and Logistic Regression are similar to the ones in the 
 original paper. In this replication, the single-threshold metrics are higher 
-for the 
-Random Forest. The threshold-free metrics are higher for the Logistic 
+for the Random Forest. The threshold-free metrics are higher for the Logistic 
 Regression, reflecting a behavior similar to that in the original paper. The 
 ROC curve for both classifiers exhibits a similar course as in the original, 
 except that the curves in the original rise higher in the beginning due to 
 their higher discriminative power. Seeing that the precision-recall curve only 
 plots the Random Forest's performance, we can only compare these results. 
 The replication and the original differ considerably in this plot, but still 
-exhibiting a similar course at some points, e.g., the sharp drop between 
-sensitivity [0.0, 0.2]. 
+exhibit a similar course at some points, e.g., the sharp drop between 
+sensitivity [0.0, 0.2]. There is no data regarding the validation metrics of 
+the Decision Tree
