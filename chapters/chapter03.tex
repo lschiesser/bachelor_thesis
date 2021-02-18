@@ -110,22 +110,39 @@ for Logistic Regression. Since there is no information about individual values
 during the nested cross validation and it is also not reported how the authors 
 computed the 95\% confidence intervals, it can be difficult to compare them. 
 Nevertheless, the overlap of the intervals suggests that the classifiers can be 
-compared to a certain degree. Since the confidence interval of the replication 
-is in the original's confidence interval, the performance of the 
-classifiers during the cross-validation can be compared. Unfortunately, there 
-is no more information about other evaluation metrics in the original paper.
+compared to a certain degree. Nevertheless, the intervals' overlap suggests that 
+the classifiers have similar discriminatory abilities and are therefore 
+comparable. Unfortunately, there is no more information about other evaluation 
+metrics.
 \\
-The validation metrics of the final classifiers show lower performance 
-than the classifiers in the original paper. However, the differences between 
-the Random Forest and Logistic Regression are similar to the ones in the 
-original paper. In this replication, the single-threshold metrics are higher 
-for the Random Forest. The threshold-free metrics are higher for the Logistic 
-Regression, reflecting a behavior similar to that in the original paper. The 
-ROC curve for both classifiers exhibits a similar course as in the original, 
-except that the curves in the original rise higher in the beginning due to 
-their higher discriminative power. Seeing that the precision-recall curve only 
-plots the Random Forest's performance, we can only compare these results. 
-The replication and the original differ considerably in this plot, but still 
-exhibit a similar course at some points, e.g., the sharp drop between 
-sensitivity [0.0, 0.2]. There is no data regarding the validation metrics of 
-the Decision Tree
+The validation metrics of the final classifiers show lower performance than the 
+classifiers in the original paper. In this replication, the Random Forest has an 
+accuracy of 0.77, and the Logistic Regression an accuracy of 0.73. In the 
+original work, the Random Forest achieves an accuracy of 0.82, and the Logistic 
+Regression an accuracy of 0.78. Though the replicated classifiers perform worse 
+than the original ones, their accuracies exhibit a similar difference of 0.04. 
+Further, all single-threshold metrics except for the AUC are higher for the 
+Random Forest in the replication. The sensitivity is equal for both classifiers 
+in the reproduction.  In contrast, in the original work, only accuracy and 
+specificity are higher for the Random Forest, AUC and sensitivity are higher for 
+the Logistic Regression. When setting aside the sensitivity, the classifiers 
+show a similar pattern where accuracy and specificity are better for the Random 
+Forest and AUC is better for the Logistic Regression. Therefore, the replicated 
+classifiers show a similar but less accurate performance than classifiers in the 
+original work. The ROC plot for both classifiers (Figure \ref{fig:roc}) 
+exhibits a similar course as in the original paper since all classifiers 
+operate above the reference line (chance). Still, the higher AUC of the 
+original classifiers is also reflected in the plot because they reach further 
+to the upper left corner. Seeing that the precision-recall curve only plots the 
+Random Forest's performance, we can only compare these results. The replication 
+(Figure \ref{fig:prc}) and the original differ considerably in this plot. The 
+replicated classifier has a more abrupt course due to fewer 
+computed thresholds. Nonetheless, both curves exhibit similar behavior as both 
+curves drop rapidly in the interval recall = [0.0, 0.2], suggesting a reduced 
+classification reate that improves afterward. Unfortunately, there was no 
+information regarding the validation metrics of the Decision Tree classifier. 
+Nevertheless,  the reproduced classifier's validation metrics can be compared 
+with the cross-validation's 95\% confidence intervals of the original. The 
+reproduced Decision Tree achieves an accuracy of 0.71, which lies in the 
+confidence interval [0.70, 0.78], and a balanced accuracy of 0.69, which lies 
+in the confidence interval [0.64, 0.71].
