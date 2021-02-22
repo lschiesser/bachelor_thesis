@@ -1,4 +1,8 @@
-\section{Results of Own Implementation}
+This chapter presents the results of the reproduction of the classifiers 
+according to the procedure described in \hyperref[chap:methods]{Chapter 2}. In 
+addition, the performance of the reproduced classifiers and the classifiers are 
+from the original work \cite{RN127} are compared. 
+\section{Results of the Reproduction}
 Table \ref{tab:training-acc} and \ref{tab:training-b_acc} show the mean and 
 standard deviation for models' the accuracy and balanced accuracy during 
 nested cross-validation. The authors of the original paper provided a 95\% 
@@ -82,11 +86,12 @@ good prediction or not \cite{RN178}.
 For Logistic Regression, the feature importance is inferred by looking at the 
 each feature's coefficients in log space. A positive coefficient can be 
 interpreted as contributing to a positive (1) classification, and a negative 
-coefficient can be interpreted as contributing to a negative (0) classification.
+coefficient can be interpreted as contributing to a negative (0) classification 
+\cite{RN174}.
 It is difficult to compare non tree-based feature importance with tree-based 
 importance because they have different scales and calculations. Nontheless, the 
 absolute values of the coefficients in log space can be compared with the 
-impurity-based importance features of the tree based-methods
+impurity-based importance features of the tree based-methods.
 \\
 Both tree-based methods show a similar feature importance plot, with AST being 
 the most important feature. The remaining features are differently distributed 
@@ -94,11 +99,11 @@ but mostly exhibit similar values. Consequently, the Decision Tree and its
 visualization (Figure \ref{fig:dt}), combined with the feature 
 importance plots for both tree-based classifiers, can be used to give some 
 rough insights into the Random Forest classification procedure. 
-\hyperref[sec:medical]{Chapter 4.1} will take a closer look at the feature 
+\hyperref[sec:medical]{Section 4.1.2} will take a closer look at the feature 
 importance of the three classifiers and compare them to findings from medical 
 research.
 
-\section{Comparison with Original Paper}
+\section{Comparison with the Original Paper}
 The 95\% confidence intervals for the accuracy and balanced accuracy of this 
 replication overlap with the ones from the original paper. The average accuracy 
 for the Random Forest in the original is [0.74, 0.80] (replication: [0.76, 

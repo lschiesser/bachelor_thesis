@@ -1,4 +1,5 @@
 \section{Discussion of Results}
+\subsection{Statistical Validity}
 Although the classifiers perform worse than those in the original paper, 
 most recorded metrics still certify them a good discriminative performance.
 With a sensitivity of 90\% for both models and accuracy values between 73\% and 
@@ -33,7 +34,7 @@ assume that a PCR test for COVID-19 will also be negative, and thus the patient
 will not have the disease.
 This is more desirable because it is better to be over cautious and recommend 
 more tests.
-\par
+\subsection{Theoretical Validity}
 \label{sec:medical}
 Since the question regarding the classifiers' relevance has been 
 clarified, this paragraph deals with the classifiers' internal classification 
@@ -94,7 +95,7 @@ with the findings from medical research reveals that the models use
 features that medical research deemed as significant to identify patients with 
 COVID-19. Thereby, they can be considered valid regarding their reasoning and 
 classification in a theoretical or laboratory setting.
-\par
+\subsection{Real-World validation}
 % Real-world validation
 The two paragraphs above certify the models' statistical and theoretical 
 validity, but they lack evidence that these models will also benefit medical 
@@ -108,7 +109,10 @@ model accepting all predictions without questioning them. The former is
 disadvantageous because, in this case, the model would not have any benefit in 
 a clinical setting. The latter could be seen as detrimental as this can lead to 
 biased decision making or automation bias, affecting patients 
-negatively \cite{RN151, RN152}.
+negatively \cite{RN151, RN152}. Another factor contributing to relational 
+validity is the explainability of the models and their classification reasoning, 
+which will be discussed in \hyperref[sec:classifiers]{Section 4.2.2}.
+\\
 Ecological validity investigates the impact of the technology, further 
 scrutinizing the intersection of the clinical and social settings in which a 
 model is deployed. A simple way to assess this type of validity is to compare 
@@ -127,7 +131,8 @@ future research.
 The discussion of the methods is mainly focused on the imputation method MICE 
 since it is a fairly new technique and is not commonly used to impute missing 
 values.
-\\
+\subsection{MICE}
+\subsubsection{Assessment of the Imputation}
 To assess the imputation procedure, this section will look at the 
 method the imputation model used to impute the missing values and how the 
 imputations compare to the original (non-imputed) data. The \code{mice()} 
@@ -202,7 +207,7 @@ impute missing values that is more commonly used and has a theoretical basis.
 For example, \citeauthor{RN127} use K-nearest neighbor imputation in a 
 subsequent study \cite{RN179}, which uses a more extensive data set than the 
 one in \cite{RN127}.
-\\
+\subsubsection{Discussion of the Implementation}
 The implementation of MICE used to impute the missing values is provided in the 
 R package \code{mice()} since the \code{sklearn} implementation could not 
 impute non-normal data correctly at the time. The R implementation, 
@@ -253,7 +258,27 @@ flexibility regarding variable type and the number of variables to impute
 imputation methods face their limits due to the small sample size but where the 
 characteristics of the variables and their relations are 
 nonetheless recognizable.
-\par
+\subsection{Discussion of the Classifiers}
+\label{sec:classifiers}
+In addition to the assessment of MICE, this section examines the classifiers 
+regarding their explainability.
+Random Forest is known as a black-box model. It cannot provide interpretable 
+insights into how its predictions are made since these predictions are produced 
+by averaging the forest’s Decision Trees \cite{RN163}. In contrast, the Decision 
+Tree is completely explainable since its decision structure can be visualized in 
+a tree-like structure \cite{RN171}. Accordingly, a Decision Tree can also help 
+shed some light on the Random Forest’s predictions by approximating its 
+decision-making steps \cite{RN210}. Nonetheless, the tree can only give limited 
+insights and should be used in combination with feature importance plots. The 
+Logistic Regression is also only interpretable up to a point since the magnitude 
+of its coefficients only provides information about the importance of each 
+feature. It cannot be used as a comparative measure of how much more important 
+feature A is than another feature B, only that feature A is more important than 
+feature B. Further, the coefficient’s interpretation can be unintuitive because 
+it is multiplicative rather than additive. Moreover, the coefficients have to 
+be interpreted in the model’s context since they depend on all other features 
+\cite{RN174}.
+\subsection{Discussion of the Original Work}
 % rewrite transition
 Another explanation for the differing results of this re-implementation is how 
 the authors provide information on their implementation of the model 
@@ -287,22 +312,22 @@ than in the
 original paper, they still can be regarded as substantial due to a 90\% 
 sensitivity and an accuracy above 70\% for both classifiers performing above 
 chance level.
-Further, a Decision Tree model was built to give a graphical representation of 
-a possible classification reasoning.
+Further, a Decision Tree model is built to provide an approximation of the 
+Random Forest's decision-making steps.
 %-----
-A comparison with medical research findings revealed that features 
-identified as most important by the classifiers were also deemed pivotal in 
-diagnosing COVID-19. Thereby, the patterns were confirmed and their theoretical 
-validity was certified.
-This implementation used Multiple Imputation using Chained Equations to impute 
-the missing values. This method was used due to the small sample size of 279 
+A comparison with medical research findings reveals that features 
+identified as most important by the classifiers are also deemed pivotal in 
+diagnosing COVID-19. Thereby, the patterns are confirmed and their theoretical 
+validity is certified.
+This implementation uses Multiple Imputation using Chained Equations to impute 
+the missing values. This method is used due to the small sample size of 279 
 individuals and the proportionally high samples with at least one 
 missing value. Though MICE lacks a theoretical basis and justifies its 
 procedure with experimental studies, it provides great advantages, especially 
 where the sample size is too small for more conventional and theoretically 
 justified imputation methods and where the variables differ in terms of their 
 type and distribution.
-Seeing that the replicated paper was a feasibility study investigating if it is 
+Seeing that the replicated paper is a feasibility study investigating if it is 
 possible to predict a PCR test result from a range of blood values, further 
 research should be done on this topic. For instance, \citeauthor{RN127} did a 
 follow-up study using a data set comprising more samples, more blood values, 

@@ -1,3 +1,4 @@
+\label{chap:methods}
 \section{Data}
 The data used to train the classifiers was provided by 
 \citeauthor{RN127} \cite{RN127}. 
@@ -73,7 +74,11 @@ MICE assumes that the data are missing at random (MAR). That is, the
 probability of missing data does not depend on the unobserved data but is only 
 dependent (conditional) on the observed data. Due to its individualistic 
 approach, MICE can handle variables of different types using different 
-modeling choices for different variable types \cite{RN142, RN141}.
+modeling choices for different variable types. Such as linear regression for 
+normally distributed continuous variables, logistic regression for binary 
+variables, multinomial logistic regression for categorical variables with more 
+than two classes, and predictive mean matching for skewed variables or variables 
+that do not fit any of the types mentioned before \cite{RN142, RN141}.
 \\
 The imputation process is based on the following four main steps \cite{RN142, 
 RN141}: Firstly, all missing values are imputed using a simple imputation 
@@ -174,11 +179,18 @@ classification \cite{RN171}.
  Gini(S, A) = \sum_{i=1}^C \frac{|S_i|}{|S|} G(S_i)
  \label{eq:gini_gain}
 \end{equation}
-\\
-% maybe throw this out?
-%ID3 is not able to process numerical attributes and missing values. It must 
-%therefore be extended to be able to deal with real-world data by the C4.5 
-%algorithm.
+ID3 is not able to process continuous features since it needs 
+categorical attributes. Here, an extension called \textit{C4.5} is consulted. 
+C4.5 obtains a categorical attribute from the continuous valued attribute by 
+applying thresholds to it. The thresholds are chosen such that the information 
+gain of the attribute is maximized. Initially, all attribute values are sorted 
+according to their values, either in descending or ascending order. The 
+algorithm then looks for ``boundaries'' within the values where the 
+classification (target variable changes); the found ``boundaries'' are then used 
+as thresholds. The information gain is calculated for each possible threshold. 
+The threshold with the highest information gain is then used to split the 
+samples in order to obtain a categorical attribute. The resulting categorical 
+attribute is then used to build the Decision Tree further \cite{RN209, RN208}.
 \subsection{Random Forest}
 The Random Forest Classifier is an ensemble classifier that uses multiple 
 Decision Tree instances to classify the given data. It uses two methods to 
@@ -193,7 +205,7 @@ percentage are duplicates of the already selected samples. This
 process generates new bagged training sets $S_i$ with the same size as the 
 original training set $S$. If the bagged set size is smaller than the 
 size of the original set, this process is called sub-bagging \cite{RN163, 
-RN170}.
+RN170}. The generated subsets are then used to build the Decision Trees.
 \\
 Feature bagging or feature subset selection limits the number of features the 
 individual Decision Trees can use at each new split in consideration. 
