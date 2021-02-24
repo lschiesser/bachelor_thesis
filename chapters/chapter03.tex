@@ -4,7 +4,7 @@ addition, the performance of the reproduced classifiers and the classifiers are
 from the original work \cite{RN127} are compared. 
 \section{Results of the Reproduction}
 Table \ref{tab:training-acc} and \ref{tab:training-b_acc} show the mean and 
-standard deviation for models' the accuracy and balanced accuracy during 
+standard deviation for the models' accuracy and balanced accuracy during 
 nested cross-validation. The authors of the original paper provided a 95\% 
 confidence interval for these two measures. Since there is no information on 
 how they computed this interval, it is assumed that they used a two-sided 
@@ -16,7 +16,7 @@ as the degrees of freedom $n-1$ and $v$ as the confidence level, $s$ is the
 sample variance, $\bar{x}$ is the sample mean, and $n$ is the number of samples 
 \cite{RN197}.
 For the Random Forest, the 95\% confidence interval of the average accuracy is 
-[0.76, 0.80], andof the average balanced accuracy is [0.73, 0.77]. 
+[0.76, 0.80], and of the average balanced accuracy is [0.73, 0.77]. 
 For Logistic Regression, the confidence interval of the average accuracy is 
 [0.72, 0.77], and of the average balanced accuracy is [0.68, 0,72]. Since the 
 confidence intervals of the accuracy and balanced accuracy for both classifiers 
@@ -66,10 +66,10 @@ classifiers, on the other hand, could indicate that the Logistic Regression is
 less affected by the imbalance in the data set than the Random Forest is.
 \\
 The Decision Tree Classifier exhibits a lower discriminative performance,
-as indicated by the AUC and AUC (PRC) with 68.5\% and 69.8\% 
+as indicated by the AUC and AUC (PRC), with 68.5\% and 69.8\% 
 indicating a relatively weak classifier. Additionally, it only 
 achieves an accuracy of 71.4\% and a balanced accuracy of 68.5\%. Despite 
-these low metrics, the Decision Tree can still be used to 
+these low metrics, the Decision Tree can still 
 help clinicians make quick decisions and interpret the result of the Random 
 Forest.
 \par
@@ -83,15 +83,16 @@ from favoring features with a high number of unique values and from making
 predictions based on statistics derived from the training set. Therefore, this 
 method is not necessarily informative about whether a feature makes a 
 good prediction or not \cite{RN178}.
-For Logistic Regression, the feature importance is inferred by looking at the 
+For Logistic Regression, the feature importance is inferred by looking at 
 each feature's coefficients in log space. A positive coefficient can be 
 interpreted as contributing to a positive (1) classification, and a negative 
 coefficient can be interpreted as contributing to a negative (0) classification 
 \cite{RN174}.
 It is difficult to compare non tree-based feature importance with tree-based 
-importance because they have different scales and calculations. Nontheless, the 
-absolute values of the coefficients in log space can be compared with the 
-impurity-based importance features of the tree based-methods.
+importance because they have different scales and calculations. Nonetheless, 
+the 
+coefficients' absolute values in log space can be compared with the 
+impurity-based importance features of the tree-based methods.
 \\
 Both tree-based methods show a similar feature importance plot, with AST being 
 the most important feature. The remaining features are differently distributed 
@@ -138,13 +139,14 @@ original work. The ROC plot for both classifiers (Figure \ref{fig:roc})
 exhibits a similar course as in the original paper since all classifiers 
 operate above the reference line (chance). Still, the higher AUC of the 
 original classifiers is also reflected in the plot because they reach further 
-to the upper left corner. Seeing that the precision-recall curve only plots the 
+towards the upper left corner. Seeing that the precision-recall curve only 
+plots the 
 Random Forest's performance, we can only compare these results. The replication 
 (Figure \ref{fig:prc}) and the original differ considerably in this plot. The 
 replicated classifier has a more abrupt course due to fewer 
 computed thresholds. Nonetheless, both curves exhibit similar behavior as both 
 curves drop rapidly in the interval recall = [0.0, 0.2], suggesting a reduced 
-classification reate that improves afterward. Unfortunately, there was no 
+classification rate that improves afterward. Unfortunately, there was no 
 information regarding the validation metrics of the Decision Tree classifier. 
 Nevertheless,  the reproduced classifier's validation metrics can be compared 
 with the cross-validation's 95\% confidence intervals of the original. The 

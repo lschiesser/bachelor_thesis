@@ -4,7 +4,7 @@ The data used to train the classifiers was provided by
 \citeauthor{RN127} \cite{RN127}. 
 It was collected between the end of February 2020 and mid of March 2020 from 
 patients admitted to the \textit{IRCSS Ospedale San Raffaele} in Milan, 
-Italy. It consists data from 279 individuals who were selected randomly.
+Italy. It consists of data from 279 individuals who were selected randomly.
 For each individual, the data set provides their age, gender, the results of a 
 routine blood screening and a PCR test for Sars-CoV-2.
 A complete overview of the recorded variables is provided in Table 
@@ -181,7 +181,7 @@ classification \cite{RN171}.
 \end{equation}
 ID3 is not able to process continuous features since it needs 
 categorical attributes. Here, an extension called \textit{C4.5} is consulted. 
-C4.5 obtains a categorical attribute from the continuous valued attribute by 
+C4.5 obtains a categorical attribute from the continuous-valued attribute by 
 applying thresholds to it. The thresholds are chosen such that the information 
 gain of the attribute is maximized. Initially, all attribute values are sorted 
 according to their values, either in descending or ascending order. The 
@@ -418,7 +418,7 @@ classification label as their output but rather a prediction score that is then
 thresholded to correspond to one of the target variable levels. The metrics 
 mentioned above are also called \textit{single-threshold} metrics since they 
 are defined only for the classifier's thresholded output \cite{RN161, RN167}. 
-Since ROC uses the prediction scores instead of a mdoel's thresholded output, 
+Since ROC uses the prediction scores instead of a model's thresholded output, 
 it can compute the sensitivity and specificity for every sensible threshold. 
 The resulting values are then plotted with sensitivity or true positive rate as 
 the vertical axis and the false positive rate or 1 - specificity as the 
@@ -432,7 +432,7 @@ of the ROC space where the sensitivity is one, and the false positive rate is
 zero \cite{RN167, RN159}.
 \\
 The area under the ROC curve can also be measured and is called either AUC for 
-area under the ROC curve, or ROC index. It can give a numeric summary of the 
+area under the ROC curve or ROC index. It can give a numeric summary of the 
 ROC curve. It is calculated using the ROC curve's integral, which can be easily 
 done using the trapezoidal method since the ROC curve is discrete and stepped. 
 A large AUC value indicates a better model performance. As a heuristic, an 
@@ -444,7 +444,7 @@ well \cite{RN167, RN159}.
 \par
 The Precision-Recall curve (PRC) is another threshold-free metric that is 
 especially useful when dealing with an imbalanced data set. It calculates the 
-precision (or positive predicitive value) and recall (or sensitivity) values 
+precision (or positive predictive value) and recall (or sensitivity) values 
 for each feasible threshold. The 
 resulting values are then plotted with precision as the y-axis and 
 recall as the x-axis. The points are interpolated non-linearly to 
