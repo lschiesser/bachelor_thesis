@@ -152,7 +152,7 @@ and its observed value is then used to replace the missing value
 \cite{RN144, RN145, RN146}. PMM is usually used to model data where the 
 assumptions of normality and homoscedasticity are in question, as is the case 
 for the data used in this thesis \cite{RN146}.
-\\
+\par
 The model's imputations can be assessed by generating summary statistics for the
 observed and the imputed values separately and jointly for each variable. 
 Especially comparing the differences in mean and standard deviation between the 
@@ -164,10 +164,11 @@ datasets, while Table \ref{tab:masked_imputed} only includes samples with
 imputed values. Additionally, kernel density plots comparing the observed and 
 imputed data sets were created. Figure \ref{fig:imputed} and Figure 
 \ref{fig:imputed-only} plot the observed data versus all samples of the imputed 
-sets or only the imputed samples of each imputed set, respectively.  Most 
-variables exhibit similar values for the summary statistics when comparing the 
-mean of the observed data with the mean of all samples of the imputed sets. A 
-Mann-Whitney U test was performed to identify variables that differed 
+sets or only the imputed samples of each imputed set, respectively.
+\\
+Most variables exhibit similar values for the summary statistics when comparing 
+the mean of the observed data with the mean of all samples of the imputed sets. 
+A Mann-Whitney U test was performed to identify variables that differed 
 significantly from the original distribution. It tests the null hypothesis that 
 two samples come from the same distribution. If the test's p-value is smaller 
 than 0.05, the null hypothesis is rejected, meaning the samples come from 
@@ -177,7 +178,9 @@ Lymphocytes, Monocytes, Eosinophils, and Basophils as deviating from the
 original distribution. These deviations are also noticeable in Figure 
 \ref{fig:imputed}. It should be pointed out that most deviations identified by 
 the Mann-Whitney U test seem to embolden the distribution structure presented in 
-the plots. There are apparent deviations in every variable when comparing the 
+the plots. 
+\\
+There are apparent deviations in every variable when comparing the 
 observed data's summary statistics and only the imputed samples for each data 
 set. However, it should be noted that with 70\% of samples missing at least one 
 feature, it is hard to compare the statistics of the observed values with the 
@@ -271,22 +274,22 @@ characteristics of the variables and their relations are recognizable.
 \label{sec:classifiers}
 In addition to the assessment of MICE, this section examines the classifiers 
 regarding their explainability.
-Random Forest is known as a black-box model. It cannot provide interpretable 
-insights into how its predictions are made since these predictions are produced 
-by averaging the forest’s Decision Trees \cite{RN163}. In contrast, the Decision 
-Tree is completely explainable since its decision structure can be visualized in 
-a tree-like structure \cite{RN171}. Accordingly, a Decision Tree can also help 
-shed some light on the Random Forest’s predictions by approximating its 
-decision-making steps \cite{RN210}. Nonetheless, the tree can only give limited 
-insights and should be used in combination with feature importance plots. The 
-Logistic Regression is also only interpretable up to a point since the magnitude 
-of its coefficients only provides information about the importance of each 
-feature. It cannot be used as a comparative measure of how much more important 
-feature A is than another feature B, only that feature A is more important than 
-feature B. Further, the coefficient’s interpretation can be unintuitive because 
-it is multiplicative rather than additive. Moreover, the coefficients have to 
-be interpreted in the model’s context since they depend on all other features 
-\cite{RN174}.
+The Random Forest is known as a black-box model. It cannot provide 
+interpretable insights into how its predictions are made since these 
+predictions are produced by averaging the forest’s Decision Trees \cite{RN163}. 
+In contrast, the Decision Tree is completely explainable since its decision 
+structure can be visualized in a tree-like manner \cite{RN171}. Accordingly, a 
+Decision Tree can also help shed some light on the Random Forest’s predictions 
+by approximating its decision-making steps \cite{RN210}. Nonetheless, the tree 
+can only give limited insights and should be used in combination with feature 
+importance plots. The Logistic Regression is also only interpretable up to a 
+point since the magnitude of its coefficients only provides information about 
+the importance of each feature. It cannot be used as a comparative measure of 
+how much more important feature A is than another feature B, only that feature 
+A is more important than feature B. Further, the coefficient’s interpretation 
+can be unintuitive because it is multiplicative rather than additive. Moreover, 
+the coefficients have to be interpreted in the model’s context since they 
+depend on all other features \cite{RN174}.
 \subsection{Discussion of the Original Work}
 % rewrite transition
 Another explanation for this re-implementation's differing results is how 
