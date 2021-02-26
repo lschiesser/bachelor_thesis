@@ -270,11 +270,11 @@ for $\beta$ are then chosen to maximize the likelihood function \cite{RN166}.
 \section{Model Training}
 The Random Forest and Logistic Regression are trained using 5-fold nested cross 
 validation.
-In each outer fold of the nested cross validation, the data is imputed using 
+In each outer fold of the nested cross-validation, the data is imputed using 
 MICE and then split into training and test data according to a 4:1 ratio. Since 
 MICE usually generates several imputed data sets to account for the uncertainty 
 in the imputation process, there are five different models for each classifier 
-per fold. The cross validation's inner fold is used to determine the best 
+per fold. The cross-validation's inner fold is used to determine the best 
 hyperparameter combination for the classifiers using \textit{Grid Search}, also 
 called \textit{hyperparameter tuning} \cite{RN191}. Figure \ref{fig:cv} 
 explains this process in further detail. The parameters for the Random Forest 
