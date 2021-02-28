@@ -129,12 +129,13 @@ node tests an attribute. Each branch corresponds to one attribute value, and
 each leaf node represents a classification. It is built up using the ID3 
 algorithm \cite{RN171}.
 \\
-ID3 tries to determine the most informative attribute of a given data set given 
-the distribution of its values. This attribute is then used as a root of the 
-Decision Tree, and a branch is created for every value this attribute can take, 
-which also creates a subset of the data set that only has the attribute value 
-of the branch. This process is repeated for every branch with the remaining 
-subset of the training set until a leaf node is reached \cite{RN165}.
+ID3 tries to determine the most informative attribute of a given data set 
+considering the distribution of its values. This attribute is then used as a 
+root of the Decision Tree, and a branch is created for every value this 
+attribute can take, which also creates a subset of the data set that only has 
+the attribute value of the branch. This process is repeated for every branch 
+with the remaining subset of the training set until a leaf node is reached 
+\cite{RN165}.
 \\
 ID3 can use many different measures to decide which is the most informative 
 attribute. Two of the most popular ones are \textit{Information Gain} and the 
@@ -209,8 +210,8 @@ RN170}. The generated subsets are then used to build the Decision Trees.
 \\
 Feature bagging or feature subset selection limits the number of features the 
 individual Decision Trees can use at each new split in consideration. 
-For each decision node consideration, several features are randomly 
-selected and presented to the Decision Tree algorithm. A hyperparameter 
+For each decision node consideration, several features are selected randomly 
+and presented to the Decision Tree algorithm. A hyperparameter 
 controls the number of features available to the algorithm. For 
 classification problems, this is usually set to $\sqrt{p}$ where p is the 
 number of features present in the complete data set \cite{RN163, RN166}.
@@ -318,7 +319,7 @@ regarding the slight imbalance in the data set.
 The Decision Tree is only trained and validated during the validation phase 
 since it is mainly used to provide an interpretable overview of the Random 
 Forest's classification reasoning. It is trained using the standard 
-hyperparameters according to the sklearn implementation \cite{RN191}.
+hyperparameters according to the \code{sklearn} implementation \cite{RN191}.
 \\
 To implement this procedure, the Python libraries \code{scikit-learn}, 
 \code{pandas}, and \code{numpy} are used. To implement the imputation method, 

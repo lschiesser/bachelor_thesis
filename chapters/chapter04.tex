@@ -1,9 +1,9 @@
 \section{Discussion of Results}
 \subsection{Statistical Validity}
 Although the classifiers perform worse than those in the original paper, 
-most recorded metrics still certify them a good discriminative performance.
+most recorded metrics still certify their good discriminative performance.
 With a sensitivity of 90\% for both models and accuracy values between 73\% and 
-76\%, the classifiers can still serve as additional decision tools to help 
+77\%, the classifiers can still serve as additional decision tools to help 
 physicians allocate testing resources based on their 
 predictions and other indicators. 
 A high sensitivity is preferable in this scenario since it makes a negative test 
@@ -19,7 +19,7 @@ Due to the slight imbalance of the data set, it is  favorable to examine the
 classifiers regarding this potential bias source. If there were a 
 significant difference between the accuracy and the balanced accuracy for a 
 classifier, it 
-would entail a bias against one of the target outcomes. Moreover, the high AUC 
+would entail a bias against one of the target outcomes. Yet, the high AUC 
 (PRC) values suggest that the classifiers are not significantly affected by the 
 data's imbalance.
 The high sensitivity signals that 90\% of 
@@ -33,7 +33,7 @@ Therefore, if the classifier's result is negative, it will be safe to
 assume that a PCR test for COVID-19 will also be negative, and thus the patient 
 will not have the disease.
 This is more desirable because it is better to be over-cautious and recommend 
-more tests.
+more tests than perform less tests and potentially miss infected patients.
 \subsection{Theoretical Validity}
 \label{sec:medical}
 Since the question regarding the classifiers' relevance has been 
@@ -43,7 +43,7 @@ When inspecting the feature importance plots for the tree-based classifiers,
 both plots (Figure \ref{fig:rf_importance} and \ref{fig:dt_importance}) show 
 that the AST, WBC, CRP, and lymphocyte counts are among the five most important 
 features.
-The five most important feature also includes the LDH count for the Random 
+The five most important features also include the LDH count for the Random 
 Forest 
 and the age variable for the Decision Tree. For the Logistic Regression (Figure 
 \ref{fig:lr_importance}), the eosinophil, WBC, basophil, lymphocyte counts, and 
@@ -51,28 +51,27 @@ gender are the most important features. All feature importance
 measures have the WBC and lymphocyte count in common. Multiple studies also show 
 that these two blood values are significant indicators for a COVID-19 infection 
 \cite{RN162, RN185, RN186}. 
-The WBC or white blood cell count refers to the actual number of white blood 
+The WBC, or white blood cell count, refers to the actual number of white blood 
 cells per volume of blood, while the lymphocytes are a subgroup of white blood 
-cells 
-involved in eliciting an immune response to foreign agents \cite{RN137, RN188}. 
+cells involved in eliciting an immune response to foreign agents \cite{RN137, 
+RN188}. 
 During an infection with Sars-CoV-2, the WBC and lymphocyte counts will 
 decrease since this is a sign of a viral infection and the body's response to 
 it \cite{RN162,RN186, RN185}.
-AST or aspartate aminotransferase, the most important feature in the tree-based 
-methods, is an enzyme mainly found in the heart and liver; its level increases 
-when 
-the muscles of these organs are injured \cite{RN189, RN188}. This is also the 
-case during a COVID-19 infection since the virus attacks not only the upper 
-respiratory tracts but the whole body, including the liver and 
-heart \cite{RN182}. CRP or C-reactive protein is another substance found during 
-a COVID-19 infection. It is produced in the liver and discharged after 
+AST, or aspartate aminotransferase, the most important feature in the 
+tree-based methods, is an enzyme mainly found in heart and liver; its level 
+increases when the muscles of these organs are injured \cite{RN189, RN188}. 
+This is also the case during a COVID-19 infection since the virus attacks not 
+only the upper respiratory tracts but the whole body, including the liver and 
+the heart \cite{RN182}. CRP, or C-reactive protein, is another substance found 
+during a COVID-19 infection. It is produced in the liver and discharged after 
 tissue damage, the start of an infection, or other inflammatory causes. 
 Increased volumes of this protein are often the first indication of an 
 infection or inflammation in the body \cite{RN138, RN188}. Elevated levels of 
 this protein can also be observed during a COVID-19 infection since it is an 
-infection that primarily targets lung tissue \cite{RN187, RN162}. LDH or 
-lactate 
-dehydrogenase is an enzyme involved in metabolic cycles for energy production. 
+infection that primarily targets lung tissue \cite{RN187, RN162}. LDH, or 
+lactate dehydrogenase, is an enzyme involved in metabolic cycles for energy 
+production. 
 It is present in almost all cells in the body, especially in the heart, 
 liver, lungs, kidneys, muscles, and blood cells. An increase in LDH can 
 indicate acute kidney or liver disease, hypoxia, or heart and lung 
@@ -81,10 +80,9 @@ reveals elevated levels of LDH because Sars-CoV-2 primarily attacks the upper
 respiratory tracts, which leads to lung damage and the discharge of LDH into 
 the bloodstream. Age as the fourth important feature in the Decision Tree can 
 also be a predictor for a positive result. \citeauthor{RN193} \cite{RN193} 
-determine that individuals 
-older than 70 years are more susceptible to a severe course of the disease or 
-even death. Further, the study revealed a higher risk for male individuals, 
-one of the Logistic Regression's most important features .
+determine that individuals older than 70 years are more susceptible to a severe 
+course of the disease or even death. Further, the study revealed a higher risk 
+for male individuals, one of the Logistic Regression's most important features.
 For eosinophils and basophils, \cite{RN162, RN185} reveal a significant 
 decrease for patients with a positive test result. However, \cite{RN162} notes 
 that these differences might not have any clinical implication during diagnosis 
@@ -96,7 +94,7 @@ with medical research findings reveals that the models use
 features that medical research deemed as significant to identify patients with 
 COVID-19. Thereby, they can be considered valid regarding their reasoning and 
 classification in a theoretical or laboratory setting.
-\subsection{Real-World validation}
+\subsection{Real-World Validation}
 % Real-world validation
 The two paragraphs above certify the models' statistical and theoretical 
 validity, but they lack evidence that these models will also benefit medical 
@@ -159,8 +157,8 @@ Especially comparing the differences in mean and standard deviation between the
 observed and imputed values of each variable can help identify variables of 
 concern \cite{RN141}. Thus, summary tables presenting the mean and standard 
 deviation for the observed and imputed data were created. Table 
-\ref{tab:imputed} includes all samples, the observed and imputed, of the imputed 
-datasets, while Table \ref{tab:masked_imputed} only includes samples with 
+\ref{tab:imputed} includes the observed and imputed samples of the imputed 
+data sets, while Table \ref{tab:masked_imputed} only includes samples with 
 imputed values. Additionally, kernel density plots comparing the observed and 
 imputed data sets were created. Figure \ref{fig:imputed} and Figure 
 \ref{fig:imputed-only} plot the observed data versus all samples of the imputed 
@@ -170,7 +168,8 @@ Most variables exhibit similar values for the summary statistics when comparing
 the mean of the observed data with the mean of all samples of the imputed sets. 
 A Mann-Whitney U test was performed to identify variables that differed 
 significantly from the original distribution. It tests the null hypothesis that 
-two samples come from the same distribution. If the test's p-value is smaller 
+two samples come from the same distribution, it can also be applied to two 
+groups of samples. If the test's p-value is smaller 
 than 0.05, the null hypothesis is rejected, meaning the samples come from 
 different distributions \cite{RN211}. The results are provided in Table 
 \ref{tab:u_imputed}. The test identified ALP, GGT, LDH, Neutrophils, 
@@ -204,29 +203,31 @@ missing value proportion. Since MICE has fewer data to base its imputations on,
 it can be expected that the imputations exhibit apparent deviations from the 
 observed values. MICE also accounts for the uncertainty during the imputation 
 process, meaning a higher number of missing values represents a higher 
-uncertainty. Therefore the imputation model cannot make as educated predictions 
-as for other variables with more observed data \cite{RN141, RN142}.
+uncertainty. Therefore, the imputation model cannot make as educated 
+predictions as for other variables with more observed data \cite{RN141, RN142}.
 \\
 In conclusion, it is tough to make statements about the goodness of the 
 imputation model. Most imputed sets do not exhibit drastic deviations from the 
 observed set of observations. The variables that show apparent 
-deviations can be ascribed to an imbalance when looking at the samples with 
+deviations can be connected with an imbalance when looking at the samples with 
 missing values. Further, there is no standard procedure to assess MICE's 
-imputations and can therefore be a very subjective procedure. Intuitively, 
+imputations and it can therefore be a very subjective procedure. Intuitively, 
 the imputations still seem like a reasonably good approximation of the data and 
 are therefore appropriate to use during the models' training.
 For further research, I would nonetheless recommend using another method to 
-impute missing values that is more commonly used and has a theoretical basis. 
+impute missing values that is more commonly used and has a thorough theoretical 
+basis. 
 For example, \citeauthor{RN127} use K-nearest neighbor imputation in a 
-subsequent study \cite{RN179}, which uses a more extensive data set than the 
+subsequent study \cite{RN179}, which employs a more extensive data set than the 
 one in \cite{RN127}.
 \subsubsection{Discussion of the Implementation}
 The implementation of MICE used to impute the missing values is provided in the 
 R package \code{mice()} since the \code{sklearn} implementation could not 
-impute non-normal data correctly at the time. The R implementation, 
-though much better suited, has its own limitation. Specifically, it cannot 
-apply the imputation model to other data but only the data it is fitted. 
-When using cross-validation, the data is split into 
+impute non-normal data correctly at the time of this thesis. The R 
+implementation, though much better suited, has its own limitations. 
+Specifically, it cannot apply the imputation model to other data but only to 
+the data it is fitted on. 
+When using cross-validation, the data is usually split into 
 training and testing data before the imputation is done. The imputation method 
 is then trained on the training data, and the trained imputation model is 
 applied to the training and the testing data. Using this process, the 
@@ -265,11 +266,10 @@ studies rather than a
 theoretical basis to justify its procedure. However, this may not be a large 
 issue in practice, but further research is needed here. Despite these 
 shortcomings, MICE 
-provides a great advantage over other imputation techniques regarding 
+provides a great advantage over other imputation techniques concerning 
 flexibility regarding variable type and the number of variables to impute 
 \cite{RN141, RN142}. After all, MICE should be used in cases where traditional 
-imputation methods face their limits due to the small sample size but where the 
-characteristics of the variables and their relations are recognizable.
+imputation methods face their limits due to the small sample size.
 \subsection{Discussion of the Classifiers}
 \label{sec:classifiers}
 The classifiers in this thesis were chosen because they were the best performing 
@@ -286,12 +286,12 @@ by approximating its decision-making steps \cite{RN210}. Nonetheless, the tree
 can only give limited insights and should be used in combination with feature 
 importance plots. The Logistic Regression is also only interpretable up to a 
 point since the magnitude of its coefficients only provides information about 
-the importance of each feature. It cannot be used as a comparative measure of 
-how much more important feature A is than another feature B, only that feature 
-A is more important than feature B. Further, the coefficient’s interpretation 
-can be unintuitive because it is multiplicative rather than additive. Moreover, 
-the coefficients have to be interpreted in the model’s context since they 
-depend on all other features \cite{RN174}.
+the importance of each feature. Further, the coefficient's interpretation can be 
+unintuitive because they are multiplicative rather than additive and have to be 
+interpreted in the model's context since they depend on all other 
+features \cite{RN174}. Nevertheless, Random Forest, Decision Tree and Logistic 
+Regression are more interpretable than other models like neural networks and 
+hence are more appropriate to use in the context of this thesis.
 \subsection{Discussion of the Original Work}
 % rewrite transition
 Another explanation for this re-implementation's differing results is how 
@@ -303,7 +303,7 @@ clear at all times.
 \\
 Moreover, \citeauthor{RN127} do not report all evaluation metrics used to 
 determine the best classifiers. They only report 95\% confidence intervals for 
-the average accuracy and balanced accuracy and point references for the 
+the average accuracy and balanced accuracy and point estimates for the 
 classifiers they deemed as best performing. There was no further information 
 on other evaluation metrics like sensitivity or AUC. Additionally, the authors 
 only provide the configuration for one of the best performing models, 
@@ -334,7 +334,7 @@ identified as most important by the classifiers are also deemed pivotal in
 diagnosing COVID-19. Thereby, the patterns are confirmed, and their theoretical 
 validity is certified.
 This implementation uses Multiple Imputation using Chained Equations to impute 
-the missing values. This method is used due to the small sample size of 279 
+the missing values. This method is chosen due to the small sample size of 279 
 individuals and the proportionally high samples with at least one 
 missing value. Though MICE lacks a theoretical basis and justifies its 
 procedure with experimental studies, it provides great advantages, especially 
