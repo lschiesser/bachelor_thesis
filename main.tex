@@ -29,9 +29,16 @@
 \graphicspath{ {figures/} }
 
 \linespread{1.25}
+
 \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
 \let\endchangemargin=\endlist 
 \newcommand{\code}{\texttt}
+\newcommand*{\SignatureAndDate}[1]{%
+    \par\noindent\makebox[2.5in]{\hrulefill} \hfill\makebox[2.0in]{\hrulefill}%
+    \par\noindent\makebox[2.5in][l]{#1}      
+\hfill\makebox[2.0in][l]{City, Date}%
+}%
+
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1em}
 
@@ -65,8 +72,8 @@ I want to thank...
 
 \chapter*{Code \& Data Availability}
 \input{chapters/availability.tex}
-\chapter*{Declaration}
-I declare that...
+\chapter*{Declaration of Authorship}
+\input{chapters/declaration.tex}
 
 \appendix
 \chapter{Supplementary Tables}
