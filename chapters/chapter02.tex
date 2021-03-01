@@ -49,7 +49,7 @@ normal distribution. If the test's p-value is smaller than
 0.05, a commonly chosen $\alpha$-level, the null-hypothesis is rejected, 
 meaning the data is not normally distributed \cite{RN196}.
 The test results are provided in Table \ref{tab:shapiro-wilk} and show 
-that all of the numerical variables are non-normally distributed. This 
+that all numerical variables are non-normally distributed. This 
 observation will be important during the assessment of the imputation method.
 \\
 % end with missing values since it's a good transition to MICE
@@ -149,8 +149,9 @@ set of samples and C are the possible outcome labels of the target variable. A
 high entropy represents a high average 
 information content in an attribute \cite{RN167}. Information Gain measures the 
 expected reduction in entropy of a set S caused by learning the state of a 
-random attribute A.  It is calculated, as shown in Equation \ref{eq:gain}, and 
-can be described as the difference between the entropy of a set S and the 
+random attribute A.  It is calculated, as shown in 
+tion \ref{eq:gain}. 
+It can be described as the difference between the entropy of a set S and the 
 weighted average of the child entropies $E(S_v)$ where $S_v$ is a subset of S 
 where the attribute A has the value v. This is computed for all 
 attributes, the attribute that maximizes Information Gain is then selected as a 
@@ -205,7 +206,7 @@ is selected from the original data set, and the remaining
 percentage are duplicates of the already selected samples. This 
 process generates new bagged training sets $S_i$ with the same size as the 
 original training set $S$. If the bagged set size is smaller than the 
-size of the original set, this process is called sub-bagging \cite{RN163, 
+original set's size, this process is called sub-bagging \cite{RN163, 
 RN170}. The generated subsets are then used to build the Decision Trees.
 \\
 Feature bagging or feature subset selection limits the number of features the 
@@ -396,7 +397,7 @@ Specificity can be defined as the proportion of people without the disease that
 are identified correctly, i.e., who tested negative for the disease. It is 
 calculated as shown in Equation \ref{eq:specificity}. Specificity only gives 
 information about the proportion of people without the disease and a negative 
-test, i.e. the false positive rate, and cannot disclose anything about the 
+test, i.e., the false positive rate, and cannot disclose anything about the 
 false negative rate \cite{RN168}.
 \begin{equation}
  specificity = \frac{TN}{TN+FP}

@@ -1,11 +1,11 @@
 This chapter presents the results of the reproduction of the classifiers 
 according to the procedure described in \hyperref[chap:methods]{Chapter 2}. In 
 addition, the performance of the reproduced classifiers and the classifiers 
-from the original work \cite{RN127} is compared. 
+from the original work \cite{RN127} are compared. 
 \section{Results of the Reproduction}
 Table \ref{tab:training-acc} and \ref{tab:training-b_acc} show the mean and 
 standard deviation for the models' accuracy and balanced accuracy during 
-nested cross-validation. The authors of the original paper provid 95\% 
+nested cross-validation. The authors of the original paper provide 95\% 
 confidence intervals for these two measures. Since there is no information on 
 how they computed this interval, it is assumed that they used a two-sided 
 Student's t-distribution, which is used to estimate the mean of normally 
@@ -30,7 +30,7 @@ classifiers, therefore, are not biased against the outcomes of the target
 variable. All evaluation metrics for each fold and imputed data set are 
 provided in Table \ref{tab:storage}. There are no metrics to report for the 
 Decision Tree since it is only trained during the validation due to being 
-primarily used to give an approximation of the Random Forest's decision-making 
+primarily used to approximate the Random Forest's decision-making 
 process.
 \\
 The best models were selected by searching for the model with the highest 
@@ -90,7 +90,7 @@ It is difficult to compare non tree-based feature importance with tree-based
 importance because they have different scales and calculations. Nonetheless, 
 the 
 coefficients' absolute values in log space can be analyzed alongside the 
-impurity-based importance features of the tree-based methods.
+tree-based methods' impurity-based importance features.
 \\
 Both tree-based methods show a qualitatively similar feature importance plot, 
 with AST being the most important feature. The remaining features are 

@@ -33,7 +33,7 @@ Therefore, if the classifier's result is negative, it will be safe to
 assume that a PCR test for COVID-19 will also be negative, and thus the patient 
 will not have the disease.
 This is more desirable because it is better to be over-cautious and recommend 
-more tests than perform less tests and potentially miss infected patients.
+more tests than performing fewer tests and potentially miss infected patients.
 \subsection{Theoretical Validity}
 \label{sec:medical}
 Since the question regarding the classifiers' relevance has been 
@@ -59,8 +59,9 @@ During an infection with Sars-CoV-2, the WBC and lymphocyte counts will
 decrease since this is a sign of a viral infection and the body's response to 
 it \cite{RN162,RN186, RN185}.
 AST, or aspartate aminotransferase, the most important feature in the 
-tree-based methods, is an enzyme mainly found in heart and liver; its level 
-increases when the muscles of these organs are injured \cite{RN189, RN188}. 
+tree-based methods, is an enzyme mainly found in the heart and the liver; its 
+level increases when the muscles of these organs are injured \cite{RN189, 
+RN188}. 
 This is also the case during a COVID-19 infection since the virus attacks not 
 only the upper respiratory tracts but the whole body, including the liver and 
 the heart \cite{RN182}. CRP, or C-reactive protein, is another substance found 
@@ -118,7 +119,7 @@ model is deployed. A simple way to assess this type of validity is to compare
 performance, outcome, and practice-oriented measures of different medical 
 teams utilizing the model and relying on traditional technology in the same 
 setting \cite{RN152}. Moreover, relational and ecological validity also 
-assesses a model's sustainability by continuously examining the model's 
+assesses a model's sustainability by continuously examining its 
 effect over time. As \citeauthor{RN198} \cite{RN198} note, ``unlike a drug or 
 device, algorithms are not static products [as] their inputs […] can change 
 with context''. Accordingly, AI models should be assessed periodically, 
@@ -168,7 +169,7 @@ Most variables exhibit similar values for the summary statistics when comparing
 the mean of the observed data with the mean of all samples of the imputed sets. 
 A Mann-Whitney U test was performed to identify variables that differed 
 significantly from the original distribution. It tests the null hypothesis that 
-two samples come from the same distribution, it can also be applied to two 
+two samples come from the same distribution; it can also be applied to two 
 groups of samples. If the test's p-value is smaller 
 than 0.05, the null hypothesis is rejected, meaning the samples come from 
 different distributions \cite{RN211}. The results are provided in Table 
@@ -211,7 +212,7 @@ imputation model. Most imputed sets do not exhibit drastic deviations from the
 observed set of observations. The variables that show apparent 
 deviations can be connected with an imbalance when looking at the samples with 
 missing values. Further, there is no standard procedure to assess MICE's 
-imputations and it can therefore be a very subjective procedure. Intuitively, 
+imputations, and it can therefore be a very subjective procedure. Intuitively, 
 the imputations still seem like a reasonably good approximation of the data and 
 are therefore appropriate to use during the models' training.
 For further research, I would nonetheless recommend using another method to 
@@ -268,7 +269,7 @@ issue in practice, but further research is needed here. Despite these
 shortcomings, MICE 
 provides a great advantage over other imputation techniques concerning 
 flexibility regarding variable type and the number of variables to impute 
-\cite{RN141, RN142}. After all, MICE should be used in cases where traditional 
+\cite{RN141, RN142}. After all, MICE should be used when traditional 
 imputation methods face their limits due to the small sample size.
 \subsection{Discussion of the Classifiers}
 \label{sec:classifiers}
@@ -290,7 +291,7 @@ the importance of each feature. Further, the coefficient's interpretation can be
 unintuitive because they are multiplicative rather than additive and have to be 
 interpreted in the model's context since their interpretation always comes with 
 the preface that all other values remain the same \cite{RN174}. Nevertheless, 
-Random Forest, Decision Tree and Logistic 
+Random Forest, Decision Tree, and Logistic 
 Regression are more interpretable than other models like neural networks and 
 hence are more appropriate to use in the context of this thesis.
 \subsection{Discussion of the Original Work}
