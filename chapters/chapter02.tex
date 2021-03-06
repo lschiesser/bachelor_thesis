@@ -149,8 +149,7 @@ set of samples and C are the possible outcome labels of the target variable. A
 high entropy represents a high average 
 information content in an attribute \cite{RN167}. Information Gain measures the 
 expected reduction in entropy of a set S caused by learning the state of a 
-random attribute A.  It is calculated, as shown in 
-tion \ref{eq:gain}. 
+random attribute A.  It is calculated, as shown in Equation \ref{eq:gain}. 
 It can be described as the difference between the entropy of a set S and the 
 weighted average of the child entropies $E(S_v)$ where $S_v$ is a subset of S 
 where the attribute A has the value v. This is computed for all 
@@ -168,7 +167,8 @@ new node \cite{RN165}.
 The Gini Impurity or Gini index measures the impurity in a set S that is the 
 probability of incorrect classification of a random sample. It is calculated 
 as shown in Equation \ref{eq:gini_impurity}. The measure, which the algorithm 
-uses to determine which attribute is chosen as a node, is called the Gini gain. 
+uses to determine which attribute is chosen as a node, is called the 
+\textit{Gini gain}. 
 It is calculated as shown in Equation \ref{eq:gini_gain} and can be 
 described as the average Gini Impurity. The attribute with the lowest value is 
 selected for the Gini gain since we want to minimize the attribute's incorrect 
@@ -188,8 +188,9 @@ applying thresholds to it. The thresholds are chosen such that the information
 gain of the attribute is maximized. Initially, all attribute values are sorted 
 according to their values, either in descending or ascending order. The 
 algorithm then looks for ``boundaries'' within the values where the 
-classification (target variable changes); the found ``boundaries'' are then used 
-as thresholds. The information gain is calculated for each possible threshold. 
+classification (target variable) changes; the acquired ``boundaries'' are then 
+usedas thresholds. The information gain is calculated for each possible 
+threshold. 
 The threshold with the highest information gain is then used to split the 
 samples in order to obtain a categorical attribute. The resulting categorical 
 attribute is then used to build the Decision Tree further \cite{RN209, RN208}.
@@ -270,8 +271,8 @@ for $\beta$ are then chosen to maximize the likelihood function \cite{RN166}.
 \label{eq:likelihood}
 \end{equation}
 \section{Model Training}
-The Random Forest and Logistic Regression are trained using 5-fold nested cross 
-validation.
+The Random Forest and Logistic Regression are trained using 5-fold nested 
+cross-validation.
 In each outer fold of the nested cross-validation, the data is imputed using 
 MICE and then split into training and test data according to a 4:1 ratio. Since 
 MICE usually generates several imputed data sets to account for the uncertainty 
