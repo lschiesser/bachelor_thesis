@@ -1,7 +1,7 @@
 \section{Discussion of Results}
 \subsection{Statistical Validity}
 Although the classifiers perform worse than those in the original paper, 
-most recorded metrics still certify their good discriminative performance.
+most recorded metrics show that they are performing well.
 With a sensitivity of 90\% for both models and accuracy values between 73\% and 
 77\%, the classifiers can still serve as additional decision tools to help 
 physicians allocate testing resources based on their 
@@ -139,7 +139,7 @@ imputations compare to the original (non-imputed) data. The \code{mice()}
 package in R provides functions to inspect the imputation model after the 
 imputation is done. Since MICE can handle variables of different types and 
 distributions and due to its individualistic approach, every variable can 
-utilize a different model type to impute the missing values. In our case, the 
+utilize a different model type to impute the missing values. In this case, the 
 imputation method used the same model type for all variables as a consequence 
 of the non-normality of the data called \textit{Predictive Mean Matching} (PMM).
 PMM imputes missing values by using a small subset of complete observations 
@@ -241,7 +241,8 @@ training data where the model could learn something that it otherwise could not
 In the context of this thesis, data leakage could take place during the 
 imputation process. Due to the R implementation's limitation, the whole 
 data set is used to fit the imputation model because it is not possible to 
-apply the model to different data sets. Therefore, test data's characteristics 
+apply the model to different data sets. Therefore, the test data's 
+characteristics 
 are used to build the imputation for the training data and vice 
 versa. However, the data is split into training and test data after the 
 imputation, consequently lowering the leakage risk. Moreover, it could be 
@@ -269,7 +270,7 @@ issue in practice, but further research is needed here. Despite these
 shortcomings, MICE 
 provides a great advantage over other imputation techniques concerning 
 flexibility regarding variable type and the number of variables to impute 
-\cite{RN141, RN142}. After all, MICE should be used when traditional 
+\cite{RN141, RN142}. After all, MICE should only be used when traditional 
 imputation methods face their limits due to the small sample size.
 \subsection{Discussion of the Classifiers}
 \label{sec:classifiers}
@@ -315,14 +316,14 @@ Nevertheless, the authors provide their data and a description of each
 variable in the data set. It should also be noted that \cite{RN127} is only a 
 feasibility study to explore if machine learning classifiers can help identify 
 patients with COVID-19 solely based on a routine blood exam where the focus is 
-not on replicability but feasibility. However, such research that has a 
+not on replicability but feasibility. However, research that has a 
 potential effect on an individual's health should strive to be as transparent 
 and comprehensible as possible.
 \section{Conclusion}
 In conclusion, this thesis replicates two of the eight classifiers in 
 \cite{RN127}, namely the Random Forest and Logistic Regression. A Decision Tree 
-was constructed to provide support for the interpretation of the predictions 
-from other models. The classifiers predict the outcome of a PCR test for 
+was constructed to provide an approximation of the Random Forest's 
+decision-making process. The classifiers predict the outcome of a PCR test for 
 COVID-19 using a routine blood exam. Although the classifiers perform worse 
 than in the 
 original paper, they still can be regarded as substantial due to a 90\% 
@@ -330,10 +331,9 @@ sensitivity and an accuracy above 70\% for both classifiers performing above
 chance level.
 Further, a Decision Tree model is built to provide an approximation of the 
 Random Forest's decision-making steps.
-%-----
 A comparison with medical research findings reveals that features 
 identified as most important by the classifiers are also deemed pivotal in 
-diagnosing COVID-19. Thereby, the patterns are confirmed, and their theoretical 
+diagnosing COVID-19. Thereby, the classifiers' theoretical
 validity is certified.
 This implementation uses Multiple Imputation using Chained Equations to impute 
 the missing values. This method is chosen due to the small sample size of 279 

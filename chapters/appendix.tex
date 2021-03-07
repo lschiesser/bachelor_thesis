@@ -1,22 +1,22 @@
-\begin{table}
+\begin{table}[h]
 \centering
 \begin{tabular}{ll}
 Feature                          & Data Type              \\ \hline
 Gender                           & Categorical            \\
 Age                              & Numerical (discrete)   \\
-WBC (White blood cell count)     & Numerical (continuous) \\
+WBC (White Blood Cell Count)     & Numerical (continuous) \\
 Platelets                        & Numerical (continuous) \\
 Neutrophils                      & Numerical (continuous) \\
 Lymphocytes                      & Numerical (continuous) \\
 Monocytes                        & Numerical (continuous) \\
 Eosinophils                      & Numerical (continuous) \\
 Basophils                        & Numerical (continuous) \\
-CRP (C-reactive protein)         & Numerical (continuous) \\
-AST (aspartate aminotransferase) & Numerical (continuous) \\
-ALT (alanine aminotransferase)   & Numerical (continuous) \\
-ALP (alkaline phosphatase)       & Numerical (continuous) \\
-GGT (gamma glutamyl transferase) & Numerical (continuous) \\
-LDH (lactate dehydrogenase)      & Numerical (continuous) \\
+CRP (C-reactive Protein)         & Numerical (continuous) \\
+AST (Aspartate Aminotransferase) & Numerical (continuous) \\
+ALT (Alanine Aminotransferase)   & Numerical (continuous) \\
+ALP (Alkaline Phosphatase)       & Numerical (continuous) \\
+GGT (Gamma Glutamyl Transferase) & Numerical (continuous) \\
+LDH (Lactate Dehydrogenase)      & Numerical (continuous) \\
 SWAB                             & Categorical           
 \end{tabular}
 \caption{Overview of all features of the data set}
@@ -53,7 +53,7 @@ Alkaline Phosphatase (ALP)       & U/L                     & 42.21  & 75.71  &
 68.00  \\
 Gamma Glutamyl Transferase (GGT) & U/L                     & 40.20  & 101.29 & 
 0.00  \\
-Lactate dehydrogenase (LDH)      & U/L                     & 264.54 & 238.53 
+Lactate Dehydrogenase (LDH)      & U/L                     & 264.54 & 238.53 
 & 254.00
 \end{tabular}
 \caption{Descriptive statistics for numerical features in the data set 
@@ -67,18 +67,18 @@ missing values as in \cite{RN127})}
 Feature                          & Number of NaN (in \%) \\ \hline
 Gender                           & 0 (0 \%)              \\
 Age                              & 2 (0.72 \%)           \\
-WBC (White blood cell count)     & 2 (0.72 \%)           \\
+WBC (White Blood Cell Count)     & 2 (0.72 \%)           \\
 Platelets                        & 2 (0.72 \%)           \\
 Neutrophils                      & 70 (25.09 \%)         \\
 Lymphocytes                      & 71 (25.45 \%)         \\
 Monocytes                        & 70 (25.09 \%)         \\
 Eosinophils                      & 70 (25.09 \%)         \\
 Basophils                        & 71 (25.45 \%)         \\
-CRP (C-reactive protein)         & 6 (2.15 \%)           \\
-AST (aspartate aminotransferase) & 2 (0.72 \%)           \\
-ALT (alanine aminotransferase)   & 13 (4.66 \%)          \\
-ALP (alkaline phosphatase)       & 148 (53.05 \%)        \\
-GGT (gamma glutamyl transferase) & 143 (51.25 \%)        \\
+CRP (C-reactive Protein)         & 6 (2.15 \%)           \\
+AST (Aspartate Aminotransferase) & 2 (0.72 \%)           \\
+ALT (Alanine Aminotransferase)   & 13 (4.66 \%)          \\
+ALP (Alkaline Phosphatase)       & 148 (53.05 \%)        \\
+GGT (Gamma Glutamyl Transferase) & 143 (51.25 \%)        \\
 LDH (lactate dehydrogenase)      & 85 (30.47 \%)         \\
 SWAB                             & 0 (0 \%)             
 \end{tabular}
@@ -118,7 +118,7 @@ Alkaline Phosphatase (ALP)       & U/L                     & 89.89  & 89.09  &
 71.00  \\
 Gamma Glutamyl Transferase (GGT) & U/L                     & 82.48  & 132.70 & 
 41.00  \\
-Lactate dehydrogenase (LDH)      & U/L                     & 380.45 & 193.98 & 
+Lactate Dehydrogenase (LDH)      & U/L                     & 380.45 & 193.98 & 
 328.00
 \end{tabular}
 \caption{Descriptive statistics for numerical features in data set (excluding 
@@ -132,19 +132,19 @@ missing values)}
 \begin{tabular}{lll}
 Feature                          & Test statistic & p-value \\ \hline
 Age                              & 0.976          & 0.000   \\
-WBC (White blood cell count)     & 0.873          & 0.000   \\
+WBC (White Blood Cell Count)     & 0.873          & 0.000   \\
 Platelets                        & 0.930          & 0.000   \\
 Neutrophils                      & 0.838          & 0.000   \\
 Lymphocytes                      & 0.785          & 0.000   \\
 Monocytes                        & 0.811          & 0.000   \\
 Eosinophils                      & 0.457          & 0.000   \\
 Basophils                        & 0.395          & 0.000   \\
-CRP (C-reactive protein)         & 0.836          & 0.000   \\
-AST (aspartate aminotransferase) & 0.556          & 0.000   \\
-ALT (alanine aminotransferase)   & 0.629          & 0.000   \\
-ALP (alkaline phosphatase)       & 0.420          & 0.000   \\
-GGT (gamma glutamyl transferase) & 0.500          & 0.000   \\
-LDH (lactate dehydrogenase)      & 0.877          & 0.000  
+CRP (C-reactive Protein)         & 0.836          & 0.000   \\
+AST (Aspartate Aminotransferase) & 0.556          & 0.000   \\
+ALT (Alanine Aminotransferase)   & 0.629          & 0.000   \\
+ALP (Alkaline Phosphatase)       & 0.420          & 0.000   \\
+GGT (Gamma Glutamyl Transferase) & 0.500          & 0.000   \\
+LDH (Lactate Dehydrogenase)      & 0.877          & 0.000  
 \end{tabular}
 \caption{Results of Shapiro-Wilk test for normality for numerical features of 
 the data set; a p-value under 0.05 refutes the null hypohtesis that the 
